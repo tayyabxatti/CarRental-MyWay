@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="carRentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarId" />
+          </Key>
+          <Property Name="CarId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarMake" Type="varchar" MaxLength="50" />
+          <Property Name="CarRegistrationNo" Type="varchar" MaxLength="50" />
+          <Property Name="CarFuelState" Type="varchar" MaxLength="50" />
+          <Property Name="CarKmOut" Type="int" />
+          <Property Name="CarKmIn" Type="int" />
+          <Property Name="TotalKm" Type="int" />
+          <Property Name="KmBill" Type="int" />
+          <Property Name="TimeOut" Type="varchar" MaxLength="50" />
+          <Property Name="TImeIn" Type="varchar" MaxLength="50" />
+          <Property Name="TimeBill" Type="int" />
+          <Property Name="TotalTime" Type="int" />
+          <Property Name="DateOut" Type="varchar" MaxLength="50" />
+          <Property Name="DateIn" Type="varchar" MaxLength="50" />
+          <Property Name="CarOwner" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="50" />
+          <Property Name="ClientPickUpAddress" Type="varchar" MaxLength="50" />
+          <Property Name="ClientContactNo" Type="varchar" MaxLength="50" />
+          <Property Name="ClientCompanyName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DriverName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RentalAgreement">
+          <Key>
+            <PropertyRef Name="RentalAgreementId" />
+          </Key>
+          <Property Name="RentalAgreementId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AcutalItinerary" Type="varchar" MaxLength="50" />
+          <Property Name="ReservationId" Type="int" />
+          <Property Name="HPkr" Type="int" />
+          <Property Name="KPkr" Type="int" />
+          <Property Name="DPkr" Type="int" />
+          <Property Name="TollTaxCharges" Type="int" />
+          <Property Name="GST" Type="int" />
+          <Property Name="DriverCharges" Type="int" />
+          <Property Name="TotalCharges" Type="int" />
+          <Property Name="AgreementClosed" Type="varchar" MaxLength="50" />
+          <Property Name="AgreementFuel" Type="int" />
+          <Property Name="PrePaymen" Type="int" />
+          <Property Name="AmountDue" Type="int" />
+          <Property Name="AgreementKmOut" Type="int" />
+          <Property Name="AgreementKmIn" Type="int" />
+          <Property Name="AgreementTotalKm" Type="int" />
+          <Property Name="AgreementTimeOut" Type="varchar" MaxLength="50" />
+          <Property Name="AgreementTimeIn" Type="varchar" MaxLength="50" />
+          <Property Name="AgreementTotalTime" Type="int" />
+          <Property Name="AgreementDateOut" Type="varchar" MaxLength="50" />
+          <Property Name="AgreementDateIn" Type="varchar" MaxLength="50" />
+          <Property Name="FuelOut" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="ReservationId" />
+          </Key>
+          <Property Name="ReservationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RentingStation" Type="varchar" MaxLength="50" />
+          <Property Name="MethodOfPayment" Type="varchar" MaxLength="50" />
+          <Property Name="BillingAddress" Type="varchar" MaxLength="50" />
+          <Property Name="Source" Type="varchar" MaxLength="50" />
+          <Property Name="ReservationDateTime" Type="datetime" />
+          <Property Name="StaffName" Type="varchar" MaxLength="50" />
+          <Property Name="BookedAt" Type="datetime" />
+          <Property Name="CarId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="Note" Type="varchar" MaxLength="50" />
+          <Property Name="DriverId" Type="int" />
+          <Property Name="CheckInStation" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_RentalAgreement_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="0..1" />
+          <End Role="RentalAgreement" Type="Self.RentalAgreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="ReservationId" />
+            </Principal>
+            <Dependent Role="RentalAgreement">
+              <PropertyRef Name="ReservationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="carRentModelStoreContainer">
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RentalAgreement" EntityType="Self.RentalAgreement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_RentalAgreement_Reservation" Association="Self.FK_RentalAgreement_Reservation">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="RentalAgreement" EntitySet="RentalAgreement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Car" Association="Self.FK_Reservation_Car">
+            <End Role="Car" EntitySet="Car" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Client" Association="Self.FK_Reservation_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Driver" Association="Self.FK_Reservation_Driver">
+            <End Role="Driver" EntitySet="Driver" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="carRentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarId" />
+          </Key>
+          <Property Name="CarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarMake" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarRegistrationNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarFuelState" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarKmOut" Type="Int32" />
+          <Property Name="CarKmIn" Type="Int32" />
+          <Property Name="TotalKm" Type="Int32" />
+          <Property Name="KmBill" Type="Int32" />
+          <Property Name="TimeOut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TImeIn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeBill" Type="Int32" />
+          <Property Name="TotalTime" Type="Int32" />
+          <Property Name="DateOut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateIn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CarOwner" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Car" FromRole="Car" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientPickUpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Client" FromRole="Client" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="DriverId" />
+          </Key>
+          <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriverName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Driver" FromRole="Driver" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="RentalAgreement">
+          <Key>
+            <PropertyRef Name="RentalAgreementId" />
+          </Key>
+          <Property Name="RentalAgreementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AcutalItinerary" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReservationId" Type="Int32" />
+          <Property Name="HPkr" Type="Int32" />
+          <Property Name="KPkr" Type="Int32" />
+          <Property Name="DPkr" Type="Int32" />
+          <Property Name="TollTaxCharges" Type="Int32" />
+          <Property Name="GST" Type="Int32" />
+          <Property Name="DriverCharges" Type="Int32" />
+          <Property Name="TotalCharges" Type="Int32" />
+          <Property Name="AgreementClosed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AgreementFuel" Type="Int32" />
+          <Property Name="PrePaymen" Type="Int32" />
+          <Property Name="AmountDue" Type="Int32" />
+          <Property Name="AgreementKmOut" Type="Int32" />
+          <Property Name="AgreementKmIn" Type="Int32" />
+          <Property Name="AgreementTotalKm" Type="Int32" />
+          <Property Name="AgreementTimeOut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AgreementTimeIn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AgreementTotalTime" Type="Int32" />
+          <Property Name="AgreementDateOut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AgreementDateIn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FuelOut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reservation" Relationship="Self.FK_RentalAgreement_Reservation" FromRole="RentalAgreement" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="ReservationId" />
+          </Key>
+          <Property Name="ReservationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RentingStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MethodOfPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillingAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ReservationDateTime" Type="DateTime" Precision="3" />
+          <Property Name="StaffName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BookedAt" Type="DateTime" Precision="3" />
+          <Property Name="CarId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DriverId" Type="Int32" />
+          <Property Name="CheckInStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Reservation_Car" FromRole="Reservation" ToRole="Car" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Reservation_Client" FromRole="Reservation" ToRole="Client" />
+          <NavigationProperty Name="Driver" Relationship="Self.FK_Reservation_Driver" FromRole="Reservation" ToRole="Driver" />
+          <NavigationProperty Name="RentalAgreements" Relationship="Self.FK_RentalAgreement_Reservation" FromRole="Reservation" ToRole="RentalAgreement" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Reservation_Car">
+          <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car">
+              <PropertyRef Name="CarId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="CarId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservation_Driver">
+          <End Role="Driver" Type="Self.Driver" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Driver">
+              <PropertyRef Name="DriverId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RentalAgreement_Reservation">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="0..1" />
+          <End Role="RentalAgreement" Type="Self.RentalAgreement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="ReservationId" />
+            </Principal>
+            <Dependent Role="RentalAgreement">
+              <PropertyRef Name="ReservationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="carRentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="RentalAgreements" EntityType="Self.RentalAgreement" />
+          <EntitySet Name="Reservations" EntityType="Self.Reservation" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_Reservation_Car" Association="Self.FK_Reservation_Car">
+            <End Role="Car" EntitySet="Cars" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Client" Association="Self.FK_Reservation_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Driver" Association="Self.FK_Reservation_Driver">
+            <End Role="Driver" EntitySet="Drivers" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RentalAgreement_Reservation" Association="Self.FK_RentalAgreement_Reservation">
+            <End Role="Reservation" EntitySet="Reservations" />
+            <End Role="RentalAgreement" EntitySet="RentalAgreements" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="carRentModelStoreContainer" CdmEntityContainer="carRentEntities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="carRentModel.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="CarMake" ColumnName="CarMake" />
+                <ScalarProperty Name="CarRegistrationNo" ColumnName="CarRegistrationNo" />
+                <ScalarProperty Name="CarFuelState" ColumnName="CarFuelState" />
+                <ScalarProperty Name="CarKmOut" ColumnName="CarKmOut" />
+                <ScalarProperty Name="CarKmIn" ColumnName="CarKmIn" />
+                <ScalarProperty Name="TotalKm" ColumnName="TotalKm" />
+                <ScalarProperty Name="KmBill" ColumnName="KmBill" />
+                <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+                <ScalarProperty Name="TImeIn" ColumnName="TImeIn" />
+                <ScalarProperty Name="TimeBill" ColumnName="TimeBill" />
+                <ScalarProperty Name="TotalTime" ColumnName="TotalTime" />
+                <ScalarProperty Name="DateOut" ColumnName="DateOut" />
+                <ScalarProperty Name="DateIn" ColumnName="DateIn" />
+                <ScalarProperty Name="CarOwner" ColumnName="CarOwner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="carRentModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientPickUpAddress" ColumnName="ClientPickUpAddress" />
+                <ScalarProperty Name="ClientContactNo" ColumnName="ClientContactNo" />
+                <ScalarProperty Name="ClientCompanyName" ColumnName="ClientCompanyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drivers">
+            <EntityTypeMapping TypeName="carRentModel.Driver">
+              <MappingFragment StoreEntitySet="Driver">
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RentalAgreements">
+            <EntityTypeMapping TypeName="carRentModel.RentalAgreement">
+              <MappingFragment StoreEntitySet="RentalAgreement">
+                <ScalarProperty Name="RentalAgreementId" ColumnName="RentalAgreementId" />
+                <ScalarProperty Name="AcutalItinerary" ColumnName="AcutalItinerary" />
+                <ScalarProperty Name="ReservationId" ColumnName="ReservationId" />
+                <ScalarProperty Name="HPkr" ColumnName="HPkr" />
+                <ScalarProperty Name="KPkr" ColumnName="KPkr" />
+                <ScalarProperty Name="DPkr" ColumnName="DPkr" />
+                <ScalarProperty Name="TollTaxCharges" ColumnName="TollTaxCharges" />
+                <ScalarProperty Name="GST" ColumnName="GST" />
+                <ScalarProperty Name="DriverCharges" ColumnName="DriverCharges" />
+                <ScalarProperty Name="TotalCharges" ColumnName="TotalCharges" />
+                <ScalarProperty Name="AgreementClosed" ColumnName="AgreementClosed" />
+                <ScalarProperty Name="AgreementFuel" ColumnName="AgreementFuel" />
+                <ScalarProperty Name="PrePaymen" ColumnName="PrePaymen" />
+                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
+                <ScalarProperty Name="AgreementKmOut" ColumnName="AgreementKmOut" />
+                <ScalarProperty Name="AgreementKmIn" ColumnName="AgreementKmIn" />
+                <ScalarProperty Name="AgreementTotalKm" ColumnName="AgreementTotalKm" />
+                <ScalarProperty Name="AgreementTimeOut" ColumnName="AgreementTimeOut" />
+                <ScalarProperty Name="AgreementTimeIn" ColumnName="AgreementTimeIn" />
+                <ScalarProperty Name="AgreementTotalTime" ColumnName="AgreementTotalTime" />
+                <ScalarProperty Name="AgreementDateOut" ColumnName="AgreementDateOut" />
+                <ScalarProperty Name="AgreementDateIn" ColumnName="AgreementDateIn" />
+                <ScalarProperty Name="FuelOut" ColumnName="FuelOut" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservations">
+            <EntityTypeMapping TypeName="carRentModel.Reservation">
+              <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="ReservationId" ColumnName="ReservationId" />
+                <ScalarProperty Name="RentingStation" ColumnName="RentingStation" />
+                <ScalarProperty Name="MethodOfPayment" ColumnName="MethodOfPayment" />
+                <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="ReservationDateTime" ColumnName="ReservationDateTime" />
+                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
+                <ScalarProperty Name="BookedAt" ColumnName="BookedAt" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="CheckInStation" ColumnName="CheckInStation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="carRentModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
