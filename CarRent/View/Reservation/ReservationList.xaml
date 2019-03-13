@@ -10,9 +10,33 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <DataGrid x:Name="ReservationGrid" x:FieldModifier="public" IsReadOnly="True" AutoGenerateColumns="False"  Grid.Row="0" ColumnWidth="*">
+            <Border BorderBrush="Black" BorderThickness="2" Margin="4">
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0"  Grid.Row="0" Text="Company Name" VerticalAlignment="Center" Margin="2,2,16,4"  />
+                    <TextBox   Grid.Column="1"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"  />
+                    <TextBlock Grid.Column="2"  Grid.Row="0" Text="Phone" VerticalAlignment="Center"  Margin="50,2,16,4" />
+                    <TextBox   Grid.Column="3"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"/>
+                    <Button Grid.Column="3" Content="Search" Margin="156,15,107,10" Grid.ColumnSpan="2" Grid.Row="1"/>
+                    <Button Grid.Column="4" Content="Reset" Margin="81,15,0,10" Grid.Row="1"/>
+                    <Button x:Name="btnInsert" Content="Add"  Click="BtnInsert_Click" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="2" Margin="42,15,138,10" />
+                    <Button x:Name="btnDelete" Content="Delete" Click="BtnDelete_Click" Grid.Column="3" Margin="49,15,31,10" Grid.Row="1" />
+                </Grid>
+            </Border >
+            <DataGrid Margin="4" x:Name="ReservationGrid" x:FieldModifier="public" IsReadOnly="True" AutoGenerateColumns="False"  Grid.Row="1" ColumnWidth="*">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ReservationId" Binding="{Binding ReservationId}" />
                     <DataGridTextColumn Header="RentingStation" Binding="{Binding RentingStation}"/>
@@ -41,8 +65,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btnUpdate" Content="Update" Click="BtnUpdate_Click" />
-                                    <Button x:Name="btnDelete" Content="Delete" Click="BtnDelete_Click" />
+                                    <Button x:Name="btnUpdate" Content="Edit" Click="BtnUpdate_Click" />
+
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -51,8 +75,8 @@
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel  Orientation="Vertical"/>
-            <Button x:Name="btnInsert" Content="Add a Reservation" Margin="312,0,312,166" Width="176" Click="BtnInsert_Click" Grid.Row="1" />
 
         </Grid>
+
     </DockPanel>
 </UserControl>

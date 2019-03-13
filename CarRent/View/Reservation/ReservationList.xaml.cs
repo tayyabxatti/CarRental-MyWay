@@ -40,9 +40,11 @@ namespace CarRent.View
         {
             int Id = (ReservationGrid.SelectedItem as Reservation).ReservationId;
             var deleteReservation = _db.Reservations.Where(c => c.ReservationId == Id).SingleOrDefault();
+            var deleteRental = _db.RentalAgreements.Where(c => c.ReservationId == deleteReservation.ReservationId).SingleOrDefault();
+            _db.RentalAgreements.Remove(deleteRental);
             _db.Reservations.Remove(deleteReservation);
             _db.SaveChanges();
-            ReservationGrid.ItemsSource = _db.Cars.ToList();
+            ReservationGrid.ItemsSource = _db.Reservations.ToList();
         }
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
