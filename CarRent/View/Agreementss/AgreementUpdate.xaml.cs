@@ -154,6 +154,8 @@ namespace CarRent.View.Agreementss
             if (tbDailyCharges.Text == "")
             {
                 int subTotal = Convert.ToInt32(tbMonthlyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
+                var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
+                tbGst.Text = gst.ToString();
                 int total = Convert.ToInt32(tbFuel.Text) + Convert.ToInt32(tbToolTax.Text) + Convert.ToInt32(tbDriverNight.Text);
                 int grandTotal = Convert.ToInt32(tbPrepayment.Text) + Convert.ToInt32(tbAmountDue.Text);
                 tbSubTotal.Text = subTotal.ToString();
@@ -164,7 +166,9 @@ namespace CarRent.View.Agreementss
             else if (tbMonthlyCharges.Text == "")
             {
                 int subTotal = Convert.ToInt32(tbDailyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
-                int total = Convert.ToInt32(tbFuel.Text) + Convert.ToInt32(tbToolTax.Text) + Convert.ToInt32(tbDriverNight.Text);
+                var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
+                tbGst.Text = gst.ToString();
+                int total = Convert.ToInt32(tbFuel.Text) + Convert.ToInt32(tbToolTax.Text) + Convert.ToInt32(tbDriverNight.Text) + Convert.ToInt32(tbGst.Text);
                 int grandTotal = Convert.ToInt32(tbPrepayment.Text) + Convert.ToInt32(tbAmountDue.Text);
                 tbSubTotal.Text = subTotal.ToString();
                 tbTotal.Text = (subTotal + total).ToString();
@@ -192,24 +196,75 @@ namespace CarRent.View.Agreementss
             var headerTable = new PdfPTable(new[] { .75f, 2f })
             {
                 HorizontalAlignment = Convert.ToInt32(Left),
-                WidthPercentage = 75,
+                WidthPercentage = 45,
                 DefaultCell = { MinimumHeight = 22f }
 
             };
 
+            var table2 = new PdfPTable(new[] { .75f, 2f })
+            {
+                HorizontalAlignment = 2,
+                WidthPercentage = 45,
+                DefaultCell = { MinimumHeight = 22f }
+
+            };
             
+
             var image =System.Drawing.Image.FromFile($"d:\\wingspdfdoc.png");
             iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
             PdfDOcument.Add(pic);
            
-            headerTable.AddCell("CarMake");
+            headerTable.AddCell("CarMake/Model");
             headerTable.AddCell(views.Reservation.Car.CarMake);
-            headerTable.AddCell("CarModel");
-            headerTable.AddCell(views.Reservation.Car.CarRegistrationNo);
             headerTable.AddCell("Car Registration No");
             headerTable.AddCell(views.Reservation.Car.CarRegistrationNo);
             headerTable.AddCell("Chauffeur Driver");
             headerTable.AddCell(views.Reservation.Driver.DriverName);
+            headerTable.AddCell("Reservation No");
+            headerTable.AddCell(views.Reservation.ReservationId.ToString());
+            headerTable.AddCell("Date And Time of Report");
+            headerTable.AddCell(views.Reservation.ReservationDateTime.ToString());
+            headerTable.AddCell("Clients Name");
+            headerTable.AddCell(views.Reservation.Client.ClientName);
+            headerTable.AddCell("Mobile Number");
+            headerTable.AddCell(views.Reservation.Client.ClientContactNo);
+            headerTable.AddCell("Billing Address");
+            headerTable.AddCell(views.Reservation.BillingAddress);
+            headerTable.AddCell("Fuel Position In");
+            headerTable.AddCell("Full or Empty");
+            //FuelPosition In and Out
+            headerTable.AddCell("Fuel Position out");
+            headerTable.AddCell("Full or Empty");
+            headerTable.AddCell("Pickup Address/ Flight No");
+            headerTable.AddCell(views.Reservation.Client.ClientPickUpAddress);
+            headerTable.AddCell("Actual Itinerary");
+            headerTable.AddCell(views.AcutalItinerary);
+
+            PdfPTable kmtime = new PdfPTable(2);
+
+            kmtime.AddCell("KmOut");
+            kmtime.AddCell(views.Reservation.Car.CarKmOut.ToString());
+            kmtime.AddCell("KmIn");
+            kmtime.AddCell(views.Reservation.Car.CarKmIn.ToString());
+            table2.AddCell("TimeOut");
+            table2.AddCell(views.Reservation.Car.TimeOut);
+            table2.AddCell("TimeIn");
+            table2.AddCell(views.Reservation.Car.TImeIn);
+
+            PdfPTable third = new PdfPTable(2);
+
+            third.AddCell(headerTable);
+            third.AddCell(table2);
+
+
+
+
+            PdfDOcument.Add(third);
+         
+            PdfDOcument.Add(spaceer);
+            PdfDOcument.OpenDocument();
+            PdfDOcument.Close();
+
 
             //var imagepath = @"D:\wingspdfdoc.png";
             //using (FileStream fs = new FileStream(imagepath, FileMode.Open))
@@ -259,35 +314,8 @@ namespace CarRent.View.Agreementss
             //bottom.Colspan = 3;
 
             //table.AddCell(bottom);
-            PdfPTable table = new PdfPTable(4);
-            table.AddCell("CarMake/Model");
-            table.AddCell(views.Reservation.Car.CarMake);
-            table.AddCell("Chauffeur Drive");
-            table.AddCell(views.Reservation.Driver.DriverName);
-            table.AddCell("Car Registration No");
-            table.AddCell(views.Reservation.Car.CarRegistrationNo);
-            table.AddCell("Date/Time Report");
-            table.AddCell(views.Reservation.ReservationDateTime.ToString());
-            table.AddCell("Reservation No");
-            table.AddCell(views.Reservation.ReservationId.ToString());
-            table.AddCell("Clients Name");
-            table.AddCell(views.Reservation.Client.ClientName);
-            table.AddCell("Mobile Number");
-            table.AddCell(views.Reservation.Client.ClientContactNo);
-            table.AddCell("Billing Address");
-            table.AddCell(views.Reservation.BillingAddress);
 
-            
 
-            PdfDOcument.Add(table);
-
-    
-
-            PdfDOcument.Add(headerTable);
-            PdfDOcument.Add(spaceer);
-            PdfDOcument.OpenDocument();
-            PdfDOcument.Close();
-            
         }
         private void BtnCloseRental_Click(object sender, RoutedEventArgs e)
         {
@@ -365,5 +393,7 @@ namespace CarRent.View.Agreementss
             var totalDays =  DateTime.Parse(tbDateIn.Text)- DateTime.Parse(tbDateOut.Text);
             tbTotalDays.Text = totalDays.Days.ToString();
         }
+
+        
     }
 }

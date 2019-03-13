@@ -187,11 +187,11 @@
                     <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="tbDriver" Grid.Row="10"/>
                     <TextBox Grid.Column="3" Grid.ColumnSpan="2" x:Name="tbdriverRs" Grid.Row="10"/>
                     <!--16% GST-->
-                    <TextBlock Grid.Column="0" Grid.Row="11" Text="16% GST" />
-                    <TextBox Grid.Row="11" Grid.Column="2" Grid.ColumnSpan="4" x:Name="tbGst" Margin="0,0,1,16.68" Grid.RowSpan="2" />
+                    <TextBlock Grid.Column="0" Grid.Row="12" Text="16% GST" />
+                    <TextBox Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="4" x:Name="tbGst" Margin="0,0,1,16.68" Grid.RowSpan="2"  />
                     <!--SUB TOTAL-->
-                    <TextBlock Grid.Column="0" Grid.Row="12" Text="SUB TOTAL" />
-                    <TextBox Grid.Column="2" Grid.Row="12" Grid.ColumnSpan="4" x:Name="tbSubTotal" Margin="0,0,1,16.92" Grid.RowSpan="2"/>
+                    <TextBlock Grid.Column="0" Grid.Row="11" Text="SUB TOTAL" />
+                    <TextBox Grid.Column="2" Grid.Row="11" Grid.ColumnSpan="4" x:Name="tbSubTotal" Margin="0,0,1,16.92" Grid.RowSpan="2"/>
                     <!--FUEL-->
                     <TextBlock Grid.Column="0" Grid.Row="13" Text="FUEL"/>
                     <TextBox Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="4" x:Name="tbFuel" Margin="0,0,1,16.92" Grid.RowSpan="2"/>
