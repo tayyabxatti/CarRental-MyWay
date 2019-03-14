@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarRent.View"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
@@ -11,7 +12,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
+               
             </Grid.RowDefinitions>
             <Border BorderBrush="Black" BorderThickness="2" Margin="4">
                 <Grid Grid.Row="0">
@@ -26,12 +27,12 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0"  Grid.Row="0" Text="Company Name" VerticalAlignment="Center" Margin="2,2,16,4"  />
-                    <TextBox   Grid.Column="1"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"  />
-                    <TextBlock Grid.Column="2"  Grid.Row="0" Text="Phone" VerticalAlignment="Center"  Margin="50,2,16,4" />
-                    <TextBox   Grid.Column="3"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"/>
-                    <Button Grid.Column="3" Content="Search" Margin="156,15,107,10" Grid.ColumnSpan="2" Grid.Row="1"/>
-                    <Button Grid.Column="4" Content="Reset" Margin="81,15,0,10" Grid.Row="1"/>
+                    <TextBlock x:Name="tbsearchBookedAt" Grid.Column="0"  Grid.Row="0" Text="BOOKED FOR" VerticalAlignment="Center" Margin="2,2,16,4"  />
+                    <xctk:DateTimePicker   Grid.Column="1"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"  />
+                    <TextBlock Grid.Column="2"  Grid.Row="0" Text="Source" VerticalAlignment="Center"  Margin="50,2,16,4" />
+                    <TextBox x:Name="tbsearchSource"   Grid.Column="3"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"/>
+                    <Button Grid.Column="3" Content="Search" Margin="156,15,107,10" Grid.ColumnSpan="2" Grid.Row="1" Click="Button_Click"/>
+                    <Button Grid.Column="4" Content="Reset" Margin="81,15,0,10" Grid.Row="1" Click="Button_Click_1"/>
                     <Button x:Name="btnInsert" Content="Add"  Click="BtnInsert_Click" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="2" Margin="42,15,138,10" />
                     <Button x:Name="btnDelete" Content="Delete" Click="BtnDelete_Click" Grid.Column="3" Margin="49,15,31,10" Grid.Row="1" />
                 </Grid>
@@ -42,24 +43,14 @@
                     <DataGridTextColumn Header="RentingStation" Binding="{Binding RentingStation}"/>
                     <DataGridTextColumn Header="BookedAt" Binding="{Binding BookedAt}"/>
                     <DataGridTextColumn Header="Car Make" Binding="{Binding Car.CarMake}"/>
-                    <DataGridTextColumn Header="Car RegNo" Binding="{Binding Car.CarRegistrationNo}"/>
                     <DataGridTextColumn Header="Driver Name" Binding="{Binding Driver.DriverName}"/>
-                    <DataGridTextColumn Header="CheckIn Station" Binding="{Binding CheckInStation}"/>
                     <DataGridTextColumn Header="Client Name" Binding="{Binding Client.ClientName}"/>
-                    <DataGridTextColumn Header="Pick up Address" Binding="{Binding Client.ClientPickUpAddress}"/>
-                    <DataGridTextColumn Header="Method of Payment" Binding="{Binding MethodOfPayment}"/>
                     <DataGridTextColumn Header="Billing Address" Binding="{Binding BillingAddress}"/>
-                    <DataGridTextColumn Header="Source" Binding="{Binding Source}"/>
-                    <DataGridTextColumn Header="Contact No" Binding="{Binding Client.ClientContactNo}"/>
                     <DataGridTextColumn Header="StaffName" Binding="{Binding StaffName}"/>
-                    <DataGridTextColumn Header="Note" Binding="{Binding Note}"/>
-
-
-
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="Action"/>
+                                <TextBlock Text="Action" Margin="2"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.HeaderTemplate>
                         <DataGridTemplateColumn.CellTemplate>

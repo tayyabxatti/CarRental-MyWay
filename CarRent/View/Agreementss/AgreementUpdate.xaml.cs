@@ -274,7 +274,7 @@ namespace CarRent.View.Agreementss
             table7.AddCell("DATEIN");
             table7.AddCell(views.Reservation.Car.DateIn);
             table7.AddCell("TOTAL DAYS");
-            table7.AddCell("NOT CALCULATED");
+            table7.AddCell(tbTotalDays.Text);
 
 
             table2.AddCell(table5);

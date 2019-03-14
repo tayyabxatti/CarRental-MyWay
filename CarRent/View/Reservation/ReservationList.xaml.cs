@@ -59,5 +59,16 @@ namespace CarRent.View
             Reserve reserve = new Reserve();
             reserve.ShowDialog();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+           var source= _db.Reservations.Where(x => x.Source == tbsearchSource.Text).ToList();
+            ReservationGrid.ItemsSource = source;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ReservationGrid.ItemsSource = _db.Reservations.ToList();
+        }
     }
 }

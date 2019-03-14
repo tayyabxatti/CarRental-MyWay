@@ -57,31 +57,25 @@
         <TextBlock Grid.Column="0" Grid.Row="5" Text="CarKmIn" />
         <TextBox x:Name = "tbCarKmIn" Grid.Row="5" Grid.Column="1" />
         <!--KmBill-->
-        <TextBlock Grid.Column="0" Grid.Row="7" Text="KmBill" />
-        <TextBox x:Name = "tbKmBill" Grid.Row="7" Grid.Column="1" />
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="KmBill" />
+        <TextBox x:Name = "tbKmBill" Grid.Row="6" Grid.Column="1" />
         <!--TimeOut-->
-        <TextBlock Grid.Column="0" Grid.Row="8" Text="TimeOut" />
-        <xctk:TimePicker x:Name = "tbTimeOut" Grid.Row="8" Grid.Column="1" />
+        <TextBlock Grid.Column="0" Grid.Row="7" Text="TimeOut" />
+        <xctk:TimePicker x:Name = "tbTimeOut" Grid.Row="7" Grid.Column="1" />
         <!--TImeIn-->
-        <TextBlock Grid.Column="0" Grid.Row="9" Text="TImeIn" />
-        <xctk:TimePicker x:Name = "tbTImeIn" Grid.Row="9" Grid.Column="1" />
+        <TextBlock Grid.Column="0" Grid.Row="8" Text="TImeIn" />
+        <xctk:TimePicker x:Name = "tbTImeIn" Grid.Row="8" Grid.Column="1" />
         <!--TimeBill-->
-        <TextBlock Grid.Column="0" Grid.Row="10" Text="TimeBill" />
-        <TextBox x:Name = "tbTimeBill" Grid.Row="10" Grid.Column="1" />
+        <TextBlock Grid.Column="0" Grid.Row="9" Text="TimeBill" />
+        <TextBox x:Name = "tbTimeBill" Grid.Row="9" Grid.Column="1" />
         <!--DateOut-->
-        <TextBlock Grid.Column="0"  Grid.Row="12" Text="DateOut" />
-        <DatePicker x:Name = "tbDateOut" Grid.Row="12" Grid.Column="1" />
+        <TextBlock Grid.Column="0"  Grid.Row="10" Text="DateOut" />
+        <DatePicker x:Name = "tbDateOut" Grid.Row="10" Grid.Column="1" />
         <!--DateIn-->
-        <TextBlock Grid.Column="0" Grid.Row="13"  Text="DateIn" />
-        <DatePicker x:Name = "tbDateIn" Grid.Row="13" Grid.Column="1" />
-        <!--DriverName-->
-        <TextBlock Grid.Column="0" Grid.Row="14" Text="DriverName" />
-        <TextBox x:Name = "tbDriverName" Grid.Row="14" Grid.Column="1" />
-        <!--CompanyName-->
-        <TextBlock Grid.Column="0" Grid.Row="15" Text="CompanyName" />
-        <TextBox x:Name = "tbCompanyName" Grid.Row="15" Grid.Column="1" />
+        <TextBlock Grid.Column="0" Grid.Row="11"  Text="DateIn" />
+        <DatePicker x:Name = "tbDateIn" Grid.Row="11" Grid.Column="1" />
         <!--Add Button-->
-        <Button x:Name="btnInsert" Grid.Row="16" Content="Add car" Click="BtnInsert_Click" Grid.ColumnSpan="2" Margin="203,5,193,-5" />
+        <Button x:Name="btnInsert" Grid.Row="13" Content="Add car" Click="BtnInsert_Click" Grid.ColumnSpan="2" Margin="203,5,193,-5" />
     </Grid>
 
 </Window>
