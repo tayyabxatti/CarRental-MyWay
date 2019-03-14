@@ -212,7 +212,7 @@ namespace CarRent.View.Agreementss
                 DefaultCell = { MinimumHeight = 22f }
 
             };
-            var table2 = new PdfPTable(new[] { .75f, 2f })
+            var table2 = new PdfPTable(3)
             {
                 HorizontalAlignment = 2,
                 WidthPercentage = 45,
@@ -231,9 +231,7 @@ namespace CarRent.View.Agreementss
             table4.AddCell("RESERVATION TIME/DATE");
             table4.AddCell(views.Reservation.ReservationDateTime.ToString());
             table1.AddCell(table3);
-            PdfDOcument.Add(table3);
             table1.AddCell(table4);
-            PdfDOcument.Add(table4);
             table.AddCell(table1);
             table1.AddCell("RSVN#");
             table1.AddCell(views.Reservation.ReservationId.ToString());
@@ -275,9 +273,60 @@ namespace CarRent.View.Agreementss
             table7.AddCell(views.Reservation.Car.DateOut);
             table7.AddCell("DATEIN");
             table7.AddCell(views.Reservation.Car.DateIn);
+            table7.AddCell("TOTAL DAYS");
+            table7.AddCell("NOT CALCULATED");
 
+
+            table2.AddCell(table5);
+            table2.AddCell(table6);
+            table2.AddCell(table7);
+            table2.AddCell("BASIC CHARGES: ");
+            table2.AddCell("");
+            table2.AddCell("");
+            table2.AddCell("DAILY");
+            table2.AddCell("///");
+            table2.AddCell("");
+            table2.AddCell("MONTHLY");
+            table2.AddCell("////");
+            table2.AddCell("");
+            table2.AddCell(views.AgreementTotalTime.ToString());
+            table2.AddCell("HR @ RS");
+            table2.AddCell(views.HPkr.ToString());
+            table2.AddCell(views.AgreementTotalKm.ToString());
+            table2.AddCell("KM @ RS");
+            table2.AddCell(views.KPkr.ToString());
+            table2.AddCell("//");
+            table2.AddCell("DRIVER @ RS");
+            table2.AddCell("// to be added in db");
+            table2.AddCell("16% GST");
+            table2.AddCell(views.GST.ToString());
+            table2.AddCell("");
+            table2.AddCell("FUEL CHARGES");
+            table2.AddCell(views.AgreementFuel.ToString());
+            table2.AddCell("");
+            table2.AddCell("TOOL TAX");
+            table2.AddCell(views.TollTaxCharges.ToString());
+            table2.AddCell("");
+            table2.AddCell("DRIVER NIGHT");
+            table2.AddCell(views.DriverCharges.ToString());
+            table2.AddCell("");
+            table2.AddCell("PREPAYMENT");
+            table2.AddCell(views.PrePaymen.ToString());
+            table2.AddCell("");
+            table2.AddCell("AMOUNT DUE");
+            table2.AddCell(views.AmountDue.ToString());
+            table2.AddCell("");
+            table2.AddCell("TOTAL CHARGES");
+            table2.AddCell(views.TotalCharges.ToString());
+            table2.AddCell("");
+            table.AddCell(table2);
+
+            
+
+            table.AddCell(table2);
             PdfDOcument.Add(table1);
-
+            PdfDOcument.Add(table2);
+           
             PdfDOcument.Add(spaceer);
             PdfDOcument.Add(table);
             PdfDOcument.OpenDocument();
