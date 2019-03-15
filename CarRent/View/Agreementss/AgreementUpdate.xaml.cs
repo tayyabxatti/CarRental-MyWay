@@ -55,8 +55,8 @@ namespace CarRent.View.Agreementss
             tbActualItienrary.Text = views.AcutalItinerary;
             tbAmountDue.Text = views.AmountDue.ToString();
             tbFuel.Text = views.AgreementFuel.ToString();
+            
             tbGrandTotal.Text = views.TotalCharges.ToString();
-            tbActualItienrary.Text = views.AcutalItinerary.ToString();
             tbToolTax.Text = views.TollTaxCharges.ToString();
             tbDriverNight.Text = views.DriverCharges.ToString();
             tbPrepayment.Text = views.PrePaymen.ToString();
@@ -157,6 +157,8 @@ namespace CarRent.View.Agreementss
 
         private void BtnCalculateCharges_Click(object sender, RoutedEventArgs e)
         {
+            var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
+
             if (tbFuel.Text == "")
             {
                 tbFuel.Text = "0";
@@ -202,7 +204,8 @@ namespace CarRent.View.Agreementss
             else if (tbMonthlyCharges.Text == "")
             {
                 int subTotal = Convert.ToInt32(tbDailyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
-                var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
+                    var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
+                
                 tbGst.Text = gst.ToString();
                 int total = Convert.ToInt32(tbFuel.Text) + Convert.ToInt32(tbToolTax.Text) + Convert.ToInt32(tbDriverNight.Text) + Convert.ToInt32(tbGst.Text);
                 int grandTotal = Convert.ToInt32(tbPrepayment.Text) + Convert.ToInt32(tbAmountDue.Text);
@@ -431,13 +434,22 @@ namespace CarRent.View.Agreementss
                 views.AcutalItinerary = tbActualItienrary.Text;
                 views.AgreementDateIn = tbDateIn.Text;
                 views.AgreementDateOut = tbDateOut.Text;
+
+
+                views.Reservation.Car.TimeOut = views.Reservation.Car.TImeIn;
+                views.Reservation.Car.TImeIn = tbTimeIn.Text;
                 views.AgreementTimeIn = tbTimeIn.Text;
                 views.AgreementTimeOut = tbTimeOut.Text;
+
                 views.AgreementKmOut = Convert.ToInt32(tbKmsOut.Text);
                 views.AgreementKmIn = Convert.ToInt32(tbKmsIn.Text);
+                views.Reservation.Car.CarKmIn = views.AgreementKmIn;
                 views.AgreementTotalKm = Convert.ToInt32(tbKms.Text);
                 views.AgreementTotalTime = Convert.ToInt32(tbHr.Text);
+
+                views.Reservation.Car.CarKmOut = views.Reservation.Car.CarKmIn;
                 views.Reservation.Car.CarKmIn = Convert.ToInt32(tbKmsOut.Text);
+                views.Reservation.Car.DateOut = views.Reservation.Car.DateIn;
                 views.Reservation.Car.DateIn = tbDateOut.Text;
                 views.Reservation.Car.TImeIn = tbTimeOut.Text;
                 if (FuelStateOutFull.IsChecked==true)

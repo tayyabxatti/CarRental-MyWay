@@ -104,8 +104,8 @@ namespace CarRent.View
             {
                 
                 ClientPickUpAddress = tbPickupAddress.Text,
-                ClientContactNo = tbTelephoneContact.Text,
-                ClientName = cbRentersName.Text,
+                ClientContactNo = cbRentersName.SelectedValue.ToString().Split(':')[1].Trim(),
+                ClientName = cbRentersName.SelectedValue.ToString().Split(':')[0].Trim(),
             };
             _db.SaveChanges();
             Car car = new Car()
