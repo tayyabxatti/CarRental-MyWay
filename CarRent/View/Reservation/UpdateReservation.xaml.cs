@@ -88,9 +88,12 @@ namespace CarRent.View
         }
         private void CbRentersName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var clientName = cbRentersName.SelectedValue.ToString();
-            tbPickupAddress.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientPickUpAddress).SingleOrDefault();
-            tbTelephoneContact.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientContactNo).SingleOrDefault();
+            if (cbRentersName.SelectedValue != null)
+            {
+                var clientName = cbRentersName.SelectedValue.ToString();
+                tbPickupAddress.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientPickUpAddress).SingleOrDefault();
+                tbTelephoneContact.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientContactNo).SingleOrDefault();
+            }
         }
         public void Load()
         {
@@ -149,6 +152,27 @@ namespace CarRent.View
             _db.SaveChanges();
             ReservationList.dataGrid.ItemsSource = _db.Reservations.ToList();
             this.Hide();
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            tbBillingAddress.Text = "";
+            tbBookedAtDATE.Text = "";
+            cbRentersName.Text = "";
+            tbTelephoneContact.Text = "";
+            tbPickupAddress.Text = "";
+            tbSource.Text ="";
+            tbStaffName.Text = "";
+            tbRentingStation.Text = "";
+            tbCarRegistrationNo.Text = "";
+            tbNote.Text = "";
+            cbDriverName.SelectedItem = "";
+            cbRentersName.SelectedItem = "";
+            tbCheckInStation.Text ="";
+            cbCarMake.SelectedValue = "";
+
+                cbMethodOfPaymentCash.IsChecked = false;
+                cbMethodOfPaymentCredit.IsChecked = false;
         }
     }
 }

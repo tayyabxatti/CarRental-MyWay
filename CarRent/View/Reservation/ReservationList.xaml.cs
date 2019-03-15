@@ -62,13 +62,29 @@ namespace CarRent.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           var source= _db.Reservations.Where(x => x.Source == tbsearchSource.Text).ToList();
-            ReservationGrid.ItemsSource = source;
+            if (tbsearchBookedAt == null)
+            {
+                var source = _db.Reservations.Where(x => x.Source == tbsearchSource.Text).ToList();
+                ReservationGrid.ItemsSource = source;
+            }
+            else
+            {
+                var reservationdate = _db.Reservations.Where(x => x.BookedAt == DateTime.Parse(tbsearchBookedAt.Text)).ToList();
+                ReservationGrid.ItemsSource = reservationdate;
+            }
+            if(tbsearchBookedAt != null && tbsearchSource != null)
+            {
+                var search = _db.Reservations.Where(x => x.BookedAt == DateTime.Parse(tbsearchBookedAt.Text) && x.Source == tbsearchSource.Text).ToList();
+                ReservationGrid.ItemsSource = search;
+            }
+            
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+           
             ReservationGrid.ItemsSource = _db.Reservations.ToList();
+
         }
     }
 }

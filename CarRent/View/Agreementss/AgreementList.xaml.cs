@@ -29,6 +29,11 @@ namespace CarRent.View.Agreementss
         }
         public void Load()
         {
+            var combobox = _db.RentalAgreements.ToList();
+            foreach(var item in combobox)
+            {
+                cbsearchReservationId.Items.Add(item.ReservationId.ToString());
+            }
             AgreemenGrid.ItemsSource = _db.RentalAgreements.ToList();
             dataGrid = AgreemenGrid;
         }
@@ -38,12 +43,45 @@ namespace CarRent.View.Agreementss
             AgreementUpdate agreementUpdate = new AgreementUpdate(Id);
             agreementUpdate.ShowDialog();
         }
-        private void BtnView_Click(object sender, RoutedEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int Id = (AgreemenGrid.SelectedItem as RentalAgreement).RentalAgreementId;
-            AgreementView agreementView = new AgreementView(Id);
-            agreementView.ShowDialog();
+            if(cbsearchClosed.IsChecked==true && cbsearchReservationId.Text != "")
+            {
+                var rentalSearch = _db.RentalAgreements.Where(x => x.AgreementClosed == "Closed" && x.ReservationId == Convert.ToInt32(cbsearchReservationId.SelectedValue)).ToList();
+                AgreemenGrid.ItemsSource = rentalSearch;
+            }
+            else if(cbsearchClosed.IsChecked==false && cbsearchReservationId.Text != "")
+            {
+                int soso = Int32.Parse(cbsearchReservationId.SelectedItem.ToString());
+                var rentalsearch = _db.RentalAgreements.Where(x => x.ReservationId ==soso ).ToList();
+                AgreemenGrid.ItemsSource = rentalsearch;
+            }
+            else if(cbsearchClosed.IsChecked == true)
+            {
+                var closed = _db.RentalAgreements.Where(x => x.AgreementClosed == "Closed").ToList();
+                AgreemenGrid.ItemsSource = closed;
+            }
+
         }
+
+        private void CbsearchReservationId_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var list = _db.RentalAgreements.ToList();
+            AgreemenGrid.ItemsSource = list;
+        }
+        //private void BtnView_Click(object sender, RoutedEventArgs e)
+        //{
+        //    int Id = (AgreemenGrid.SelectedItem as RentalAgreement).RentalAgreementId;
+        //    AgreementView agreementView = new AgreementView(Id);
+        //    agreementView.ShowDialog();
+        //}
 
     }
 }

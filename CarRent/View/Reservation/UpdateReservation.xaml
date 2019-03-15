@@ -97,6 +97,6 @@
 
         <!--Buttons-->
         <Button x:Name = "btnUpdate" Grid.Row="17" Grid.Column="3" Content = "Update Reservation" Click="BtnUpdate_Click" />
-        <Button x:Name = "btnClear" Grid.Row="17" Grid.Column="5" Content = "Clear Form" />
+        <Button x:Name = "btnClear" Grid.Row="17" Grid.Column="5" Content = "Clear Form" Click="BtnClear_Click" />
     </Grid>
 </Window>

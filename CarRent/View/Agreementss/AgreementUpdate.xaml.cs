@@ -56,8 +56,38 @@ namespace CarRent.View.Agreementss
             tbAmountDue.Text = views.AmountDue.ToString();
             tbFuel.Text = views.AgreementFuel.ToString();
             tbGrandTotal.Text = views.TotalCharges.ToString();
-
-
+            tbActualItienrary.Text = views.AcutalItinerary.ToString();
+            tbToolTax.Text = views.TollTaxCharges.ToString();
+            tbDriverNight.Text = views.DriverCharges.ToString();
+            tbPrepayment.Text = views.PrePaymen.ToString();
+            if (views.FuelOut == "Full")
+            {
+                FuelStateOutHalf.IsChecked = false;
+                FuelStateOutFull.IsChecked = true;
+                FuelStateOutQuarter.IsChecked = false;
+                FuelStateOutEmpty.IsChecked = false;
+            }
+            else if (views.FuelOut == "Empty")
+            {
+                FuelStateOutHalf.IsChecked = false;
+                FuelStateOutFull.IsChecked = false;
+                FuelStateOutQuarter.IsChecked = false;
+                FuelStateOutEmpty.IsChecked = true;
+            }
+            else if (views.FuelOut == "Quarter")
+            {
+                FuelStateOutHalf.IsChecked = false;
+                FuelStateOutFull.IsChecked = false;
+                FuelStateOutEmpty.IsChecked = false;
+                FuelStateOutQuarter.IsChecked = true;
+            }
+            else
+            {
+                FuelStateOutHalf.IsChecked = true;
+                FuelStateOutFull.IsChecked = false;
+                FuelStateOutQuarter.IsChecked = false;
+                FuelStateOutEmpty.IsChecked = false;
+            }
             if (views.Reservation.MethodOfPayment == "Cash")
             {
                 tbMethodOdPaymentCash.IsChecked = true;
@@ -153,6 +183,8 @@ namespace CarRent.View.Agreementss
             }
             if (tbDailyCharges.Text == "")
             {
+                if(tbMonthlyCharges.Text != "" || tbDailyCharges.Text!="" || tbhrRs.Text== "")
+                { 
                 int subTotal = Convert.ToInt32(tbMonthlyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
                 var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
                 tbGst.Text = gst.ToString();
@@ -161,7 +193,11 @@ namespace CarRent.View.Agreementss
                 tbSubTotal.Text = subTotal.ToString();
                 tbTotal.Text = (subTotal + total).ToString();
                 tbGrandTotal.Text = (subTotal + total + grandTotal).ToString();
-
+                }
+                else
+                {
+                    MessageBox.Show("you must eneter daily or monthly charges to calculate");
+                }
             }
             else if (tbMonthlyCharges.Text == "")
             {

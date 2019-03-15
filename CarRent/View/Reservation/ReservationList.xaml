@@ -27,8 +27,8 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <TextBlock x:Name="tbsearchBookedAt" Grid.Column="0"  Grid.Row="0" Text="BOOKED FOR" VerticalAlignment="Center" Margin="2,2,16,4"  />
-                    <xctk:DateTimePicker   Grid.Column="1"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"  />
+                    <TextBlock Grid.Column="0"  Grid.Row="0" Text="BOOKED FOR" VerticalAlignment="Center" Margin="2,2,16,4"  />
+                    <xctk:DateTimePicker x:Name="tbsearchBookedAt"   Grid.Column="1"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"  />
                     <TextBlock Grid.Column="2"  Grid.Row="0" Text="Source" VerticalAlignment="Center"  Margin="50,2,16,4" />
                     <TextBox x:Name="tbsearchSource"   Grid.Column="3"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"/>
                     <Button Grid.Column="3" Content="Search" Margin="156,15,107,10" Grid.ColumnSpan="2" Grid.Row="1" Click="Button_Click"/>
