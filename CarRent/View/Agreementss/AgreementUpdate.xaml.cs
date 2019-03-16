@@ -56,6 +56,7 @@ namespace CarRent.View.Agreementss
             tbAmountDue.Text = views.AmountDue.ToString();
             tbFuel.Text = views.AgreementFuel.ToString();
             
+            
             tbGrandTotal.Text = views.TotalCharges.ToString();
             tbToolTax.Text = views.TollTaxCharges.ToString();
             tbDriverNight.Text = views.DriverCharges.ToString();
@@ -183,13 +184,17 @@ namespace CarRent.View.Agreementss
             {
                 tbAmountDue.Text = "0";
             }
+            if (tbSubTotal.Text == "")
+            {
+                tbSubTotal.Text = "0";
+            }
             if (tbDailyCharges.Text == "")
             {
                 if(tbMonthlyCharges.Text != "" || tbDailyCharges.Text!="" || tbhrRs.Text== "")
                 { 
                 int subTotal = Convert.ToInt32(tbMonthlyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
-                var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
-                tbGst.Text = gst.ToString();
+                    var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
+                 tbGst.Text = gst.ToString();
                 int total = Convert.ToInt32(tbFuel.Text) + Convert.ToInt32(tbToolTax.Text) + Convert.ToInt32(tbDriverNight.Text);
                 int grandTotal = Convert.ToInt32(tbPrepayment.Text) + Convert.ToInt32(tbAmountDue.Text);
                 tbSubTotal.Text = subTotal.ToString();
@@ -236,7 +241,7 @@ namespace CarRent.View.Agreementss
             iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
             PdfDOcument.Add(pic);
 
-            var table = new PdfPTable(new[] { .75f, 2f })
+            var table = new PdfPTable(2)
             {
                 HorizontalAlignment = Convert.ToInt32(Left),
                 WidthPercentage = 45,
@@ -244,10 +249,10 @@ namespace CarRent.View.Agreementss
 
             };
 
-            var table1 = new PdfPTable(new[] { .75f, 2f })
+            var table1 =new PdfPTable (new[] { .75f, 2f })
             {
-                HorizontalAlignment = 2,
-                WidthPercentage = 45,
+                HorizontalAlignment = Convert.ToInt32(Left),
+                WidthPercentage = 100,
                 DefaultCell = { MinimumHeight = 22f }
 
             };
@@ -271,7 +276,7 @@ namespace CarRent.View.Agreementss
             table4.AddCell(views.Reservation.ReservationDateTime.ToString());
             table1.AddCell(table3);
             table1.AddCell(table4);
-            table.AddCell(table1);
+            
             table1.AddCell("RSVN#");
             table1.AddCell(views.Reservation.ReservationId.ToString());
             table1.AddCell("CLIENT NAME");
@@ -362,12 +367,8 @@ namespace CarRent.View.Agreementss
 
             
 
-            table.AddCell(table2);
             PdfDOcument.Add(table1);
             PdfDOcument.Add(table2);
-           
-            PdfDOcument.Add(spaceer);
-            PdfDOcument.Add(table);
             PdfDOcument.OpenDocument();
             PdfDOcument.Close();
 
