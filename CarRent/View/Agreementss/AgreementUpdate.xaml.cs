@@ -55,12 +55,12 @@ namespace CarRent.View.Agreementss
             tbActualItienrary.Text = views.AcutalItinerary;
             tbAmountDue.Text = views.AmountDue.ToString();
             tbFuel.Text = views.AgreementFuel.ToString();
-            
-            
+
+
             tbGrandTotal.Text = views.TotalCharges.ToString();
             tbToolTax.Text = views.TollTaxCharges.ToString();
             tbDriverNight.Text = views.DriverCharges.ToString();
-            tbPrepayment.Text = views.PrePaymen.ToString();
+            tbPrepayment.Text = views.PrePayment.ToString();
             if (views.FuelOut == "Full")
             {
                 FuelStateOutHalf.IsChecked = false;
@@ -127,6 +127,15 @@ namespace CarRent.View.Agreementss
                 cbFuelStateQuarter.IsChecked = false;
                 cbFuelStateEmpty.IsChecked = true;
             }
+            if (views.DailyCharges == null)
+            {
+                tbMonthlyCharges.Text = views.MonthlyCharges.ToString();
+            }
+            else if(views.MonthlyCharges == null)
+            {
+                tbDailyCharges.Text = views.DailyCharges.ToString();
+            }
+
             tbPickUpAddressOrFlightNo.Text = views.Reservation.Client.ClientPickUpAddress.ToString();
             tbReservationDateTime.Text = views.Reservation.ReservationDateTime.ToString();
             tbReservationNo.Text = views.Reservation.ReservationId.ToString();
@@ -151,8 +160,9 @@ namespace CarRent.View.Agreementss
                 tbKmsDriven.Text = views.AgreementTotalKm.ToString();
                 tbKmsIn.Text = views.AgreementKmIn.ToString();
                 tbKmsOut.Text = views.AgreementKmOut.ToString();
-                
+
             }
+            
 
         }
 
@@ -160,63 +170,71 @@ namespace CarRent.View.Agreementss
         {
             var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
 
-            if (tbFuel.Text == "")
+            if (views.AgreementClosed != "Closed")
             {
-                tbFuel.Text = "0";
-            }
-            if (tbDriverNight.Text == "")
-            {
-                tbDriverNight.Text = "0";
-            }
-            if (tbPrepayment.Text == "")
-            {
-                tbPrepayment.Text = "0";
-            }
-            if (tbGst.Text == "")
-            {
-                tbGst.Text = "0";
-            }
-            if (tbToolTax.Text == "")
-            {
-                tbToolTax.Text = "0";
-            }
-            if (tbAmountDue.Text == "")
-            {
-                tbAmountDue.Text = "0";
-            }
-            if (tbSubTotal.Text == "")
-            {
-                tbSubTotal.Text = "0";
-            }
-            if (tbDailyCharges.Text == "")
-            {
-                if(tbMonthlyCharges.Text != "" || tbDailyCharges.Text!="" || tbhrRs.Text== "")
-                { 
-                int subTotal = Convert.ToInt32(tbMonthlyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
-                    var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
-                 tbGst.Text = gst.ToString();
-                int total = Convert.ToInt32(tbFuel.Text) + Convert.ToInt32(tbToolTax.Text) + Convert.ToInt32(tbDriverNight.Text);
-                int grandTotal = Convert.ToInt32(tbPrepayment.Text) + Convert.ToInt32(tbAmountDue.Text);
-                tbSubTotal.Text = subTotal.ToString();
-                tbTotal.Text = (subTotal + total).ToString();
-                tbGrandTotal.Text = (subTotal + total + grandTotal).ToString();
-                }
-                else
+
+                if (tbFuel.Text == "")
                 {
-                    MessageBox.Show("you must eneter daily or monthly charges to calculate");
+                    tbFuel.Text = "0";
+                }
+                if (tbDriverNight.Text == "")
+                {
+                    tbDriverNight.Text = "0";
+                }
+                if (tbPrepayment.Text == "")
+                {
+                    tbPrepayment.Text = "0";
+                }
+                if (tbGst.Text == "")
+                {
+                    tbGst.Text = "0";
+                }
+                if (tbToolTax.Text == "")
+                {
+                    tbToolTax.Text = "0";
+                }
+                if (tbAmountDue.Text == "")
+                {
+                    tbAmountDue.Text = "0";
+                }
+                if (tbSubTotal.Text == "")
+                {
+                    tbSubTotal.Text = "0";
+                }
+                if (tbDailyCharges.Text == "")
+                {
+                    if (tbMonthlyCharges.Text != "" || tbDailyCharges.Text == "" || tbhrRs.Text == "")
+                    {
+                        int subTotal = Convert.ToInt32(tbMonthlyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
+                        var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
+                        tbGst.Text = gst.ToString();
+                        int total = Convert.ToInt32(tbFuel.Text) + Convert.ToInt32(tbToolTax.Text) + Convert.ToInt32(tbDriverNight.Text) + Convert.ToInt32(tbGst.Text);
+                        int grandTotal = Convert.ToInt32(tbPrepayment.Text) + Convert.ToInt32(tbAmountDue.Text);
+                        tbSubTotal.Text = subTotal.ToString();
+                        tbTotal.Text = (total).ToString();
+                        tbGrandTotal.Text = (total + grandTotal).ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("you must eneter daily or monthly charges to calculate");
+                    }
+                }
+                else if (tbMonthlyCharges.Text == "")
+                {
+                    int subTotal = Convert.ToInt32(tbDailyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
+                    var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
+
+                    tbGst.Text = gst.ToString();
+                    int total = Convert.ToInt32(tbFuel.Text) + Convert.ToInt32(tbToolTax.Text) + Convert.ToInt32(tbDriverNight.Text) + Convert.ToInt32(tbGst.Text);
+                    int grandTotal = Convert.ToInt32(tbPrepayment.Text) + Convert.ToInt32(tbAmountDue.Text);
+                    tbSubTotal.Text = subTotal.ToString();
+                    tbTotal.Text = (subTotal + total).ToString();
+                    tbGrandTotal.Text = (subTotal + total + grandTotal).ToString();
                 }
             }
-            else if (tbMonthlyCharges.Text == "")
+            else
             {
-                int subTotal = Convert.ToInt32(tbDailyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
-                    var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
-                
-                tbGst.Text = gst.ToString();
-                int total = Convert.ToInt32(tbFuel.Text) + Convert.ToInt32(tbToolTax.Text) + Convert.ToInt32(tbDriverNight.Text) + Convert.ToInt32(tbGst.Text);
-                int grandTotal = Convert.ToInt32(tbPrepayment.Text) + Convert.ToInt32(tbAmountDue.Text);
-                tbSubTotal.Text = subTotal.ToString();
-                tbTotal.Text = (subTotal + total).ToString();
-                tbGrandTotal.Text = (subTotal + total + grandTotal).ToString();
+                MessageBox.Show("This Rental is already closed you can't claculate the charges");
             }
         }
 
@@ -235,7 +253,7 @@ namespace CarRent.View.Agreementss
                 SpacingBefore = 10f,
                 SpacingAfter = 10f,
             };
-            PdfDOcument.Add(spaceer);
+
 
             var image = System.Drawing.Image.FromFile($"d:\\wingspdfdoc.png");
             iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
@@ -249,7 +267,7 @@ namespace CarRent.View.Agreementss
 
             };
 
-            var table1 =new PdfPTable (new[] { .75f, 2f })
+            var table1 = new PdfPTable(new[] { .75f, 2f })
             {
                 HorizontalAlignment = Convert.ToInt32(Left),
                 WidthPercentage = 100,
@@ -276,7 +294,7 @@ namespace CarRent.View.Agreementss
             table4.AddCell(views.Reservation.ReservationDateTime.ToString());
             table1.AddCell(table3);
             table1.AddCell(table4);
-            
+
             table1.AddCell("RSVN#");
             table1.AddCell(views.Reservation.ReservationId.ToString());
             table1.AddCell("CLIENT NAME");
@@ -328,10 +346,10 @@ namespace CarRent.View.Agreementss
             table2.AddCell("");
             table2.AddCell("");
             table2.AddCell("DAILY");
-            table2.AddCell("///");
+            table2.AddCell(views.DailyCharges.ToString());
             table2.AddCell("");
             table2.AddCell("MONTHLY");
-            table2.AddCell("////");
+            table2.AddCell(views.MonthlyCharges.ToString());
             table2.AddCell("");
             table2.AddCell(views.AgreementTotalTime.ToString());
             table2.AddCell("HR @ RS");
@@ -355,7 +373,7 @@ namespace CarRent.View.Agreementss
             table2.AddCell(views.DriverCharges.ToString());
             table2.AddCell("");
             table2.AddCell("PREPAYMENT");
-            table2.AddCell(views.PrePaymen.ToString());
+            table2.AddCell(views.PrePayment.ToString());
             table2.AddCell("");
             table2.AddCell("AMOUNT DUE");
             table2.AddCell(views.AmountDue.ToString());
@@ -364,117 +382,88 @@ namespace CarRent.View.Agreementss
             table2.AddCell(views.TotalCharges.ToString());
             table2.AddCell("");
             table.AddCell(table2);
-
-            
-
             PdfDOcument.Add(table1);
             PdfDOcument.Add(table2);
             PdfDOcument.OpenDocument();
             PdfDOcument.Close();
-
-
-            //headerTable.AddCell("CarMake/Model");
-            //headerTable.AddCell(views.Reservation.Car.CarMake);
-            //headerTable.AddCell("Car Registration No");
-            //headerTable.AddCell(views.Reservation.Car.CarRegistrationNo);
-            //headerTable.AddCell("Chauffeur Driver");
-            //headerTable.AddCell(views.Reservation.Driver.DriverName);
-            //headerTable.AddCell("Reservation No");
-            //headerTable.AddCell(views.Reservation.ReservationId.ToString());
-            //headerTable.AddCell("Date And Time of Report");
-            //headerTable.AddCell(views.Reservation.ReservationDateTime.ToString());
-            //headerTable.AddCell("Clients Name");
-            //headerTable.AddCell(views.Reservation.Client.ClientName);
-            //headerTable.AddCell("Mobile Number");
-            //headerTable.AddCell(views.Reservation.Client.ClientContactNo);
-            //headerTable.AddCell("Billing Address");
-            //headerTable.AddCell(views.Reservation.BillingAddress);
-            //headerTable.AddCell("Fuel Position In");
-            //headerTable.AddCell("Full or Empty");
-            ////FuelPosition In and Out
-            //headerTable.AddCell("Fuel Position out");
-            //headerTable.AddCell("Full or Empty");
-            //headerTable.AddCell("Pickup Address/ Flight No");
-            //headerTable.AddCell(views.Reservation.Client.ClientPickUpAddress);
-            //headerTable.AddCell("Actual Itinerary");
-            //headerTable.AddCell(views.AcutalItinerary);
-
-            //PdfPTable kmtime = new PdfPTable(2);
-
-            //kmtime.AddCell("KmOut");
-            //kmtime.AddCell(views.Reservation.Car.CarKmOut.ToString());
-            //kmtime.AddCell("KmIn");
-            //kmtime.AddCell(views.Reservation.Car.CarKmIn.ToString());
-            //table2.AddCell("TimeOut");
-            //table2.AddCell(views.Reservation.Car.TimeOut);
-            //table2.AddCell("TimeIn");
-            //table2.AddCell(views.Reservation.Car.TImeIn);
-
-            //PdfPTable third = new PdfPTable(2);
-
-            //third.AddCell(headerTable);
-            //third.AddCell(table2);
-            //PdfDOcument.Add(third);
         }
         private void BtnCloseRental_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to close this Rental?", "Close Rental", System.Windows.MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
+            var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
+
+            if (views.AgreementClosed != "Closed")
             {
-                var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
-                views.AgreementClosed = "Closed";
-                views.HPkr = Convert.ToInt32(tbhrRs.Text);
-                views.KPkr = Convert.ToInt32(tbkmsRs.Text);
-                views.GST = Convert.ToInt32(tbGst.Text);
-                views.AgreementFuel = Convert.ToInt32(tbFuel.Text);
-                views.TollTaxCharges = Convert.ToInt32(tbToolTax.Text);
-                views.DriverCharges = Convert.ToInt32(tbDriverNight.Text);
-                views.PrePaymen = Convert.ToInt32(tbPrepayment.Text);
-                views.AmountDue = Convert.ToInt32(tbAmountDue.Text);
-                views.TotalCharges = Convert.ToInt32(tbGrandTotal.Text);
-                views.AcutalItinerary = tbActualItienrary.Text;
-                views.AgreementDateIn = tbDateIn.Text;
-                views.AgreementDateOut = tbDateOut.Text;
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to close this Rental?", "Close Rental", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    views.AgreementClosed = "Closed";
+                    views.HPkr = Convert.ToInt32(tbhrRs.Text);
+                    views.KPkr = Convert.ToInt32(tbkmsRs.Text);
+                    views.GST = Convert.ToInt32(tbGst.Text);
+                    views.AgreementFuel = Convert.ToInt32(tbFuel.Text);
+                    views.TollTaxCharges = Convert.ToInt32(tbToolTax.Text);
+                    views.DriverCharges = Convert.ToInt32(tbDriverNight.Text);
+                    views.PrePayment = Convert.ToInt32(tbPrepayment.Text);
+                    views.AmountDue = Convert.ToInt32(tbAmountDue.Text);
+                    views.TotalCharges = Convert.ToInt32(tbGrandTotal.Text);
+                    views.AcutalItinerary = tbActualItienrary.Text;
+                    views.AgreementDateIn = tbDateIn.Text;
+                    views.AgreementDateOut = tbDateOut.Text;
 
 
-                views.Reservation.Car.TimeOut = views.Reservation.Car.TImeIn;
-                views.Reservation.Car.TImeIn = tbTimeIn.Text;
-                views.AgreementTimeIn = tbTimeIn.Text;
-                views.AgreementTimeOut = tbTimeOut.Text;
+                    views.Reservation.Car.TimeOut = views.Reservation.Car.TImeIn;
+                    views.Reservation.Car.TImeIn = tbTimeIn.Text;
+                    views.AgreementTimeIn = tbTimeIn.Text;
+                    views.AgreementTimeOut = tbTimeOut.Text;
 
-                views.AgreementKmOut = Convert.ToInt32(tbKmsOut.Text);
-                views.AgreementKmIn = Convert.ToInt32(tbKmsIn.Text);
-                views.Reservation.Car.CarKmIn = views.AgreementKmIn;
-                views.AgreementTotalKm = Convert.ToInt32(tbKms.Text);
-                views.AgreementTotalTime = Convert.ToInt32(tbHr.Text);
+                    views.AgreementKmOut = Convert.ToInt32(tbKmsOut.Text);
+                    views.AgreementKmIn = Convert.ToInt32(tbKmsIn.Text);
+                    views.Reservation.Car.CarKmIn = views.AgreementKmIn;
+                    views.AgreementTotalKm = Convert.ToInt32(tbKms.Text);
+                    views.AgreementTotalTime = Convert.ToInt32(tbHr.Text);
 
-                views.Reservation.Car.CarKmOut = views.Reservation.Car.CarKmIn;
-                views.Reservation.Car.CarKmIn = Convert.ToInt32(tbKmsOut.Text);
-                views.Reservation.Car.DateOut = views.Reservation.Car.DateIn;
-                views.Reservation.Car.DateIn = tbDateOut.Text;
-                views.Reservation.Car.TImeIn = tbTimeOut.Text;
-                if (FuelStateOutFull.IsChecked==true)
-                {
-                    views.Reservation.Car.CarFuelState = "Full";
+                    views.Reservation.Car.CarKmOut = views.Reservation.Car.CarKmIn;
+                    views.Reservation.Car.CarKmIn = Convert.ToInt32(tbKmsOut.Text);
+                    views.Reservation.Car.DateOut = views.Reservation.Car.DateIn;
+                    views.Reservation.Car.DateIn = tbDateOut.Text;
+                    views.Reservation.Car.TImeIn = tbTimeOut.Text;
+                    if (FuelStateOutFull.IsChecked == true)
+                    {
+                        views.Reservation.Car.CarFuelState = "Full";
+                    }
+                    else if (FuelStateOutEmpty.IsChecked == true)
+                    {
+                        views.Reservation.Car.CarFuelState = "Empty";
+                    }
+                    else if (FuelStateOutHalf.IsChecked == true)
+                    {
+                        views.Reservation.Car.CarFuelState = "Half";
+                    }
+                    else
+                    {
+                        views.Reservation.Car.CarFuelState = "Quarter";
+                    }
+                    if (tbDailyCharges.Text != "")
+                    {
+                        views.DailyCharges = Convert.ToInt32(tbDailyCharges.Text);
+                        views.MonthlyCharges = null;
+                    }
+                    else if (tbMonthlyCharges.Text != "")
+                    {
+                        views.MonthlyCharges = Convert.ToInt32(tbMonthlyCharges.Text);
+                        views.DailyCharges = null;
+                    }
+                    _db.SaveChanges();
+                    AgreementList.dataGrid.ItemsSource = _db.RentalAgreements.ToList();
+                    this.Hide();
+
                 }
-                else if (FuelStateOutEmpty.IsChecked == true)
-                {
-                    views.Reservation.Car.CarFuelState = "Empty";
-                }
-                else if (FuelStateOutHalf.IsChecked == true)
-                {
-                    views.Reservation.Car.CarFuelState = "Half";
-                }
-                else
-                {
-                    views.Reservation.Car.CarFuelState = "Quarter";
-                }
-                _db.SaveChanges();
-                AgreementList.dataGrid.ItemsSource = _db.RentalAgreements.ToList();
-                this.Hide();
             }
-            
-        }
+            else
+            {
+                MessageBox.Show("This Rental is already closed");
+            }
+            }
 
         private void TbHr_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
@@ -498,7 +487,7 @@ namespace CarRent.View.Agreementss
         }
         private void TbTotalDays_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            var totalDays =  DateTime.Parse(tbDateIn.Text)- DateTime.Parse(tbDateOut.Text);
+            var totalDays = DateTime.Parse(tbDateIn.Text) - DateTime.Parse(tbDateOut.Text);
             tbTotalDays.Text = totalDays.Days.ToString();
         }
 

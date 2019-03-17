@@ -26,7 +26,7 @@ namespace CarRent
         public Nullable<int> TotalCharges { get; set; }
         public string AgreementClosed { get; set; }
         public Nullable<int> AgreementFuel { get; set; }
-        public Nullable<int> PrePaymen { get; set; }
+        public Nullable<int> PrePayment { get; set; }
         public Nullable<int> AmountDue { get; set; }
         public Nullable<int> AgreementKmOut { get; set; }
         public Nullable<int> AgreementKmIn { get; set; }
@@ -37,6 +37,8 @@ namespace CarRent
         public string AgreementDateOut { get; set; }
         public string AgreementDateIn { get; set; }
         public string FuelOut { get; set; }
+        public Nullable<int> DailyCharges { get; set; }
+        public Nullable<int> MonthlyCharges { get; set; }
     
         public virtual Reservation Reservation { get; set; }
     }

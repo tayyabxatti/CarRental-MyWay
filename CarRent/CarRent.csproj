@@ -120,9 +120,6 @@
     <Compile Include="Reservation.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="View\Agreementss\AgreementList.xaml.cs">
       <DependentUpon>AgreementList.xaml</DependentUpon>
     </Compile>
