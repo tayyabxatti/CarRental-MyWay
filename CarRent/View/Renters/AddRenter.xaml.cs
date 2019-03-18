@@ -37,6 +37,8 @@ namespace CarRent.View.Renters
             };
             _db.Clients.Add(client);
             _db.SaveChanges();
+
+
             RenterMenu.dataGrid.ItemsSource = _db.Clients.ToList();
             this.Hide();
             

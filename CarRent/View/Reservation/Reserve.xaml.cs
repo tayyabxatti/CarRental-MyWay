@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarRent.View.Renters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,34 +29,41 @@ namespace CarRent.View
         }
         public void fillCombo()
         {
-
+            cbRentersName.Items.Clear();
+            cbCarMake.Items.Clear();
             var carnames = _db.Cars.ToList();
             foreach (var item in carnames)
             {
+
                 cbCarMake.Items.Add($"{item.CarMake} : {item.CarRegistrationNo}");
             }
             var clientnames = _db.Clients.ToList();
             foreach (var client in clientnames)
             {
-                cbRentersName.Items.Add($"{client.ClientName} : {client.ClientContactNo}");
+               
+                    cbRentersName.Items.Add($"{client.ClientName} : {client.ClientContactNo}");
+                
             }
             var drivernames = _db.Drivers.ToList();
             foreach (var item in drivernames)
             {
                 cbDriverName.Items.Add($"{item.DriverName}");
             }
+
+            tbBookedAtDATE.Minimum = DateTime.Now;
+            tbBookedAtDATE.ClipValueToMinMax = true;
         }
         private void CbDriverName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
-        
+
         private void CbSelfDrive_Checked(object sender, RoutedEventArgs e)
         {
             if (cbSelfDrive.IsChecked == true)
             {
                 cbDriver.IsChecked = false;
-                
+
             }
             cbDriverName.Text = null;
         }
@@ -84,12 +92,21 @@ namespace CarRent.View
         }
         private void CbRentersName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var clientName = cbRentersName.SelectedValue.ToString();
+            //var views = _db.Clients.ToList();
+            //foreach(var q in views) { 
+            //if(cbRentersName.SelectedValue != q.ClientName) { 
+            if (cbRentersName.SelectedValue != null) { 
+            var clientName = cbRentersName.SelectedValue.ToString()?.Split(':')[0].Trim();
             tbPickupAddress.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientPickUpAddress).SingleOrDefault();
             tbTelephoneContact.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientContactNo).SingleOrDefault();
+            tbBillingAddress.Text = _db.Clients.Where(x => x.ClientName == clientName).Select(a => a.ClientCompanyName).SingleOrDefault();
+            }
+            //}
+            
         }
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
+
             string meth = "";
             if (cbMethodOfPaymentCash.IsChecked == true)
             {
@@ -99,7 +116,7 @@ namespace CarRent.View
 
             Client client = new Client()
             {
-                
+
                 ClientPickUpAddress = tbPickupAddress.Text,
                 ClientContactNo = cbRentersName.SelectedValue.ToString().Split(':')[1].Trim(),
                 ClientName = cbRentersName.SelectedValue.ToString().Split(':')[0].Trim(),
@@ -140,14 +157,30 @@ namespace CarRent.View
             _db.SaveChanges();
             RentalAgreement rentalAgreement = new RentalAgreement()
             {
-               ReservationId = reservation.ReservationId,
+                ReservationId = reservation.ReservationId,
             };
             _db.RentalAgreements.Add(rentalAgreement);
             _db.SaveChanges();
             ReservationList.dataGrid.ItemsSource = _db.Reservations.ToList();
             this.Hide();
         }
-        
 
+        private void BtnAddRenter_Click(object sender, RoutedEventArgs e)
+        {
+            AddRenter addRenter = new AddRenter();
+            addRenter.ShowDialog();
+            fillCombo();
+        }
+
+
+        private void BtnAddCar_Click(object sender, RoutedEventArgs e)
+        {
+            AddCar addCar = new AddCar();
+            addCar.ShowDialog();
+            fillCombo();
+        }
     }
+
+
 }
+

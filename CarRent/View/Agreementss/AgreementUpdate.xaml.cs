@@ -247,7 +247,7 @@ namespace CarRent.View.Agreementss
             string path1 = @"D:\RentalAgreements";
             // Create directory temp1 if it doesn't exist
             Directory.CreateDirectory(path1);
-            string path = @"D:\RentalAgreements\AgreementNo" + views.ReservationId + ".pdf";
+            string path = @"D:\RentalAgreements\AgreementNo" + views.RentalAgreementId + ".pdf";
 
             PdfWriter.GetInstance(PdfDOcument, new FileStream(path, FileMode.OpenOrCreate));
             PdfDOcument.Open();
@@ -279,7 +279,8 @@ namespace CarRent.View.Agreementss
             {
                 HorizontalAlignment = 2,
                 WidthPercentage = 45,
-                DefaultCell = { MinimumHeight = 22f }
+                
+                DefaultCell = { MinimumHeight= 22f }
 
             };
 
@@ -311,7 +312,7 @@ namespace CarRent.View.Agreementss
             table1.AddCell("FUEL POSITION IN ");
             table1.AddCell(views.Reservation.Car.CarFuelState.ToString());
             table1.AddCell("FUEL POSITION OUT");
-            table1.AddCell(views.FuelOut.ToString());
+            //table1.AddCell(views.FuelOut.ToString());
             table1.AddCell("PICKUP ADDRESS/FLIGHT NO");
             table1.AddCell(views.Reservation.Client.ClientPickUpAddress);
             table1.AddCell("Actual Itenary");
@@ -381,6 +382,7 @@ namespace CarRent.View.Agreementss
             table2.AddCell("");
             table2.AddCell("TOTAL CHARGES");
             table2.AddCell(views.TotalCharges.ToString());
+            
             table2.AddCell("");
             table.AddCell(table2);
             PdfDOcument.Add(table1);
