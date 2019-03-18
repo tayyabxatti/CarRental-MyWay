@@ -58,14 +58,13 @@
         <TextBlock Grid.Column="1" Grid.Row="3" Text="BOOKED AT TIME/DATE" Margin="0,0,0,23" Grid.RowSpan="2" />
         <xctk:DateTimePicker x:Name = "tbBookedAtDATE" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="5" Margin="0,0,0,23" Grid.RowSpan="2" />
         <!--CAR GROUP-->
-        <TextBlock Grid.Column="1" Grid.Row="4" Text="CAR GROUP(MAKE,MODEL)" />
-        <ComboBox x:Name="cbCarMake"  Grid.Column="2" Grid.Row="4" Text="CarMake" SelectionChanged="CbCarMake_SelectionChanged">
-            <ComboBoxItem >CarMake : Registration No</ComboBoxItem>
+        <TextBlock Grid.Column="1" Margin="2" Grid.Row="4" Text="CAR GROUP(MAKE,MODEL)" />
+        <ComboBox x:Name="cbCarMake"   Grid.Column="2" Grid.Row="4" Text="CarMake" Grid.ColumnSpan="2" Margin="0,0,5,0">
+            <ComboBoxItem Margin="2" >CarMake : Registration No </ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name = "tbCarRegistrationNo" Grid.Column="3" Grid.Row="4" TextWrapping="Wrap"  Text="car number"/>
-        <CheckBox x:Name="cbSelfDrive" Grid.Column="4" Grid.Row="4" Content="SELF DRIVE" Checked="CbSelfDrive_Checked"/>
-        <CheckBox x:Name="cbDriver" Grid.Column="5" Grid.Row="4" Content="CHAUFFEUR DRIVE" Height="24" VerticalAlignment="Bottom" Checked="CbDriver_Checked"/>
-        <ComboBox x:Name="cbDriverName" Grid.Column="6" Grid.Row="4" Text="Driver Name" SelectionChanged="CbDriverName_SelectionChanged"/>
+        <CheckBox x:Name="cbSelfDrive" Grid.Column="4" Grid.Row="4" Content="SELF DRIVE" Checked="CbSelfDrive_Checked"  VerticalAlignment="Center" Margin="2"/>
+        <CheckBox x:Name="cbDriver" Grid.Column="5" Grid.Row="4" Content="CHAUFFEUR DRIVE" Height="24"  Checked="CbDriver_Checked" VerticalAlignment="Center" Margin="2"/>
+        <ComboBox x:Name="cbDriverName" Grid.Column="6" Grid.Row="4" Text="Driver Name" SelectionChanged="CbDriverName_SelectionChanged" Margin="2"/>
         <!--CHECK IN STATION-->
         <TextBlock Grid.Column="1" Grid.Row="5" Text="CHECK IN STATION" />
         <TextBox x:Name = "tbCheckInStation" Grid.Column="2" Grid.ColumnSpan="5" Grid.Row="5" />

@@ -56,7 +56,6 @@ namespace CarRent.View.Agreementss
             tbAmountDue.Text = views.AmountDue.ToString();
             tbFuel.Text = views.AgreementFuel.ToString();
 
-
             tbGrandTotal.Text = views.TotalCharges.ToString();
             tbToolTax.Text = views.TollTaxCharges.ToString();
             tbDriverNight.Text = views.DriverCharges.ToString();
@@ -244,7 +243,12 @@ namespace CarRent.View.Agreementss
 
 
             var PdfDOcument = new Document(PageSize.A4, 40f, 40f, 60f, 60f);
-            string path = $"d:\\name.pdf";
+            
+            string path1 = @"D:\RentalAgreements";
+            // Create directory temp1 if it doesn't exist
+            Directory.CreateDirectory(path1);
+            string path = @"D:\RentalAgreements\AgreementNo" + views.ReservationId + ".pdf";
+
             PdfWriter.GetInstance(PdfDOcument, new FileStream(path, FileMode.OpenOrCreate));
             PdfDOcument.Open();
             //var imagePath = "";
@@ -253,12 +257,9 @@ namespace CarRent.View.Agreementss
                 SpacingBefore = 10f,
                 SpacingAfter = 10f,
             };
-
-
             var image = System.Drawing.Image.FromFile($"d:\\wingspdfdoc.png");
             iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
             PdfDOcument.Add(pic);
-
             var table = new PdfPTable(2)
             {
                 HorizontalAlignment = Convert.ToInt32(Left),
@@ -305,12 +306,12 @@ namespace CarRent.View.Agreementss
             table1.AddCell(views.Reservation.BillingAddress);
             table1.AddCell("BILLING INSTRUCTION");
             //checkbox billing address
-            table1.AddCell("////");
+            table1.AddCell(views.Reservation.BillingAddress.ToString());
             //checkbox fuel position in and out
             table1.AddCell("FUEL POSITION IN ");
-            table1.AddCell("////");
+            table1.AddCell(views.Reservation.Car.CarFuelState.ToString());
             table1.AddCell("FUEL POSITION OUT");
-            table1.AddCell("////");
+            table1.AddCell(views.FuelOut.ToString());
             table1.AddCell("PICKUP ADDRESS/FLIGHT NO");
             table1.AddCell(views.Reservation.Client.ClientPickUpAddress);
             table1.AddCell("Actual Itenary");

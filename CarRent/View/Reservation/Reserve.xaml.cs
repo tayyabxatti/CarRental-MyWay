@@ -49,10 +49,7 @@ namespace CarRent.View
         {
 
         }
-        private void CbCarMake_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            tbCarRegistrationNo.Text = cbCarMake.SelectedValue.ToString().Split(':')[1].Trim();
-        }
+        
         private void CbSelfDrive_Checked(object sender, RoutedEventArgs e)
         {
             if (cbSelfDrive.IsChecked == true)
@@ -111,10 +108,11 @@ namespace CarRent.View
             Car car = new Car()
             {
                 CarMake = cbCarMake.SelectedValue.ToString().Split(':')[0].Trim(),
-                CarRegistrationNo = tbCarRegistrationNo.Text,
+                CarRegistrationNo = cbCarMake.SelectedValue.ToString().Split(':')[1].Trim(),
             };
+            var carReg = cbCarMake.SelectedValue.ToString().Split(':')[1].Trim();
             var cid = _db.Clients.Where(c => c.ClientName == client.ClientName && c.ClientContactNo == client.ClientContactNo).Select(a => a.ClientId).SingleOrDefault();
-            var carid = _db.Cars.Where(c => c.CarMake == car.CarMake && c.CarRegistrationNo == tbCarRegistrationNo.Text).Select(f => f.CarId).SingleOrDefault();
+            var carid = _db.Cars.Where(c => c.CarMake == car.CarMake && c.CarRegistrationNo == carReg).Select(f => f.CarId).SingleOrDefault();
             var did = _db.Drivers.Where(x => x.DriverName == cbDriverName.Text).Select(f => f.DriverId).SingleOrDefault();
             _db.SaveChanges();
             Reservation reservation = new Reservation()
@@ -143,9 +141,6 @@ namespace CarRent.View
             RentalAgreement rentalAgreement = new RentalAgreement()
             {
                ReservationId = reservation.ReservationId,
-               
-               
-               
             };
             _db.RentalAgreements.Add(rentalAgreement);
             _db.SaveChanges();

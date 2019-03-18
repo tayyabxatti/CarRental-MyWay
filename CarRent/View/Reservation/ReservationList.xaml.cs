@@ -44,7 +44,10 @@ namespace CarRent.View
             int Id = (ReservationGrid.SelectedItem as Reservation).ReservationId;
             var deleteReservation = _db.Reservations.Where(c => c.ReservationId == Id).SingleOrDefault();
             var deleteRental = _db.RentalAgreements.Where(c => c.ReservationId == deleteReservation.ReservationId).SingleOrDefault();
-            _db.RentalAgreements.Remove(deleteRental);
+            _db.RentalAgreements.Where(x => x.RentalAgreementId == deleteRental.RentalAgreementId).Select(x => new RentalAgreement
+            {
+                RentalAgreementId = 0,
+            });
             _db.Reservations.Remove(deleteReservation);
             _db.SaveChanges();
             ReservationGrid.ItemsSource = _db.Reservations.ToList();
@@ -93,33 +96,33 @@ namespace CarRent.View
         {
             int Id = (ReservationGrid.SelectedItem as Reservation).ReservationId;
             var views = _db.Reservations.Where(x => x.ReservationId == Id).SingleOrDefault();
-
-
-            
-
+            string path1 = @"D:\Reservation";
+           // Create directory temp1 if it doesn't exist
+            Directory.CreateDirectory(path1);
             var PdfDOcument = new Document(PageSize.A4, 40f, 40f, 60f, 60f);
-            string path = $"d:\\reservation.pdf";
+            string path = @"D:\Reservation\ReservationNo" +views.ReservationId+".pdf";
             PdfWriter.GetInstance(PdfDOcument, new FileStream(path, FileMode.OpenOrCreate));
             PdfDOcument.Open();
             //var imagePath = "";
-            var spaceer = new iTextSharp.text.Paragraph("")
+            var spaceer = new iTextSharp.text.Paragraph("RESERVATION")
             {
                 SpacingBefore = 10f,
                 SpacingAfter = 10f,
             };
-
+            PdfDOcument.Add(spaceer);
 
             var image = System.Drawing.Image.FromFile($"d:\\wingspdfdoc.png");
             iTextSharp.text.Image pic = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Png);
             PdfDOcument.Add(pic);
 
-            var table = new PdfPTable(new[] { .75f, 2f })
+            var table = new PdfPTable(2)
             {
                 HorizontalAlignment = 1,
                 WidthPercentage = 100,
                 DefaultCell = { MinimumHeight = 22f }
 
             };
+
             table.AddCell("RENTING STATION");
             table.AddCell(views.RentingStation);
             table.AddCell("BOOKED AT");
