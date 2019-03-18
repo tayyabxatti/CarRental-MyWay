@@ -92,16 +92,14 @@ namespace CarRent.View
         }
         private void CbRentersName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //var views = _db.Clients.ToList();
-            //foreach(var q in views) { 
-            //if(cbRentersName.SelectedValue != q.ClientName) { 
             if (cbRentersName.SelectedValue != null) { 
             var clientName = cbRentersName.SelectedValue.ToString()?.Split(':')[0].Trim();
             tbPickupAddress.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientPickUpAddress).SingleOrDefault();
             tbTelephoneContact.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientContactNo).SingleOrDefault();
             tbBillingAddress.Text = _db.Clients.Where(x => x.ClientName == clientName).Select(a => a.ClientCompanyName).SingleOrDefault();
             }
-            //}
+            
+            
             
         }
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
@@ -178,6 +176,27 @@ namespace CarRent.View
             AddCar addCar = new AddCar();
             addCar.ShowDialog();
             fillCombo();
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            tbBillingAddress.Text =null;
+            tbBookedAtDATE.Text = null;
+            cbRentersName.Text = null;
+            tbTelephoneContact.Text = null;
+            tbPickupAddress.Text = null;
+            tbSource.Text = null;
+            tbStaffName.Text = null;
+            tbRentingStation.Text = null;
+            tbNote.Text = null;
+            cbDriverName.SelectedItem = null;
+            cbRentersName.SelectedItem = null;
+            tbCheckInStation.Text = null;
+            cbCarMake.SelectedValue = null;
+
+           cbMethodOfPaymentCash.IsChecked = false;
+           cbMethodOfPaymentCredit.IsChecked = false;
+            
         }
     }
 

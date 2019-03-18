@@ -37,56 +37,56 @@
 
 
         <!--STATION-->
-        <TextBlock Grid.Column="1" Grid.Row="2" Margin="0,1,0,0" ><Run FontWeight="Bold" Text="RENTING STATION"/></TextBlock>
-        <TextBox x:Name = "tbRentingStation" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,1,37,0" />
+        <TextBlock Grid.Column="1" Grid.Row="2" Margin="2" ><Run FontWeight="Bold" Text="RENTING STATION"/></TextBlock>
+        <TextBox x:Name = "tbRentingStation" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="2" />
         <!--CHECK OUT DATE TIME-->
-        <TextBlock Grid.Column="1" Grid.Row="3" Margin="0,0,0,23" Grid.RowSpan="2" ><Run FontWeight="Bold" Text="BOOKED AT TIME/DATE"/></TextBlock>
-        <xctk:DateTimePicker x:Name = "tbBookedAtDATE" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0,37,23" Grid.RowSpan="2" />
+        <TextBlock Grid.Column="1" Grid.Row="3" Margin="2" Grid.RowSpan="2" ><Run FontWeight="Bold" Text="BOOKED AT TIME/DATE"/></TextBlock>
+        <xctk:DateTimePicker x:Name = "tbBookedAtDATE" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Margin="2" />
         <!--CAR GROUP-->
         <TextBlock Grid.Column="1" Margin="2" Grid.Row="4" ><Run FontWeight="Bold" Text="CAR GROUP(MAKE,MODEL)"/></TextBlock>
-        <ComboBox x:Name="cbCarMake"   Grid.Column="2" Grid.Row="4" Text="CarMake" Grid.ColumnSpan="2" Margin="0,0,37,0">
+        <ComboBox x:Name="cbCarMake"   Grid.Column="2" Grid.Row="4" Text="CarMake" Grid.ColumnSpan="2" Margin="2">
             <ComboBoxItem Margin="2" >CarMake : Registration No</ComboBoxItem>
         </ComboBox>
-        <CheckBox x:Name="cbSelfDrive" Grid.Column="4" Grid.Row="3" Content="SELF DRIVE" Checked="CbSelfDrive_Checked"  VerticalAlignment="Center" Margin="6,4,142,9" Grid.ColumnSpan="2"/>
-        <CheckBox x:Name="cbDriver" Grid.Column="5" Grid.Row="3" Content="CHAUFFEUR DRIVE" Height="24"  Checked="CbDriver_Checked" VerticalAlignment="Center" Margin="1,4,3,0"/>
-        <ComboBox x:Name="cbDriverName" Grid.Column="6" Grid.Row="3" Text="Driver Name" SelectionChanged="CbDriverName_SelectionChanged"/>
+        <CheckBox x:Name="cbSelfDrive" Grid.Column="4" Grid.Row="3" Content="SELF DRIVE" Checked="CbSelfDrive_Checked"  VerticalAlignment="Center" Margin="2" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="cbDriver" Grid.Column="5" Grid.Row="3" Content="CHAUFFEUR DRIVE" Height="24"  Checked="CbDriver_Checked" VerticalAlignment="Center" Margin="2"/>
+        <ComboBox x:Name="cbDriverName" Grid.Column="6" Grid.Row="3" Text="Driver Name" SelectionChanged="CbDriverName_SelectionChanged" Margin="2"/>
         <!--CHECK IN STATION-->
-        <TextBlock Grid.Column="1" Grid.Row="5" ><Run FontWeight="Bold" Text="CHECK IN STATION"/></TextBlock>
-        <TextBox x:Name = "tbCheckInStation" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Margin="0,0,37,0" />
+        <TextBlock Grid.Column="1" Grid.Row="5" Margin="2" ><Run FontWeight="Bold" Text="CHECK IN STATION"/></TextBlock>
+        <TextBox x:Name = "tbCheckInStation" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Margin="2" />
         <!--RENTER'S NAME-->
-        <TextBlock Grid.Column="1" Grid.Row="6" ><Run FontWeight="Bold" Text="RENTER'S NAME"/></TextBlock>
-        <ComboBox x:Name = "cbRentersName" Grid.Column="2" IsEditable="True" Grid.ColumnSpan="2" Grid.Row="6" SelectionChanged="CbRentersName_SelectionChanged" Margin="0,0,37,0" />
+        <TextBlock Grid.Column="1" Grid.Row="6" Margin="2" ><Run FontWeight="Bold" Text="RENTER'S NAME"/></TextBlock>
+        <ComboBox x:Name = "cbRentersName" x:Uid="ClientIdUid" Grid.Column="2" IsEditable="True" Grid.ColumnSpan="2" Grid.Row="6" SelectionChanged="CbRentersName_SelectionChanged" Margin="2" />
         <!--PICK UP ADDRESS-->
-        <TextBlock Grid.Column="1" Grid.Row="7" Margin="0,0,2,0" ><Run FontWeight="Bold" Text="PICK UP ADDRESS / FLIGHT NO"/></TextBlock>
-        <TextBox x:Name = "tbPickupAddress" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="7" Margin="3,0,37,0" />
+        <TextBlock Grid.Column="1" Grid.Row="7" Margin="2" ><Run FontWeight="Bold" Text="PICK UP ADDRESS / FLIGHT NO"/></TextBlock>
+        <TextBox x:Name = "tbPickupAddress" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="7" Margin="2" />
         <!--METHOD OF PAYMENT-->
-        <TextBlock Grid.Column="1" Grid.Row="10" Margin="0,1,0,27" Grid.RowSpan="2" ><Run FontWeight="Bold" Text="METHOD OF PAYMENT"/></TextBlock>
-        <CheckBox x:Name = "cbMethodOfPaymentCredit" Grid.Column="2" Grid.Row="10" Content="CREDIT" Checked="CbMethodOfPaymentCredit_Checked" Margin="0,1,0,27" Grid.RowSpan="2" />
-        <CheckBox x:Name = "cbMethodOfPaymentCash" Grid.Column="3" Grid.Row="10" Content="CASH PAYMENT" Checked="CbMethodOfPaymentCash_Checked" Margin="0,1,0,27" Grid.RowSpan="2" />
+        <TextBlock Grid.Column="1" Grid.Row="10" Margin="2" Grid.RowSpan="2" ><Run FontWeight="Bold" Text="METHOD OF PAYMENT"/></TextBlock>
+        <CheckBox x:Name = "cbMethodOfPaymentCredit" Grid.Column="2" Grid.Row="10" Content="CREDIT" Checked="CbMethodOfPaymentCredit_Checked" Margin="2" Grid.RowSpan="2" />
+        <CheckBox x:Name = "cbMethodOfPaymentCash" Grid.Column="3" Grid.Row="10" Content="CASH PAYMENT" Checked="CbMethodOfPaymentCash_Checked" Margin="2" Grid.RowSpan="2" />
 
 
         <!--BILLING ADDRESS-->
-        <TextBlock Grid.Column="4" Grid.Row="8" Grid.ColumnSpan="2" Margin="0,1,143,0" ><Run FontWeight="Bold" Text="BILLING ADDRESS"/></TextBlock>
+        <TextBlock Grid.Column="4" Grid.Row="8" Grid.ColumnSpan="2" Margin="2" ><Run FontWeight="Bold" Text="BILLING ADDRESS"/></TextBlock>
         <TextBox x:Name = "tbBillingAddress" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="8" Grid.RowSpan="2" Margin="1,1,0,0"  />
         <!--SOURCE-->
-        <TextBlock Grid.Column="4" Grid.Row="2" Margin="2,1,0,0" ><Run FontWeight="Bold" Text="SOURCE"/></TextBlock>
-        <TextBox x:Name = "tbSource" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,1,0,0" />
+        <TextBlock Grid.Column="4" Grid.Row="2" Margin="2,2,2,0" ><Run FontWeight="Bold" Text="SOURCE"/></TextBlock>
+        <TextBox x:Name = "tbSource" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="2" Margin="2" />
         <!--TELEPHONE CONTACT-->
-        <TextBlock Grid.Column="1" Grid.Row="8" ><Run FontWeight="Bold" Text="TELEPHONE CONTACT"/></TextBlock>
-        <TextBox x:Name = "tbTelephoneContact" Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2" Margin="0,0,37,0"  />
+        <TextBlock Grid.Column="1" Grid.Row="8" Margin="2" ><Run FontWeight="Bold" Text="TELEPHONE CONTACT"/></TextBlock>
+        <TextBox x:Name = "tbTelephoneContact" Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2" Margin="2"  />
         <!--STAFF NAME-->
-        <TextBlock Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Margin="2,0,124,0"><Run FontWeight="Bold" Text="STAFF NAME"/></TextBlock>
-        <TextBox x:Name = "tbStaffName" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" Margin="0,0,37,0" />
+        <TextBlock Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Margin="2"><Run FontWeight="Bold" Text="STAFF NAME"/></TextBlock>
+        <TextBox x:Name = "tbStaffName" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" Margin="2" />
         <!--NOTE-->
-        <TextBlock Grid.Column="4" Grid.Row="10" Grid.ColumnSpan="2" Margin="0,0,142,0" HorizontalAlignment="Right" Width="104" ><Run FontWeight="Bold" Text="NOTE"/></TextBlock>
+        <TextBlock Grid.Column="4" Grid.Row="10" Margin="2" ><Run FontWeight="Bold" Text="NOTE"/></TextBlock>
 
 
-        <TextBox x:Name = "tbNote" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="10" Grid.RowSpan="2" Margin="1,0,-1,0" />
+        <TextBox x:Name = "tbNote" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="10" Grid.RowSpan="2" Margin="2" />
 
         <!--Buttons-->
         <Button x:Name = "btnInsert" Grid.Row="13" Grid.Column="2" Content = "Make Reservation" Click="BtnInsert_Click" />
-        <Button x:Name = "btnClear" Grid.Row="13" Grid.Column="4" Content = "Clear Form" Grid.ColumnSpan="2" Margin="0,0,142,0" />
-        <Button x:Name="btnAddRenter" Content="Add Renter" Grid.Column="4" HorizontalAlignment="Left" Margin="19,0,0,0" Grid.Row="6" VerticalAlignment="Top" Width="85" Height="28" Grid.ColumnSpan="2" Click="BtnAddRenter_Click"/>
-        <Button x:Name="btnAddCar" Content="Add Car" Grid.Column="4" HorizontalAlignment="Left" Margin="19,0,0,0" Grid.Row="4" VerticalAlignment="Top" Width="85" Height="28" Grid.ColumnSpan="2" Click="BtnAddCar_Click"/>
+        <Button x:Name = "btnClear" Grid.Row="13" Grid.Column="4" Content = "Clear Form" Grid.ColumnSpan="2" Margin="0,0,142,0" Click="BtnClear_Click" />
+        <Button x:Name="btnAddRenter" Content="Add Renter" Grid.Column="4" HorizontalAlignment="Left" Margin="2" Grid.Row="6" VerticalAlignment="Top" Width="85" Height="28" Grid.ColumnSpan="2" Click="BtnAddRenter_Click"/>
+        <Button x:Name="btnAddCar" Content="Add Car" Grid.Column="4" HorizontalAlignment="Left" Margin="2" Grid.Row="4" VerticalAlignment="Top" Width="85" Height="28" Grid.ColumnSpan="2" Click="BtnAddCar_Click"/>
     </Grid>
 </Window>

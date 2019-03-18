@@ -263,8 +263,9 @@ namespace CarRent.View.Agreementss
             var table = new PdfPTable(2)
             {
                 HorizontalAlignment = Convert.ToInt32(Left),
+                
                 WidthPercentage = 45,
-                DefaultCell = { MinimumHeight = 22f }
+                DefaultCell = { MinimumHeight = 22f,  }
 
             };
 
