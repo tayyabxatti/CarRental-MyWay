@@ -52,13 +52,13 @@
             <CheckBox x:Name = "cbCarFuelStateEmpty" Grid.Row="3" Grid.Column="1" Content="Empty" Margin="308,0,0,0" Checked="CbCarFuelStateEmpty_Checked" />
             <!--CarKmOut-->
             <TextBlock Grid.Column="0" Grid.Row="4" Text="CarKmOut" />
-            <TextBox x:Name = "tbCarKmOut" Grid.Row="4" Grid.Column="1" />
+            <TextBox x:Name = "tbCarKmOut" PreviewTextInput="NumberValidationTextBox" Grid.Row="4" Grid.Column="1" />
             <!--CarKmIn-->
             <TextBlock Grid.Column="0" Grid.Row="5" Text="CarKmIn" />
-            <TextBox x:Name = "tbCarKmIn" Grid.Row="5" Grid.Column="1" />
+            <TextBox x:Name = "tbCarKmIn" PreviewTextInput="NumberValidationTextBox" Grid.Row="5" Grid.Column="1" />
             <!--KmBill-->
             <TextBlock Grid.Column="0" Grid.Row="7" Text="KmBill" />
-            <TextBox x:Name = "tbKmBill" Grid.Row="7" Grid.Column="1" />
+            <TextBox x:Name = "tbKmBill" PreviewTextInput="NumberValidationTextBox" Grid.Row="7" Grid.Column="1" />
             <!--TimeOut-->
             <TextBlock Grid.Column="0" Grid.Row="8" Text="TimeOut" />
             <xctk:TimePicker x:Name = "tbTimeOut" Grid.Row="8" Grid.Column="1" />

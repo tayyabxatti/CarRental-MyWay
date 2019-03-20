@@ -30,7 +30,7 @@ namespace CarRent.View
         }
         public void fillCombo()
         {
-
+            var reser = _db.Reservations.Where(x => x.ReservationId == Id).SingleOrDefault();
             var carnames = _db.Cars.ToList();
             foreach (var item in carnames)
             {
@@ -46,14 +46,13 @@ namespace CarRent.View
             {
                 cbDriverName.Items.Add($"{item.DriverName}");
             }
+
+            tbBookedAtDATE.Minimum = DateTime.Now;
+            tbBookedAtDATE.ClipValueToMinMax = true;
         }
         private void CbDriverName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        }
-        private void CbCarMake_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            tbCarRegistrationNo.Text = cbCarMake.SelectedValue.ToString().Split(':')[1].Trim();
         }
         private void CbSelfDrive_Checked(object sender, RoutedEventArgs e)
         {
@@ -107,21 +106,23 @@ namespace CarRent.View
             tbSource.Text = updateReservation.Source;
             tbStaffName.Text = updateReservation.StaffName;
             tbRentingStation.Text = updateReservation.RentingStation;
-            tbCarRegistrationNo.Text = updateReservation.Car.CarRegistrationNo;
             tbNote.Text = updateReservation.Note;
             cbDriverName.SelectedItem = updateReservation.Driver.DriverName;
             cbRentersName.SelectedItem = updateReservation.Client.ClientName;
             tbCheckInStation.Text = updateReservation.CheckInStation;
             cbCarMake.SelectedValue = updateReservation.Car.CarMake;
-
+            
             if (updateReservation.MethodOfPayment == "cash")
             {
                 cbMethodOfPaymentCash.IsChecked = true;
+                cbMethodOfPaymentCredit.IsChecked = false;
             }
             else
             {
                 cbMethodOfPaymentCredit.IsChecked = true;
+                cbMethodOfPaymentCash.IsChecked = false;
             }
+
         }
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -164,7 +165,7 @@ namespace CarRent.View
             tbSource.Text ="";
             tbStaffName.Text = "";
             tbRentingStation.Text = "";
-            tbCarRegistrationNo.Text = "";
+           
             tbNote.Text = "";
             cbDriverName.SelectedItem = "";
             cbRentersName.SelectedItem = "";
