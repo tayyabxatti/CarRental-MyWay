@@ -40,7 +40,7 @@
         <TextBlock Grid.Column="1" Grid.Row="2" Margin="2" ><Run FontWeight="Bold" Text="RENTING STATION"/></TextBlock>
         <TextBox x:Name = "tbRentingStation" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="2" />
         <!--CHECK OUT DATE TIME-->
-        <TextBlock Grid.Column="1" Grid.Row="3" Margin="2" Grid.RowSpan="2" ><Run FontWeight="Bold" Text="BOOKED AT TIME/DATE"/></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="3" Margin="2"  ><Run FontWeight="Bold" Text="BOOKED AT TIME/DATE"/></TextBlock>
         <xctk:DateTimePicker x:Name = "tbBookedAtDATE" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Margin="2" />
         <!--CAR GROUP-->
         <TextBlock Grid.Column="1" Margin="2" Grid.Row="4" ><Run FontWeight="Bold" Text="CAR GROUP(MAKE,MODEL)"/></TextBlock>
@@ -60,9 +60,9 @@
         <TextBlock Grid.Column="1" Grid.Row="7" Margin="2" ><Run FontWeight="Bold" Text="PICK UP ADDRESS / FLIGHT NO"/></TextBlock>
         <TextBox x:Name = "tbPickupAddress" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="7" Margin="2" />
         <!--METHOD OF PAYMENT-->
-        <TextBlock Grid.Column="1" Grid.Row="10" Margin="2" Grid.RowSpan="2" ><Run FontWeight="Bold" Text="METHOD OF PAYMENT"/></TextBlock>
-        <CheckBox x:Name = "cbMethodOfPaymentCredit" Grid.Column="2" Grid.Row="10" Content="CREDIT" Checked="CbMethodOfPaymentCredit_Checked" Margin="2" Grid.RowSpan="2" />
-        <CheckBox x:Name = "cbMethodOfPaymentCash" Grid.Column="3" Grid.Row="10" Content="CASH PAYMENT" Checked="CbMethodOfPaymentCash_Checked" Margin="2" Grid.RowSpan="2" />
+        <TextBlock Grid.Column="1" Grid.Row="10" Margin="2"  ><Run FontWeight="Bold" Text="METHOD OF PAYMENT"/></TextBlock>
+        <CheckBox x:Name = "cbMethodOfPaymentCredit" Grid.Column="2" Grid.Row="10" Content="CREDIT" Checked="CbMethodOfPaymentCredit_Checked" Margin="2"  />
+        <CheckBox x:Name = "cbMethodOfPaymentCash" Grid.Column="3" Grid.Row="10" Content="CASH PAYMENT" Checked="CbMethodOfPaymentCash_Checked" Margin="2"  />
 
 
         <!--BILLING ADDRESS-->

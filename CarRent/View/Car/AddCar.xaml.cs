@@ -29,8 +29,24 @@ namespace CarRent.View
 
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
-            var totalKm = Int32.Parse(tbCarKmIn.Text) - Int32.Parse(tbCarKmOut.Text);
-            var totalTime = DateTime.Parse(tbTImeIn.Value.Value.ToLongTimeString()) - DateTime.Parse(tbTimeOut.Value.Value.ToLongTimeString());
+            var totalKm = 0;
+            if (tbCarKmIn.Text != "" && tbCarKmOut.Text != "" && Convert.ToInt32(tbCarKmIn.Text) > Convert.ToInt32(tbCarKmOut.Text))
+            {
+                totalKm = Int32.Parse(tbCarKmIn.Text) - Int32.Parse(tbCarKmOut.Text);
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("please enter valid KmIn and KmOut");
+            }
+            var totalTime = DateTime.Now - DateTime.Now;
+            if(tbTImeIn.Text!="" && tbTimeOut.Text!=null && DateTime.Parse(tbTimeOut.Text) < DateTime.Parse(tbTImeIn.Text))
+            { 
+                totalTime = DateTime.Parse(tbTImeIn.Value.Value.ToLongTimeString()) - DateTime.Parse(tbTimeOut.Value.Value.ToLongTimeString());
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Please enter valid TimeIn and TimeOut");
+            }
             string carowner = "";
             if(cbCarOwnerOwn.IsChecked == true)
             {
@@ -61,8 +77,6 @@ namespace CarRent.View
             {
                 fuelstate = cbCarFuelStateEmpty.Content.ToString();
             }
-
-
             Car car = new Car()
             {
                 CarKmIn = Int32.Parse(tbCarKmIn.Text),
@@ -80,11 +94,16 @@ namespace CarRent.View
                 CarFuelState = fuelstate,
                 CarOwner = carowner,
             };
+            if(car!=null) { 
             _db.Cars.Add(car);
             _db.SaveChanges();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Please Fill the Input Fields");
+            }
             Vehicle.dataGrid.ItemsSource = _db.Cars.ToList();
             this.Hide();
-
         }
 
         private void CbCarOwnerOwn_Checked(object sender, RoutedEventArgs e)

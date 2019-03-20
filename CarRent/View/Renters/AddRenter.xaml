@@ -21,17 +21,17 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <!--ClientsName-->
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Client Name" />
-            <TextBox x:Name = "tbClientName" Grid.Row="0" Grid.Column="1" />
+            <TextBlock Grid.Column="0" Grid.Row="0" Margin="2 2 2 2" Text="Client Name" />
+            <TextBox x:Name = "tbClientName" Grid.Row="0" Grid.Column="1" Margin="2 2 2 2" />
             <!--ClientsName-->
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="ClientPickUpAddress" />
-            <TextBox x:Name = "tbClientPickUpAddress" Grid.Row="2" Grid.Column="1" />
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="ClientPickUpAddress" Margin="2 2 2 2" />
+            <TextBox x:Name = "tbClientPickUpAddress" Grid.Row="2" Grid.Column="1" Margin="2 2 2 2" />
             <!--ClientsName-->
-            <TextBlock Grid.Column="0" Grid.Row="3" Text="ClientContactNo" />
-            <TextBox x:Name = "tbClientContactNo" Grid.Row="3" Grid.Column="1" />
+            <TextBlock Grid.Column="0" Grid.Row="3" Text="ClientContactNo" Margin="2 2 2 2" />
+            <TextBox x:Name = "tbClientContactNo" Grid.Row="3" Grid.Column="1" Margin="2 2 2 2" />
             <!--ClientsName-->
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="ClientCompanyName" />
-            <TextBox x:Name = "tbClientCompanyName" Grid.Row="4" Grid.Column="1" />
+            <TextBlock Grid.Column="0" Grid.Row="4" Text="ClientCompanyName" Margin="2 2 2 2" />
+            <TextBox x:Name = "tbClientCompanyName" Grid.Row="4" Grid.Column="1"  Margin="2 2 2 2"/>
             <!--Add Button-->
             <Button x:Name="btnInsert" Grid.Row="6" Content="Add Client" Click="BtnInsert_Click" Grid.ColumnSpan="2" Margin="203,5,193,-5" />
         </Grid>

@@ -18,8 +18,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <!--DriverName-->
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Driver Name" />
-            <TextBox x:Name = "tbDriverName" Grid.Row="0" Grid.Column="1" />
+            <TextBlock Grid.Column="0" Margin="2 2 2 2" Grid.Row="0" Text="Driver Name" />
+            <TextBox x:Name = "tbDriverName" Grid.Row="0" Margin="2 2 2 2" Grid.Column="1" />
             <!--Update Button-->
             <Button x:Name="btnUpdate" Grid.Row="2" Content="Add Driver" Click="BtnUpdate_Click" Grid.ColumnSpan="2" Margin="203,5,193,-5" />
         </Grid>
