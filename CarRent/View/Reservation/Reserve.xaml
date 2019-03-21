@@ -76,7 +76,7 @@
         <TextBox x:Name = "tbTelephoneContact" Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2" Margin="2"  />
         <!--STAFF NAME-->
         <TextBlock Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Margin="2"><Run FontWeight="Bold" Text="STAFF NAME"/></TextBlock>
-        <TextBox x:Name = "tbStaffName" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" Margin="2" />
+        <ComboBox x:Name = "tbStaffName" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" Margin="2" SelectionChanged="TbStaffName_SelectionChanged" />
         <!--NOTE-->
         <TextBlock Grid.Column="4" Grid.Row="10" Margin="2" ><Run FontWeight="Bold" Text="NOTE"/></TextBlock>
 

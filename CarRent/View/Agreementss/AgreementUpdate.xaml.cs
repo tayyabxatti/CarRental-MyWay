@@ -37,8 +37,8 @@ namespace CarRent.View.Agreementss
         {
             //like update 
             var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
-            var kmpkr = views.Reservation.Car.TotalKm * views.Reservation.Car.KmBill;
-            var kpkr = views.Reservation.Car.TotalTime * views.Reservation.Car.TimeBill;
+            //var kmpkr = views.Reservation.Car.TotalKm * views.Reservation.Car.KmBill;
+            //var kpkr = views.Reservation.Car.TotalTime * views.Reservation.Car.TimeBill;
             tbInvoiceNo.Text = views.RentalAgreementId.ToString();
             tbBillingAddress.Text = views.Reservation.BillingAddress;
             tbCarName.Text = views.Reservation.Car.CarMake;
@@ -48,8 +48,8 @@ namespace CarRent.View.Agreementss
             tbDriverName.Text = views.Reservation.Driver.DriverName.ToString();
             tbHr.Text = views.Reservation.Car.TotalTime.ToString();
             tbKms.Text = views.Reservation.Car.TotalKm.ToString();
-            tbkmsRs.Text = kmpkr.ToString();
-            tbhrRs.Text = kpkr.ToString();
+            //tbkmsRs.Text = kmpkr.ToString();
+            //tbhrRs.Text = kpkr.ToString();
             //DriverCharges
             tbGst.Text = views.GST.ToString();
             tbActualItienrary.Text = views.AcutalItinerary;
@@ -60,6 +60,10 @@ namespace CarRent.View.Agreementss
             tbToolTax.Text = views.TollTaxCharges.ToString();
             tbDriverNight.Text = views.DriverCharges.ToString();
             tbPrepayment.Text = views.PrePayment.ToString();
+            tbPickUpAddressOrFlightNo.Text = views.Reservation.Client.ClientPickUpAddress.ToString();
+            tbReservationDateTime.Text = views.Reservation.ReservationDateTime.ToString();
+            tbReservationNo.Text = views.Reservation.ReservationId.ToString();
+
             if (views.FuelOut == "Full")
             {
                 FuelStateOutHalf.IsChecked = false;
@@ -135,22 +139,35 @@ namespace CarRent.View.Agreementss
                 tbDailyCharges.Text = views.DailyCharges.ToString();
             }
 
-            tbPickUpAddressOrFlightNo.Text = views.Reservation.Client.ClientPickUpAddress.ToString();
-            tbReservationDateTime.Text = views.Reservation.ReservationDateTime.ToString();
-            tbReservationNo.Text = views.Reservation.ReservationId.ToString();
             if (views.AgreementClosed != "Closed")
             {
-                tbTimeIn.Text = views.Reservation.Car.TImeIn.ToString();
-                tbTimeOut.Text = views.Reservation.Car.TimeOut.ToString();
-                tbTimeUsed.Text = views.Reservation.Car.TotalTime.ToString();
-                tbDateIn.Text = views.Reservation.Car.DateIn.ToString();
-                tbDateOut.Text = views.Reservation.Car.DateOut.ToString();
-                tbKmsDriven.Text = views.Reservation.Car.TotalKm.ToString();
-                tbKmsIn.Text = views.Reservation.Car.CarKmIn.ToString();
-                tbKmsOut.Text = views.Reservation.Car.CarKmOut.ToString();
+                
+                //tbTimeIn.Text = views.Reservation.Car.TimeOut.ToString();
+                tbTimeOut.Text = views.Reservation.Car.TImeIn.ToString();
+                //tbTimeUsed.Text = views.Reservation.Car.TotalTime.ToString();
+                //tbDateIn.Text = views.Reservation.Car.DateIn.ToString();
+                tbDateOut.Text = views.Reservation.Car.DateIn.ToString();
+                //tbKmsDriven.Text = views.Reservation.Car.TotalKm.ToString();
+                //tbKmsIn.Text = views.Reservation.Car.CarKmIn.ToString();
+                tbKmsOut.Text = views.Reservation.Car.CarKmIn.ToString();
             }
             else
             {
+                var timeUsed = (DateTime.Parse(views.AgreementTimeOut).Hour - DateTime.Parse(views.AgreementTimeIn).Hour);
+                var timecharge = Convert.ToInt32(timeUsed) * views.Reservation.Car.TimeBill;
+
+                var kmUsed = views.AgreementKmOut - views.AgreementKmIn;
+                var kmcharge = kmUsed * views.Reservation.Car.KmBill;
+
+                tbKms.Text = kmUsed.ToString();
+                tbKmsDriven.Text = kmUsed.ToString();
+                tbkmsRs.Text = kmcharge.ToString();
+
+                tbTimeUsed.Text = timeUsed.ToString();
+                tbHr.Text = timeUsed.ToString();
+                tbhrRs.Text = timecharge.ToString();
+
+                tbTimeUsed.Text =timeUsed.ToString();
                 tbTimeIn.Text = views.AgreementTimeIn.ToString();
                 tbTimeOut.Text = views.AgreementTimeOut.ToString();
                 tbTimeUsed.Text = views.AgreementTotalTime.ToString();
@@ -159,12 +176,12 @@ namespace CarRent.View.Agreementss
                 tbKmsDriven.Text = views.AgreementTotalKm.ToString();
                 tbKmsIn.Text = views.AgreementKmIn.ToString();
                 tbKmsOut.Text = views.AgreementKmOut.ToString();
+                
 
             }
             
 
         }
-
         private void BtnCalculateCharges_Click(object sender, RoutedEventArgs e)
         {
             var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
@@ -202,7 +219,7 @@ namespace CarRent.View.Agreementss
                 }
                 if (tbDailyCharges.Text == "")
                 {
-                    if (tbMonthlyCharges.Text != "" || tbDailyCharges.Text == "" || tbhrRs.Text == "")
+                    if (tbMonthlyCharges.Text == "" || tbDailyCharges.Text == "" )
                     {
                         int subTotal = Convert.ToInt32(tbMonthlyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
                         var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
@@ -236,14 +253,13 @@ namespace CarRent.View.Agreementss
                 MessageBox.Show("This Rental is already closed you can't claculate the charges");
             }
         }
-
         private void BtnPrint_Click(object sender, RoutedEventArgs e)
         {
             var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
 
 
             var PdfDOcument = new Document(PageSize.A4, 40f, 40f, 60f, 60f);
-            
+
             string path1 = @"D:\RentalAgreements";
             // Create directory temp1 if it doesn't exist
             Directory.CreateDirectory(path1);
@@ -263,9 +279,9 @@ namespace CarRent.View.Agreementss
             var table = new PdfPTable(2)
             {
                 HorizontalAlignment = Convert.ToInt32(Left),
-                
+
                 WidthPercentage = 45,
-                DefaultCell = { MinimumHeight = 22f,  }
+                DefaultCell = { MinimumHeight = 22f, }
 
             };
 
@@ -280,8 +296,8 @@ namespace CarRent.View.Agreementss
             {
                 HorizontalAlignment = 2,
                 WidthPercentage = 45,
-                
-                DefaultCell = { MinimumHeight= 22f }
+
+                DefaultCell = { MinimumHeight = 22f }
 
             };
 
@@ -383,7 +399,7 @@ namespace CarRent.View.Agreementss
             table2.AddCell("");
             table2.AddCell("TOTAL CHARGES");
             table2.AddCell(views.TotalCharges.ToString());
-            
+
             table2.AddCell("");
             table.AddCell(table2);
             PdfDOcument.Add(table1);
@@ -394,81 +410,92 @@ namespace CarRent.View.Agreementss
         private void BtnCloseRental_Click(object sender, RoutedEventArgs e)
         {
             var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
-
-            if (views.AgreementClosed != "Closed")
+            if (Int32.Parse(tbKmsIn.Text) > Int32.Parse(tbKmsOut.Text))
             {
-                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to close this Rental?", "Close Rental", System.Windows.MessageBoxButton.YesNo);
-                if (messageBoxResult == MessageBoxResult.Yes)
+                if (views.AgreementClosed != "Closed")
                 {
-                    views.AgreementClosed = "Closed";
-                    views.HPkr = Convert.ToInt32(tbhrRs.Text);
-                    views.KPkr = Convert.ToInt32(tbkmsRs.Text);
-                    views.GST = Convert.ToInt32(tbGst.Text);
-                    views.AgreementFuel = Convert.ToInt32(tbFuel.Text);
-                    views.TollTaxCharges = Convert.ToInt32(tbToolTax.Text);
-                    views.DriverCharges = Convert.ToInt32(tbDriverNight.Text);
-                    views.PrePayment = Convert.ToInt32(tbPrepayment.Text);
-                    views.AmountDue = Convert.ToInt32(tbAmountDue.Text);
-                    views.TotalCharges = Convert.ToInt32(tbGrandTotal.Text);
-                    views.AcutalItinerary = tbActualItienrary.Text;
-                    views.AgreementDateIn = tbDateIn.Text;
-                    views.AgreementDateOut = tbDateOut.Text;
+
+                    MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to close this Rental?", "Close Rental", System.Windows.MessageBoxButton.YesNo);
+                    if (messageBoxResult == MessageBoxResult.Yes)
+                    {
+                        views.AgreementClosed = "Closed";
+                        views.HPkr = Convert.ToInt32(tbhrRs.Text);
+                        views.KPkr = Convert.ToInt32(tbkmsRs.Text);
+                        views.GST = Convert.ToInt32(tbGst.Text);
+                        views.AgreementFuel = Convert.ToInt32(tbFuel.Text);
+                        views.Reservation.Car.CarFuelState = views.AgreementFuel.ToString();
+                        views.TollTaxCharges = Convert.ToInt32(tbToolTax.Text);
+                        views.DriverCharges = Convert.ToInt32(tbDriverNight.Text);
+                        views.PrePayment = Convert.ToInt32(tbPrepayment.Text);
+                        views.AmountDue = Convert.ToInt32(tbAmountDue.Text);
+                        views.TotalCharges = Convert.ToInt32(tbGrandTotal.Text);
+                        views.AcutalItinerary = tbActualItienrary.Text;
+                        views.AgreementDateIn = tbDateIn.Text;
+                        views.AgreementDateOut = tbDateOut.Text;
 
 
-                    views.Reservation.Car.TimeOut = views.Reservation.Car.TImeIn;
-                    views.Reservation.Car.TImeIn = tbTimeIn.Text;
-                    views.AgreementTimeIn = tbTimeIn.Text;
-                    views.AgreementTimeOut = tbTimeOut.Text;
+                        views.Reservation.Car.TimeOut = views.Reservation.Car.TImeIn;
+                        views.Reservation.Car.TImeIn = tbTimeIn.Text;
+                        views.AgreementTimeIn = tbTimeIn.Text;
+                        views.AgreementTimeOut = tbTimeOut.Text;
 
-                    views.AgreementKmOut = Convert.ToInt32(tbKmsOut.Text);
-                    views.AgreementKmIn = Convert.ToInt32(tbKmsIn.Text);
-                    views.Reservation.Car.CarKmIn = views.AgreementKmIn;
-                    views.AgreementTotalKm = Convert.ToInt32(tbKms.Text);
-                    views.AgreementTotalTime = Convert.ToInt32(tbHr.Text);
+                        views.AgreementKmOut = Convert.ToInt32(tbKmsOut.Text);
+                        views.AgreementKmIn = Convert.ToInt32(tbKmsIn.Text);
 
-                    views.Reservation.Car.CarKmOut = views.Reservation.Car.CarKmIn;
-                    views.Reservation.Car.CarKmIn = Convert.ToInt32(tbKmsOut.Text);
-                    views.Reservation.Car.DateOut = views.Reservation.Car.DateIn;
-                    views.Reservation.Car.DateIn = tbDateOut.Text;
-                    views.Reservation.Car.TImeIn = tbTimeOut.Text;
-                    if (FuelStateOutFull.IsChecked == true)
-                    {
-                        views.Reservation.Car.CarFuelState = "Full";
-                    }
-                    else if (FuelStateOutEmpty.IsChecked == true)
-                    {
-                        views.Reservation.Car.CarFuelState = "Empty";
-                    }
-                    else if (FuelStateOutHalf.IsChecked == true)
-                    {
-                        views.Reservation.Car.CarFuelState = "Half";
-                    }
-                    else
-                    {
-                        views.Reservation.Car.CarFuelState = "Quarter";
-                    }
-                    if (tbDailyCharges.Text != "")
-                    {
-                        views.DailyCharges = Convert.ToInt32(tbDailyCharges.Text);
-                        views.MonthlyCharges = null;
-                    }
-                    else if (tbMonthlyCharges.Text != "")
-                    {
-                        views.MonthlyCharges = Convert.ToInt32(tbMonthlyCharges.Text);
-                        views.DailyCharges = null;
-                    }
-                    _db.SaveChanges();
-                    AgreementList.dataGrid.ItemsSource = _db.RentalAgreements.ToList();
-                    this.Hide();
+                        views.AgreementTotalKm = Convert.ToInt32(tbKms.Text);
+                        views.AgreementTotalTime = Convert.ToInt32(tbHr.Text);
 
+                        views.Reservation.Car.CarKmOut = views.Reservation.Car.CarKmIn;
+                        views.Reservation.Car.CarKmIn = Convert.ToInt32(tbKmsIn.Text);
+                        views.Reservation.Car.TimeOut = views.Reservation.Car.TImeIn;
+                        views.Reservation.Car.TImeIn = (tbTimeIn.Text);
+                        views.Reservation.Car.DateOut = views.Reservation.Car.DateIn;
+                        views.Reservation.Car.DateIn = (tbDateIn.Text);
+
+                        if (FuelStateOutFull.IsChecked == true)
+                        {
+                            views.Reservation.Car.CarFuelState = "Full";
+                        }
+                        else if (FuelStateOutEmpty.IsChecked == true)
+                        {
+                            views.Reservation.Car.CarFuelState = "Empty";
+                        }
+                        else if (FuelStateOutHalf.IsChecked == true)
+                        {
+                            views.Reservation.Car.CarFuelState = "Half";
+                        }
+                        else
+                        {
+                            views.Reservation.Car.CarFuelState = "Quarter";
+                        }
+                        if (tbDailyCharges.Text != "")
+                        {
+                            views.DailyCharges = Convert.ToInt32(tbDailyCharges.Text);
+                            views.MonthlyCharges = null;
+                        }
+                        else if (tbMonthlyCharges.Text != "")
+                        {
+                            views.MonthlyCharges = Convert.ToInt32(tbMonthlyCharges.Text);
+                            views.DailyCharges = null;
+                        }
+                        _db.SaveChanges();
+                        AgreementList.dataGrid.ItemsSource = _db.RentalAgreements.ToList();
+                        this.Hide();
+
+                    }
+
+
+                }
+                else
+                {
+                    MessageBox.Show("This Rental is already closed");
                 }
             }
             else
             {
-                MessageBox.Show("This Rental is already closed");
+                MessageBox.Show("KmIn must be greater than KmOut");
             }
             }
-
         private void TbHr_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             tbHr.Text = tbTimeUsed.Text;
@@ -483,22 +510,60 @@ namespace CarRent.View.Agreementss
             var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
             var totalKm = Int32.Parse(tbKmsIn.Text) - Int32.Parse(tbKmsOut.Text);
             tbKmsDriven.Text = totalKm.ToString();
+            tbKms.Text = totalKm.ToString();
+            var price = Int32.Parse(tbKms.Text) * views.Reservation.Car.KmBill;
+            tbkmsRs.Text = price.ToString();
         }
         private void TbTimeUsed_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
             var totalTime = DateTime.Parse(tbTimeIn.Text) - DateTime.Parse(tbTimeOut.Text);
             tbTimeUsed.Text = totalTime.Hours.ToString();
+            tbHr.Text = tbTimeUsed.Text;
+            var timer = Int32.Parse(tbTimeUsed.Text) * views.Reservation.Car.TimeBill;
+            tbhrRs.Text = timer.ToString();
         }
         private void TbTotalDays_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             var totalDays = DateTime.Parse(tbDateIn.Text) - DateTime.Parse(tbDateOut.Text);
             tbTotalDays.Text = totalDays.Days.ToString();
         }
-
         private void TbGst_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;
             tbGst.Text = gst.ToString();
+        }
+        private void TbdriverRs_IsKeyboardFocusedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+        private void FuelStateOutFull_Checked(object sender, RoutedEventArgs e)
+        {
+            FuelStateOutEmpty.IsChecked = false;
+            FuelStateOutFull.IsChecked = true;
+            FuelStateOutQuarter.IsChecked = false;
+            FuelStateOutHalf.IsChecked = false;
+        }
+        private void FuelStateOutHalf_Checked(object sender, RoutedEventArgs e)
+        {
+            FuelStateOutEmpty.IsChecked = false;
+            FuelStateOutQuarter.IsChecked = false;
+            FuelStateOutHalf.IsChecked = true;
+            FuelStateOutFull.IsChecked = false;
+        }
+        private void FuelStateOutQuarter_Checked(object sender, RoutedEventArgs e)
+        {
+            FuelStateOutEmpty.IsChecked = false;
+            FuelStateOutQuarter.IsChecked = true;
+            FuelStateOutHalf.IsChecked = false;
+            FuelStateOutFull.IsChecked = false;
+        }
+        private void FuelStateOutEmpty_Checked(object sender, RoutedEventArgs e)
+        {
+            FuelStateOutEmpty.IsChecked = true;
+            FuelStateOutQuarter.IsChecked =false;
+            FuelStateOutHalf.IsChecked = false;
+            FuelStateOutFull.IsChecked = false;
         }
     }
 }

@@ -49,6 +49,11 @@ namespace CarRent.View
             {
                 cbDriverName.Items.Add($"{item.DriverName}");
             }
+            var staffnames = _db.Staffs.ToList();
+            foreach(var lad in staffnames)
+            {
+                tbStaffName.Items.Add(lad.StaffName);
+            }
 
             tbBookedAtDATE.Minimum = DateTime.Now;
             tbBookedAtDATE.ClipValueToMinMax = true;
@@ -146,7 +151,7 @@ namespace CarRent.View
                 BillingAddress = tbBillingAddress.Text,
                 Source = tbSource.Text,
                 //Client Telephone contact
-                StaffName = tbStaffName.Text,
+                StaffName = tbStaffName.SelectedValue.ToString(),
                 Note = tbNote.Text,
                 ReservationDateTime = DateTime.Now,
 
@@ -197,6 +202,11 @@ namespace CarRent.View
            cbMethodOfPaymentCash.IsChecked = false;
            cbMethodOfPaymentCredit.IsChecked = false;
             
+        }
+
+        private void TbStaffName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 

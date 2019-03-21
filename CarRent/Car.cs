@@ -35,6 +35,8 @@ namespace CarRent
         public string DateOut { get; set; }
         public string DateIn { get; set; }
         public string CarOwner { get; set; }
+        public Nullable<int> InitialMeterReading { get; set; }
+        public Nullable<int> RecentMeterReading { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservations { get; set; }

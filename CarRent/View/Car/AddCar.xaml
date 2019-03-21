@@ -51,31 +51,29 @@
         <CheckBox x:Name = "cbCarFuelStateHalf" Grid.Row="3" Grid.Column="1" Content="Half" Margin="222,0,93,0" Checked="CbCarFuelStateHalf_Checked" />
         <CheckBox x:Name = "cbCarFuelStateEmpty" Grid.Row="3" Grid.Column="1" Content="Empty" Margin="308,0,0,0" Checked="CbCarFuelStateEmpty_Checked" />
         <!--CarKmOut-->
-        <TextBlock Grid.Column="0" Grid.Row="4" Text="CarKmOut" Margin="2 2 2 2" />
-        <TextBox x:Name = "tbCarKmOut" Grid.Row="4" Margin="2 2 2 2" PreviewTextInput="NumberValidationTextBox"  Grid.Column="1" />
         <!--CarKmIn-->
-        <TextBlock Grid.Column="0" Grid.Row="5" Text="CarKmIn" Margin="2 2 2 2"/>
-        <TextBox x:Name ="tbCarKmIn" PreviewTextInput="NumberValidationTextBox" Margin="2 2 2 2" Grid.Row="5" Grid.Column="1" />
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Initial Meter Reading" Margin="2,1,2,0"/>
+        <TextBox x:Name ="tbInitalReading" PreviewTextInput="NumberValidationTextBox" Margin="2,2,2,2" Grid.Row="4" Grid.Column="1" />
         <!--KmBill-->
-        <TextBlock Grid.Column="0" Grid.Row="6" Text="KmBill" Margin="2 2 2 2" />
-        <TextBox x:Name ="tbKmBill" PreviewTextInput="NumberValidationTextBox" Margin="2 2 2 2" Grid.Row="6" Grid.Column="1" />
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="KmBill" Margin="2,0,2,5" />
+        <TextBox x:Name ="tbKmBill" PreviewTextInput="NumberValidationTextBox" Margin="2,2,2,2" Grid.Row="5" Grid.Column="1" />
         <!--TimeOut-->
-        <TextBlock Grid.Column="0" Grid.Row="7" Text="TimeOut" Margin="2 2 2 2" />
-        <xctk:TimePicker x:Name = "tbTimeOut" Grid.Row="7" Grid.Column="1"  Margin="2 2 2 2"/>
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="TimeOut" Margin="2" />
+        <xctk:TimePicker x:Name = "tbTimeOut" Grid.Row="6" Grid.Column="1"  Margin="2"/>
         <!--TImeIn-->
-        <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="8" Text="TImeIn" />
-        <xctk:TimePicker Margin="2 2 2 2" x:Name = "tbTImeIn" Grid.Row="8" Grid.Column="1" />
+        <TextBlock Margin="2" Grid.Column="0" Grid.Row="7" Text="TImeIn" />
+        <xctk:TimePicker Margin="2" x:Name = "tbTImeIn" Grid.Row="7" Grid.Column="1" />
         <!--TimeBill-->
-        <TextBlock Grid.Column="0" Grid.Row="9" Margin="2 2 2 2" Text="TimeBill" />
-        <TextBox x:Name = "tbTimeBill" Grid.Row="9" Margin="2 2 2 2" Grid.Column="1" />
+        <TextBlock Grid.Column="0" Grid.Row="8" Margin="2" Text="TimeBill" />
+        <TextBox x:Name = "tbTimeBill" Grid.Row="8" Margin="2" Grid.Column="1"  />
         <!--DateOut-->
-        <TextBlock Grid.Column="0"  Grid.Row="10" Text="DateOut" Margin="2 2 2 2" />
-        <DatePicker x:Name = "tbDateOut" Grid.Row="10" Grid.Column="1" Margin="2 2 2 2" />
+        <TextBlock Grid.Column="0"  Grid.Row="9" Text="DateOut" Margin="2" />
+        <DatePicker x:Name = "tbDateOut" Grid.Row="9" Grid.Column="1" Margin="2" />
         <!--DateIn-->
-        <TextBlock Margin="2 2 2 2" Grid.Column="0" Grid.Row="11"  Text="DateIn" />
-        <DatePicker x:Name = "tbDateIn" Margin="2 2 2 2" Grid.Row="11" Grid.Column="1" />
+        <TextBlock Margin="2" Grid.Column="0" Grid.Row="10"  Text="DateIn" />
+        <DatePicker x:Name = "tbDateIn" Margin="2" Grid.Row="10" Grid.Column="1" />
         <!--Add Button-->
-        <Button x:Name="btnInsert" Grid.Row="13"  Content="Add car" Click="BtnInsert_Click" Grid.ColumnSpan="2" Margin="203,5,193,-5" />
+        <Button x:Name="btnInsert" Grid.Row="12"  Content="Add car" Click="BtnInsert_Click" Grid.ColumnSpan="2" Margin="203,0,193,0" />
     </Grid>
 
 </Window>

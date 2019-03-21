@@ -24,6 +24,8 @@
           <Property Name="DateOut" Type="varchar" MaxLength="50" />
           <Property Name="DateIn" Type="varchar" MaxLength="50" />
           <Property Name="CarOwner" Type="varchar" MaxLength="50" />
+          <Property Name="InitialMeterReading" Type="int" />
+          <Property Name="RecentMeterReading" Type="int" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -34,6 +36,7 @@
           <Property Name="ClientPickUpAddress" Type="varchar" MaxLength="50" />
           <Property Name="ClientContactNo" Type="varchar" MaxLength="50" />
           <Property Name="ClientCompanyName" Type="varchar" MaxLength="50" />
+          <Property Name="ClientNote" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Driver">
           <Key>
@@ -89,6 +92,14 @@
           <Property Name="Note" Type="varchar" MaxLength="50" />
           <Property Name="DriverId" Type="int" />
           <Property Name="CheckInStation" Type="varchar" MaxLength="50" />
+          <Property Name="StaffId" Type="int" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="StaffId" />
+          </Key>
+          <Property Name="StaffId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StaffName" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_RentalAgreement_Reservation">
           <End Role="Reservation" Type="Self.Reservation" Multiplicity="0..1" />
@@ -138,12 +149,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reservation_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="StaffId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="carRentModelStoreContainer">
           <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Driver" EntityType="Self.Driver" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RentalAgreement" EntityType="Self.RentalAgreement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_RentalAgreement_Reservation" Association="Self.FK_RentalAgreement_Reservation">
             <End Role="Reservation" EntitySet="Reservation" />
             <End Role="RentalAgreement" EntitySet="RentalAgreement" />
@@ -158,6 +182,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_Reservation_Driver" Association="Self.FK_Reservation_Driver">
             <End Role="Driver" EntitySet="Driver" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Staff" Association="Self.FK_Reservation_Staff">
+            <End Role="Staff" EntitySet="Staff" />
             <End Role="Reservation" EntitySet="Reservation" />
           </AssociationSet>
         </EntityContainer>
@@ -185,6 +213,8 @@
           <Property Name="DateOut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateIn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CarOwner" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InitialMeterReading" Type="Int32" />
+          <Property Name="RecentMeterReading" Type="Int32" />
           <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Car" FromRole="Car" ToRole="Reservation" />
         </EntityType>
         <EntityType Name="Client">
@@ -196,6 +226,7 @@
           <Property Name="ClientPickUpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ClientContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ClientCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientNote" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Client" FromRole="Client" ToRole="Reservation" />
         </EntityType>
         <EntityType Name="Driver">
@@ -254,10 +285,20 @@
           <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DriverId" Type="Int32" />
           <Property Name="CheckInStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StaffId" Type="Int32" />
           <NavigationProperty Name="Car" Relationship="Self.FK_Reservation_Car" FromRole="Reservation" ToRole="Car" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Reservation_Client" FromRole="Reservation" ToRole="Client" />
           <NavigationProperty Name="Driver" Relationship="Self.FK_Reservation_Driver" FromRole="Reservation" ToRole="Driver" />
           <NavigationProperty Name="RentalAgreements" Relationship="Self.FK_RentalAgreement_Reservation" FromRole="Reservation" ToRole="RentalAgreement" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Reservation_Staff" FromRole="Reservation" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="StaffId" />
+          </Key>
+          <Property Name="StaffId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StaffName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Staff" FromRole="Staff" ToRole="Reservation" />
         </EntityType>
         <Association Name="FK_Reservation_Car">
           <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
@@ -307,12 +348,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reservation_Staff">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="StaffId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="carRentEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cars" EntityType="Self.Car" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Drivers" EntityType="Self.Driver" />
           <EntitySet Name="RentalAgreements" EntityType="Self.RentalAgreement" />
           <EntitySet Name="Reservations" EntityType="Self.Reservation" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
           <AssociationSet Name="FK_Reservation_Car" Association="Self.FK_Reservation_Car">
             <End Role="Car" EntitySet="Cars" />
             <End Role="Reservation" EntitySet="Reservations" />
@@ -328,6 +382,10 @@
           <AssociationSet Name="FK_RentalAgreement_Reservation" Association="Self.FK_RentalAgreement_Reservation">
             <End Role="Reservation" EntitySet="Reservations" />
             <End Role="RentalAgreement" EntitySet="RentalAgreements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservation_Staff" Association="Self.FK_Reservation_Staff">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Reservation" EntitySet="Reservations" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -354,6 +412,8 @@
                 <ScalarProperty Name="DateOut" ColumnName="DateOut" />
                 <ScalarProperty Name="DateIn" ColumnName="DateIn" />
                 <ScalarProperty Name="CarOwner" ColumnName="CarOwner" />
+                <ScalarProperty Name="InitialMeterReading" ColumnName="InitialMeterReading" />
+                <ScalarProperty Name="RecentMeterReading" ColumnName="RecentMeterReading" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -365,6 +425,7 @@
                 <ScalarProperty Name="ClientPickUpAddress" ColumnName="ClientPickUpAddress" />
                 <ScalarProperty Name="ClientContactNo" ColumnName="ClientContactNo" />
                 <ScalarProperty Name="ClientCompanyName" ColumnName="ClientCompanyName" />
+                <ScalarProperty Name="ClientNote" ColumnName="ClientNote" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -423,6 +484,15 @@
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="DriverId" ColumnName="DriverId" />
                 <ScalarProperty Name="CheckInStation" ColumnName="CheckInStation" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="carRentModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

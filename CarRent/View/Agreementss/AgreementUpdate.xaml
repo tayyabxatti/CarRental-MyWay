@@ -58,47 +58,47 @@
                         </Grid.RowDefinitions>
                         <!--CAR MAKE MODEL-->
                         <TextBlock Grid.Row="1" Margin="2 2 2 2" Grid.Column="0" Text="CAR MAKE MODEL" />
-                        <TextBox x:Name="tbCarName" Grid.Row="1" Margin="2 2 2 2" Grid.Column="1"/>
+                        <TextBox x:Name="tbCarName" IsReadOnly="True" Grid.Row="1" Margin="2 2 2 2" Grid.Column="1"/>
                         <!--CHAUFFEUR-->
                         <TextBlock Grid.Row="1" Grid.Column="2" Text="CHAUFFEUR" Margin="2 2 2 2" />
-                        <TextBox Grid.Row="1" x:Name="tbDriverName" Grid.Column="3" Margin="2 2 2 2"/>
+                        <TextBox Grid.Row="1" IsReadOnly="True" x:Name="tbDriverName" Grid.Column="3" Margin="2 2 2 2"/>
                         <!--CAR REGD NO-->
                         <TextBlock Grid.Row="2" Margin="2 2 2 2" Grid.Column="0" Text="CAR REGD NO" />
-                        <TextBox Grid.Row="2" x:Name="tbCarRegistrationNo" Grid.Column="1" Margin="2 2 2 2"/>
+                        <TextBox Grid.Row="2" IsReadOnly="True" x:Name="tbCarRegistrationNo" Grid.Column="1" Margin="2 2 2 2"/>
                         <!--DATE & TIME REPORT-->
                         <TextBlock Grid.Row="2" Grid.Column="2" Text="DATE AND TIME REPORT" Grid.ColumnSpan="2" Margin="0,0,57,0" />
-                        <TextBox Grid.Row="2" Grid.Column="3" x:Name="tbReservationDateTime" Margin="39,0,0,0"/>
+                        <TextBox Grid.Row="2" IsReadOnly="True" Grid.Column="3" x:Name="tbReservationDateTime" Margin="39,0,0,0"/>
                         <!--REVN#-->
                         <TextBlock Grid.Row="3" Margin="2 2 2 2" Grid.Column="0" Text="RSVN#" />
-                        <TextBox Grid.Row="3" Grid.Column="1" Margin="2 2 2 2" x:Name="tbReservationNo" Grid.ColumnSpan="3"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" IsReadOnly="True" Margin="2 2 2 2" x:Name="tbReservationNo" Grid.ColumnSpan="3"/>
                         <!--CLIENT NAME#-->
                         <TextBlock Grid.Row="4" Grid.Column="0" Text="CLIENT'S NAME" Margin="2 2 2 2" />
-                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbClientName" Grid.ColumnSpan="3" Margin="2 2 2 2"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="tbClientName" IsReadOnly="True" Grid.ColumnSpan="3" Margin="2 2 2 2"/>
                         <!--MOBILE-->
                         <TextBlock Grid.Row="5" Grid.Column="0" Text="MOBILE" Margin="2 2 2 2" />
-                        <TextBox Grid.Row="5" Grid.Column="1" x:Name="tbClientContactNo" Grid.ColumnSpan="3" Margin="2 2 2 2"/>
+                        <TextBox Grid.Row="5" Grid.Column="1" x:Name="tbClientContactNo" Grid.ColumnSpan="3" IsReadOnly="True"  Margin="2 2 2 2"/>
                         <!--BILLING ADDRESS-->
                         <TextBlock Grid.Row="6" Grid.Column="0" Text="BILLING ADDRESS" Margin="2 2 2 2" />
-                        <TextBox AcceptsReturn="True" TextWrapping="Wrap" x:Name="tbBillingAddress" Margin="2 2 2 2" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3"/>
+                        <TextBox AcceptsReturn="True" TextWrapping="Wrap" x:Name="tbBillingAddress" IsReadOnly="True" Margin="2 2 2 2" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3"/>
                         <!--BILLING INSTRUCTIONS-->
                         <TextBlock Grid.Row="7" Grid.Column="0" Text="BILLING INSTRUCTIONS" Grid.ColumnSpan="2"  Margin="0,0,65,0" />
-                        <CheckBox Grid.Column="1" Grid.Row="7" Content="Cash Payment" x:Name="tbMethodOdPaymentCash"  Grid.ColumnSpan="2" Margin="36,0,60,0"/>
-                        <CheckBox Grid.Column="3" Grid.Row="7" Content="Credit" x:Name="tbMehodOfPaymentCredit" Margin="1,1,0,15" Grid.RowSpan="2" />
+                        <CheckBox Grid.Column="1" Grid.Row="7" Content="Cash Payment" x:Name="tbMethodOdPaymentCash" IsHitTestVisible="False" Grid.ColumnSpan="2" Margin="36,0,60,0"/>
+                        <CheckBox Grid.Column="3" Grid.Row="7" Content="Credit" x:Name="tbMehodOfPaymentCredit" Margin="1,1,0,15" IsHitTestVisible="False" Grid.RowSpan="2" />
                         <!--FUEL POSITION IN-->
                         <TextBlock Grid.Row="8" Grid.Column="0" Text="FUEL POSITION IN" Grid.ColumnSpan="2" Margin="0,0,78,0" />
-                        <CheckBox Grid.Column="1" Grid.Row="8" Content="FULL" Grid.ColumnSpan="2" x:Name="cbFuelStateFull" Margin="18,1,78,15" Grid.RowSpan="2"/>
-                        <CheckBox Grid.Column="1" Grid.Row="8" Content="HALF" Grid.ColumnSpan="2" x:Name="cbFuelStateHalf" Margin="67,0,29,0"/>
-                        <CheckBox Grid.Column="2" Grid.Row="8" Content="QUARTER" Grid.ColumnSpan="2" x:Name="cbFuelStateQuarter" Margin="31,0,65,0"/>
-                        <CheckBox Grid.Column="3" Grid.Row="8" Content="EMPTY" Margin="19,0,-19,0" x:Name="cbFuelStateEmpty"/>
+                        <CheckBox Grid.Column="1" Grid.Row="8" Content="FULL" Grid.ColumnSpan="2" x:Name="cbFuelStateFull" IsHitTestVisible="False" Margin="18,1,78,15" Grid.RowSpan="2"/>
+                        <CheckBox Grid.Column="1" Grid.Row="8" Content="HALF" Grid.ColumnSpan="2" x:Name="cbFuelStateHalf" IsHitTestVisible="False" Margin="67,0,29,0"/>
+                        <CheckBox Grid.Column="2" Grid.Row="8" Content="QUARTER" Grid.ColumnSpan="2" x:Name="cbFuelStateQuarter" IsHitTestVisible="False" Margin="31,0,65,0"/>
+                        <CheckBox Grid.Column="3" Grid.Row="8" Content="EMPTY" Margin="19,0,-19,0" IsHitTestVisible="False" x:Name="cbFuelStateEmpty"/>
                         <!--FUEL POSITION OUT-->
                         <TextBlock Grid.Row="9" Grid.Column="0" Text="FUEL POSITION OUT" Grid.ColumnSpan="2" Margin="0,0,78,0" />
-                        <CheckBox Grid.Column="1" Grid.Row="9" Content="FULL" Grid.ColumnSpan="2" x:Name="FuelStateOutFull" Margin="18,0,78,0"/>
-                        <CheckBox Grid.Column="1" Grid.Row="9" Content="HALF" Grid.ColumnSpan="2" x:Name="FuelStateOutHalf" Margin="67,0,29,0"/>
-                        <CheckBox Grid.Column="2" Grid.Row="9" Content="QUARTER" Grid.ColumnSpan="2" x:Name="FuelStateOutQuarter" Margin="31,1,65,15" Grid.RowSpan="2"/>
-                        <CheckBox Grid.Column="3" Grid.Row="9" Content="EMPTY" x:Name="FuelStateOutEmpty" Margin="19,0,-19,0"/>
+                        <CheckBox Grid.Column="1" Grid.Row="9" Content="FULL" Grid.ColumnSpan="2" x:Name="FuelStateOutFull" Margin="18,0,78,0" Checked="FuelStateOutFull_Checked"/>
+                        <CheckBox Grid.Column="1" Grid.Row="9" Content="HALF" Grid.ColumnSpan="2" x:Name="FuelStateOutHalf" Margin="67,0,29,0" Checked="FuelStateOutHalf_Checked"/>
+                        <CheckBox Grid.Column="2" Grid.Row="9" Content="QUARTER" Grid.ColumnSpan="2" x:Name="FuelStateOutQuarter" Margin="31,1,65,15" Grid.RowSpan="2" Checked="FuelStateOutQuarter_Checked"/>
+                        <CheckBox Grid.Column="3" Grid.Row="9" Content="EMPTY" x:Name="FuelStateOutEmpty" Margin="19,0,-19,0" Checked="FuelStateOutEmpty_Checked"/>
                         <!--PICK UP ADDRESS/FLIGHT NO-->
-                        <TextBlock Grid.Row="10" Grid.Column="0" Text="PICK UP ADDRESS/ FLIGHT NO" Grid.ColumnSpan="2" Margin="2 2 2 2" />
-                        <TextBox AcceptsReturn="True"  TextWrapping="Wrap" Grid.Row="10" Grid.Column="1" x:Name="tbPickUpAddressOrFlightNo" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="67,2,2,2"/>
+                        <TextBlock Grid.Row="10" Grid.Column="0" Text="PICK UP ADDRESS/ FLIGHT NO"  Grid.ColumnSpan="2" Margin="2 2 2 2" />
+                        <TextBox AcceptsReturn="True"  TextWrapping="Wrap" Grid.Row="10" Grid.Column="1" IsReadOnly="True" x:Name="tbPickUpAddressOrFlightNo" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="67,2,2,2"/>
                         <!--ACTUAL ITINERARY-->
                         <TextBlock Grid.Row="11" Grid.Column="0" Text="ACTUAL ITINERARY" Margin="2 2 2 2"/>
                         <TextBox AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="11" Grid.Column="1"  Grid.ColumnSpan="3" x:Name="tbActualItienrary" Margin="67,2,2,2"/>
@@ -148,13 +148,13 @@
                     <DatePicker Grid.Column="5" x:Name="tbDateIn" Grid.Row="1" Margin="2 2 2 2"/>
                     <!--KMS OUT -->
                     <TextBlock Grid.Column="0" Grid.Row="0" Text="KMS OUT" Margin="2 2 2 2"/>
-                    <TextBox Grid.Column="1" x:Name="tbKmsOut" Grid.Row="0" Margin="2 2 2 2"/>
+                    <TextBox Grid.Column="1" IsReadOnly="True" x:Name="tbKmsOut" Grid.Row="0" Margin="2 2 2 2"/>
                     <!--TIME IN-->
                     <TextBlock Grid.Column="2" Grid.Row="0" Text="TIME OUT" Margin="2 2 2 2"/>
-                    <TextBox Grid.Column="3" x:Name="tbTimeOut" Grid.Row="0" Margin="2 2 2 2"/>
+                    <TextBox Grid.Column="3" IsReadOnly="True" x:Name="tbTimeOut" Grid.Row="0" Margin="2 2 2 2"/>
                     <!--DATE IN-->
-                    <TextBlock Grid.Column="4" Margin="2 2 2 2" Grid.Row="0" Text="DATE OUT"/>
-                    <TextBox Grid.Column="5" x:Name="tbDateOut" Margin="2 2 2 2" Grid.Row="0"/>
+                    <TextBlock Grid.Column="4" Margin="2 2 2 2"  Grid.Row="0" Text="DATE OUT"/>
+                    <TextBox Grid.Column="5" x:Name="tbDateOut" IsReadOnly="True" Margin="2 2 2 2" Grid.Row="0"/>
 
                     <!--KMS DRIVEN -->
                     <TextBlock Grid.Column="0" Grid.Row="2" Text="KMS DRIVEN" Margin="2 2 2 2"/>
@@ -176,22 +176,22 @@
                     <TextBox Grid.Column="4" Grid.Row="6" x:Name="tbMonthlyCharges" Margin="2 2 2 2" Grid.ColumnSpan="2"/>
                     <!--HR@RS-->
                     <TextBlock Grid.Column="2"  Grid.Row="8" Text="HR @ RS" Margin="2 2 2 2"/>
-                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="tbHr" Grid.Row="8" Margin="2 2 2 2" IsKeyboardFocusedChanged="TbHr_IsKeyboardFocusedChanged"  />
-                    <TextBox Grid.Column="3" Grid.ColumnSpan="2" Name="tbhrRs" Grid.Row="8" Margin="2 2 2 2"/>
+                    <TextBox Grid.Column="0" IsReadOnly="True" Grid.ColumnSpan="2" x:Name="tbHr" Grid.Row="8" Margin="2 2 2 2" IsKeyboardFocusedChanged="TbHr_IsKeyboardFocusedChanged"  />
+                    <TextBox Grid.Column="3" IsReadOnly="True" Grid.ColumnSpan="2" Name="tbhrRs" Grid.Row="8" Margin="2 2 2 2"/>
                     <!--KMS@RS-->
                     <TextBlock Grid.Column="2" Grid.Row="9" Text="KMS @ RS" Margin="2 2 2 2"/>
-                    <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="tbKms" Grid.Row="9" Margin="2 2 2 2" IsKeyboardFocusedChanged="TbKms_IsKeyboardFocusedChanged"/>
-                    <TextBox Grid.Column="3" Grid.ColumnSpan="2" x:Name="tbkmsRs" Grid.Row="9" Margin="2 2 2 2"/>
+                    <TextBox Grid.Column="0" IsReadOnly="True" Grid.ColumnSpan="2" x:Name="tbKms" Grid.Row="9" Margin="2 2 2 2" IsKeyboardFocusedChanged="TbKms_IsKeyboardFocusedChanged"/>
+                    <TextBox Grid.Column="3" IsReadOnly="True" Grid.ColumnSpan="2" x:Name="tbkmsRs" Grid.Row="9" Margin="2 2 2 2"/>
                     <!--DRIVER@RS-->
                     <TextBlock Grid.Column="2" Grid.Row="10" Text="DRIVER@RS" Margin="2 2 2 2"/>
                     <TextBox Grid.Column="0" Grid.ColumnSpan="2" x:Name="tbDriver" Grid.Row="10" Margin="2 2 2 2"/>
-                    <TextBox Grid.Column="3" Grid.ColumnSpan="2" x:Name="tbdriverRs" Grid.Row="10" Margin="2 2 2 2"/>
+                    <TextBox Grid.Column="3" Grid.ColumnSpan="2" x:Name="tbdriverRs" Grid.Row="10" Margin="2 2 2 2" IsKeyboardFocusedChanged="TbdriverRs_IsKeyboardFocusedChanged"/>
                     <!--16% GST-->
                     <TextBlock Grid.Column="0" Grid.Row="12" Text="16% GST" Margin="2 2 2 2" />
-                    <TextBox Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="4" x:Name="tbGst"  Margin="2,2,2,2"   />
+                    <TextBox Grid.Row="12" IsReadOnly="True" Grid.Column="2" Grid.ColumnSpan="4" x:Name="tbGst"  Margin="2,2,2,2"   />
                     <!--SUB TOTAL-->
                     <TextBlock Grid.Column="0" Grid.Row="11" Text="SUB TOTAL" Margin="2 2 2 2"/>
-                    <TextBox Grid.Column="2" Grid.Row="11" Grid.ColumnSpan="4"  x:Name="tbSubTotal" Margin="2 2 2 2" />
+                    <TextBox Grid.Column="2" IsReadOnly="True" Grid.Row="11" Grid.ColumnSpan="4"  x:Name="tbSubTotal" Margin="2 2 2 2" />
                     <!--FUEL-->
                     <TextBlock Grid.Column="0" Grid.Row="13" Text="FUEL" Margin="2 2 2 2"/>
                     <TextBox Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="4" x:Name="tbFuel"  Margin="2 2 2 2"/>
@@ -204,7 +204,7 @@
                     <TextBox Grid.Column="2" Grid.Row="15" Grid.ColumnSpan="4" x:Name="tbDriverNight" Margin="2 2 2 2" />
                     <!--TOTAL-->
                     <TextBlock Grid.Column="0" Grid.Row="16" Text="TOTAL" Margin="2 2 2 2"/>
-                    <TextBox Grid.Column="2" Grid.Row="16" Grid.ColumnSpan="4" x:Name="tbTotal" Margin="2 2 2 2" />
+                    <TextBox Grid.Column="2" IsReadOnly="True" Grid.Row="16" Grid.ColumnSpan="4" x:Name="tbTotal" Margin="2 2 2 2" />
                     <!--PREPAYMENT-->
                     <TextBlock Grid.Row="17" Text="PREPAYMENT" HorizontalAlignment="Left"  Grid.ColumnSpan="2" Margin="2 2 2 2" />
                     <TextBox Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="17" x:Name="tbPrepayment" Margin="2 2 2 2"/>
@@ -213,7 +213,7 @@
                     <TextBox Grid.Column="2" Grid.ColumnSpan="4" Grid.Row="18" x:Name="tbAmountDue" Margin="2 2 2 2"/>
                     <!--TOTAL CHARGES-->
                     <TextBlock Grid.Column="0" Grid.Row="19" Text="TOTAL CHARGES" Grid.ColumnSpan="2" Margin="2 2 2 2"/>
-                    <TextBox Grid.Column="2" Grid.Row="19" Grid.ColumnSpan="4" x:Name="tbGrandTotal" Margin="2 2 2 2"  />
+                    <TextBox Grid.Column="2" IsReadOnly="True" Grid.Row="19" Grid.ColumnSpan="4" x:Name="tbGrandTotal" Margin="2 2 2 2"  />
                 </Grid>
             </Border>
         </Grid>

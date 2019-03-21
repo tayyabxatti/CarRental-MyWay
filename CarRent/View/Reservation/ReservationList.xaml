@@ -58,7 +58,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <Button x:Name="btnUpdate" Content="Edit" Click="BtnUpdate_Click" />
-
+                                    <Button x:Name="btnRental" Content="Rental" Click="BtnRental_Click"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

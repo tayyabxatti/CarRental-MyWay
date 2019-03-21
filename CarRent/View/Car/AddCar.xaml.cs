@@ -29,18 +29,18 @@ namespace CarRent.View
 
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
-            var totalKm = 0;
-            if (tbCarKmIn.Text != "" && tbCarKmOut.Text != "" && Convert.ToInt32(tbCarKmIn.Text) > Convert.ToInt32(tbCarKmOut.Text))
-            {
-                totalKm = Int32.Parse(tbCarKmIn.Text) - Int32.Parse(tbCarKmOut.Text);
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("please enter valid KmIn and KmOut");
-            }
+            //var totalKm = 0;
+            //if (tbCarKmIn.Text != "" && tbCarKmOut.Text != "" && Convert.ToInt32(tbCarKmIn.Text) > Convert.ToInt32(tbCarKmOut.Text))
+            //{
+            //    totalKm = Int32.Parse(tbCarKmIn.Text) - Int32.Parse(tbCarKmOut.Text);
+            //}
+            //else
+            //{
+            //    System.Windows.MessageBox.Show("please enter valid KmIn and KmOut");
+            //}
             var totalTime = DateTime.Now - DateTime.Now;
-            if(tbTImeIn.Text!="" && tbTimeOut.Text!=null && DateTime.Parse(tbTimeOut.Text) < DateTime.Parse(tbTImeIn.Text))
-            { 
+            if (tbTImeIn.Text != "" && tbTimeOut.Text != null && DateTime.Parse(tbTimeOut.Text) < DateTime.Parse(tbTImeIn.Text))
+            {
                 totalTime = DateTime.Parse(tbTImeIn.Value.Value.ToLongTimeString()) - DateTime.Parse(tbTimeOut.Value.Value.ToLongTimeString());
             }
             else
@@ -48,7 +48,7 @@ namespace CarRent.View
                 System.Windows.MessageBox.Show("Please enter valid TimeIn and TimeOut");
             }
             string carowner = "";
-            if(cbCarOwnerOwn.IsChecked == true)
+            if (cbCarOwnerOwn.IsChecked == true)
             {
                 carowner = cbCarOwnerOwn.Content.ToString();
             }
@@ -77,10 +77,12 @@ namespace CarRent.View
             {
                 fuelstate = cbCarFuelStateEmpty.Content.ToString();
             }
+
             Car car = new Car()
             {
-                CarKmIn = Int32.Parse(tbCarKmIn.Text),
-                CarKmOut = Int32.Parse(tbCarKmOut.Text),
+                InitialMeterReading = Int32.Parse(tbInitalReading.Text),
+                CarKmIn = Int32.Parse(tbInitalReading.Text),
+                CarKmOut= Int32.Parse(tbInitalReading.Text),
                 CarMake = tbCarMake.Text,
                 CarRegistrationNo = tbCarRegistrationNo.Text,
                 DateIn = tbDateIn.SelectedDate.Value.ToShortDateString(),
@@ -89,7 +91,7 @@ namespace CarRent.View
                 TImeIn = tbTImeIn.Value.Value.ToShortTimeString(),
                 TimeOut = tbTimeOut.Value.Value.ToShortTimeString(),
                 TimeBill = Int32.Parse(tbTimeBill.Text),
-                TotalKm = totalKm,
+                //TotalKm = totalKm,
                 TotalTime = Convert.ToInt16(totalTime.TotalHours),
                 CarFuelState = fuelstate,
                 CarOwner = carowner,
@@ -181,5 +183,7 @@ namespace CarRent.View
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+       
     }
 }

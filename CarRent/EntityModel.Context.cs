@@ -30,5 +30,6 @@ namespace CarRent
         public virtual DbSet<Driver> Drivers { get; set; }
         public virtual DbSet<RentalAgreement> RentalAgreements { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<Staff> Staffs { get; set; }
     }
 }

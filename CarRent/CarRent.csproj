@@ -120,6 +120,9 @@
     <Compile Include="Reservation.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Staff.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="View\Agreementss\AgreementList.xaml.cs">
       <DependentUpon>AgreementList.xaml</DependentUpon>
     </Compile>
@@ -293,6 +296,5 @@
       <LastGenOutput>EntityModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

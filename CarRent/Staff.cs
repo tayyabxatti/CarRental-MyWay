@@ -12,20 +12,16 @@ namespace CarRent
     using System;
     using System.Collections.Generic;
     
-    public partial class Client
+    public partial class Staff
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Client()
+        public Staff()
         {
             this.Reservations = new HashSet<Reservation>();
         }
     
-        public int ClientId { get; set; }
-        public string ClientName { get; set; }
-        public string ClientPickUpAddress { get; set; }
-        public string ClientContactNo { get; set; }
-        public string ClientCompanyName { get; set; }
-        public string ClientNote { get; set; }
+        public int StaffId { get; set; }
+        public string StaffName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservations { get; set; }

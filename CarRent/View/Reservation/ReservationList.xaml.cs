@@ -1,4 +1,5 @@
-﻿using iTextSharp.text;
+﻿using CarRent.View.Agreementss;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
@@ -150,6 +151,15 @@ namespace CarRent.View
             PdfDOcument.Add(table);
             PdfDOcument.OpenDocument();
             PdfDOcument.Close();
+        }
+
+        private void BtnRental_Click(object sender, RoutedEventArgs e)
+        {
+            int Id = (ReservationGrid.SelectedItem as Reservation).ReservationId;
+            var rentals = _db.RentalAgreements.Where(x => x.ReservationId == Id).Select(a=> a.RentalAgreementId).SingleOrDefault();
+            
+            AgreementUpdate agreementUpdate = new AgreementUpdate(rentals);
+            agreementUpdate.ShowDialog();
         }
     }
 }
