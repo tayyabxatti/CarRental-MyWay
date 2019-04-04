@@ -34,6 +34,8 @@ namespace CarRent.View.Renters
                 ClientCompanyName = tbClientCompanyName.Text,
                 ClientContactNo = tbClientContactNo.Text,
                 ClientPickUpAddress = tbClientPickUpAddress.Text,
+                ClientNote = tbClientNote.Text,
+                ClientEmail = tbClientEmail.Text,
             };
             _db.Clients.Add(client);
             _db.SaveChanges();

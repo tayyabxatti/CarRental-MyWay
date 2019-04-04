@@ -219,7 +219,7 @@ namespace CarRent.View.Agreementss
                 }
                 if (tbDailyCharges.Text == "")
                 {
-                    if (tbMonthlyCharges.Text == "" || tbDailyCharges.Text == "" )
+                    if (tbMonthlyCharges.Text != "" || tbDailyCharges.Text != "" )
                     {
                         int subTotal = Convert.ToInt32(tbMonthlyCharges.Text) + Convert.ToInt32(tbhrRs.Text) + Convert.ToInt32(tbkmsRs.Text);
                         var gst = Convert.ToInt32(tbSubTotal.Text) * 16 / 100;

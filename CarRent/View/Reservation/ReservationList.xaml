@@ -47,7 +47,7 @@
                     <DataGridTextColumn Header="Driver Name" Binding="{Binding Driver.DriverName}"/>
                     <DataGridTextColumn Header="Client Name" Binding="{Binding Client.ClientName}"/>
                     <DataGridTextColumn Header="Billing Address" Binding="{Binding BillingAddress}"/>
-                    <DataGridTextColumn Header="StaffName" Binding="{Binding StaffName}"/>
+                    <DataGridTextColumn Header="StaffName" Binding="{Binding Staff.StaffName}"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>

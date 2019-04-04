@@ -6,34 +6,45 @@
         xmlns:local="clr-namespace:CarRent.View.Renters"
         mc:Ignorable="d"
         Title="UpdateRenter" Height="450" Width="800">
-    <StackPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <!--ClientsName-->
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="Client Name" Margin="2 2 2 2" />
-            <TextBox x:Name = "tbClientName" Grid.Row="0" Grid.Column="1" Margin="2 2 2 2" />
-            <!--ClientsName-->
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="ClientPickUpAddress" Margin="2 2 2 2" />
-            <TextBox x:Name = "tbClientPickUpAddress" Grid.Row="2" Grid.Column="1"  Margin="2 2 2 2"/>
-            <!--ClientsName-->
-            <TextBlock Grid.Column="0" Grid.Row="3" Text="ClientContactNo" Margin="2 2 2 2" />
-            <TextBox x:Name = "tbClientContactNo" Grid.Row="3" Grid.Column="1" Margin="2 2 2 2" />
-            <!--ClientsName-->
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="ClientCompanyName" Margin="2 2 2 2" />
-            <TextBox x:Name = "tbClientCompanyName" Grid.Row="4" Grid.Column="1" Margin="2 2 2 2" />
-            <!--Add Button-->
-            <Button x:Name="btnUpdate" Grid.Row="6" Content="Add Client" Click="BtnUpdate_Click"  Grid.ColumnSpan="2" Margin="203,5,193,-5" />
-        </Grid>
-    </StackPanel>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--ClientsName-->
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Client Name" Margin="2,2,2,2" />
+        <TextBox x:Name = "tbClientName" Grid.Row="1" Grid.Column="1" Margin="2,2,2,2" />
+        <!--ClientsName-->
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="ClientPickUpAddress" Margin="2 2 2 2" />
+        <TextBox x:Name = "tbClientPickUpAddress" Grid.Row="2" Grid.Column="1"  Margin="2 2 2 2"/>
+        <!--ClientsName-->
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="ClientContactNo" Margin="2 2 2 2" />
+        <TextBox x:Name = "tbClientContactNo" Grid.Row="3" Grid.Column="1" Margin="2 2 2 2" />
+        <!--ClientsName-->
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="ClientCompanyName" Margin="2 2 2 2" />
+        <TextBox x:Name = "tbClientCompanyName" Grid.Row="4" Grid.Column="1" Margin="2 2 2 2" />
+
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Email" Margin="2 2 2 2"/>
+        <TextBox x:Name="tbClientEmail" Grid.Row="5" Grid.RowSpan="1" Grid.Column="1" Margin="2 2 2 2" />
+
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Note" Margin="2 2 2 2" />
+        <TextBox x:Name = "tbClientNote" Grid.Row="6" Grid.RowSpan="1"  Grid.Column="1"  Margin="2,2,2,2" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
+
+
+        <!--Add Button-->
+        <Button x:Name="btnUpdate" Grid.Row="7" Content="Add Client" Click="BtnUpdate_Click"  Grid.ColumnSpan="2" Margin="203,5,193,-5" />
+    </Grid>
+
 </Window>

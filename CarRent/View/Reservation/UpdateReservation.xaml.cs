@@ -20,6 +20,10 @@ namespace CarRent.View
     public partial class UpdateReservation : Window
     {
         carRentEntities _db = new carRentEntities();
+        public List<Car> CarList { get; set; }
+        public List<Client> ClientList { get; set; }
+        public List<Staff> StaffList { get; set; }
+        public List<Driver> DriverList { set; get; }
         int Id;
         public UpdateReservation(int ReservationId)
         {
@@ -31,21 +35,44 @@ namespace CarRent.View
         public void fillCombo()
         {
             var reser = _db.Reservations.Where(x => x.ReservationId == Id).SingleOrDefault();
-            var carnames = _db.Cars.ToList();
-            foreach (var item in carnames)
-            {
-                cbCarMake.Items.Add($"{item.CarMake} : {item.CarRegistrationNo}");
-            }
-            var clientnames = _db.Clients.ToList();
-            foreach (var client in clientnames)
-            {
-                cbRentersName.Items.Add($"{client.ClientName}");
-            }
-            var drivernames = _db.Drivers.ToList();
-            foreach (var item in drivernames)
-            {
-                cbDriverName.Items.Add($"{item.DriverName}");
-            }
+            var cars = _db.Cars.ToList();
+            var clients = _db.Clients.ToList();
+            var staff = _db.Staffs.ToList();
+            var driver = _db.Drivers.ToList();
+            
+
+            
+            CarList = cars;
+            cbCarMake.DataContext = CarList;
+            
+            
+            ClientList = clients;
+            cbRentersName.DataContext = ClientList;
+           
+            
+            StaffList = staff;
+            tbStaffName.DataContext = StaffList;
+
+            
+            DriverList = driver;
+            cbDriverName.DataContext = DriverList;
+            
+
+            //var carnames = _db.Cars.ToList();
+            //foreach (var item in carnames)
+            //{
+            //    cbCarMake.Items.Add($"{item.CarMake} : {item.CarRegistrationNo}");
+            //}
+            //var clientnames = _db.Clients.ToList();
+            //foreach (var client in clientnames)
+            //{
+            //    cbRentersName.Items.Add($"{client.ClientName}");
+            //}
+            //var drivernames = _db.Drivers.ToList();
+            //foreach (var item in drivernames)
+            //{
+            //    cbDriverName.Items.Add($"{item.DriverName}");
+            //}
 
             tbBookedAtDATE.Minimum = DateTime.Now;
             tbBookedAtDATE.ClipValueToMinMax = true;
@@ -87,31 +114,34 @@ namespace CarRent.View
         }
         private void CbRentersName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbRentersName.SelectedValue != null)
-            {
-                var clientName = cbRentersName.SelectedValue.ToString();
-                tbPickupAddress.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientPickUpAddress).SingleOrDefault();
-                tbTelephoneContact.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientContactNo).SingleOrDefault();
-            }
+            var item = cbRentersName.SelectedItem as Client;
+            tbPickupAddress.Text = item.ClientPickUpAddress;
+            tbTelephoneContact.Text = item.ClientContactNo;
+            tbBillingAddress.Text = item.ClientCompanyName;
         }
         public void Load()
         {
             Reservation updateReservation = (from r in _db.Reservations where r.ReservationId == Id select r).SingleOrDefault();
+            var carmake = _db.Cars.Where(c => c.CarId == updateReservation.CarId).SingleOrDefault();
+            var drivername = _db.Drivers.Where(c => c.DriverId == updateReservation.DriverId).SingleOrDefault();
+            var staffname = _db.Staffs.Where(c => c.StaffId == updateReservation.StaffId).SingleOrDefault();
+            var rentername = _db.Clients.Where(c => c.ClientId == updateReservation.ClientId).SingleOrDefault();
 
+            tbRentingStation.Text = updateReservation.RentingStation;
             tbBillingAddress.Text = updateReservation.BillingAddress;
             tbBookedAtDATE.Text = updateReservation.BookedAt.ToString();
-            cbRentersName.Text = updateReservation.Client.ClientName;
             tbTelephoneContact.Text = updateReservation.Client.ClientContactNo;
             tbPickupAddress.Text = updateReservation.Client.ClientPickUpAddress;
             tbSource.Text = updateReservation.Source;
-            tbStaffName.Text = updateReservation.StaffName;
             tbRentingStation.Text = updateReservation.RentingStation;
             tbNote.Text = updateReservation.Note;
-            cbDriverName.SelectedItem = updateReservation.Driver.DriverName;
-            cbRentersName.SelectedItem = updateReservation.Client.ClientName;
             tbCheckInStation.Text = updateReservation.CheckInStation;
-            cbCarMake.SelectedValue = updateReservation.Car.CarMake;
+            cbCarMake.SelectedItem = carmake;
+            cbDriverName.SelectedItem = drivername;
+            cbRentersName.SelectedItem = rentername;
+            tbStaffName.SelectedItem = staffname;
             
+
             if (updateReservation.MethodOfPayment == "cash")
             {
                 cbMethodOfPaymentCash.IsChecked = true;

@@ -48,7 +48,7 @@ namespace CarRent.View.Renters
             var deleteclient = _db.Clients.Where(c => c.ClientId == Id).SingleOrDefault();
             _db.Clients.Remove(deleteclient);
             _db.SaveChanges();
-            ClientGrid.ItemsSource = _db.Drivers.ToList();
+            ClientGrid.ItemsSource = _db.Clients.ToList();
 
         }
 

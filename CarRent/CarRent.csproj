@@ -114,6 +114,7 @@
     <Compile Include="Invoice.xaml.cs">
       <DependentUpon>Invoice.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MinimumCharacterRule.cs" />
     <Compile Include="RentalAgreement.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>

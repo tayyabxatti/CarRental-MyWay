@@ -22,6 +22,10 @@ namespace CarRent.View
     public partial class Reserve : Window
     {
         carRentEntities _db = new carRentEntities();
+        public List<Car> CarList { get; set; }
+        public List<Client> ClientList { get; set; }
+        public List<Staff> StaffList { get; set; }
+        public List<Driver> DriverList { set; get; }
         public Reserve()
         {
             InitializeComponent();
@@ -29,39 +33,49 @@ namespace CarRent.View
         }
         public void fillCombo()
         {
-            cbRentersName.Items.Clear();
-            cbCarMake.Items.Clear();
-            var carnames = _db.Cars.ToList();
-            foreach (var item in carnames)
-            {
+            var cars = _db.Cars.ToList();
+            CarList = cars;
+            cbCarMake.DataContext = CarList;
 
-                cbCarMake.Items.Add($"{item.CarMake} : {item.CarRegistrationNo}");
-            }
-            var clientnames = _db.Clients.ToList();
-            foreach (var client in clientnames)
-            {
-               
-                    cbRentersName.Items.Add($"{client.ClientName} : {client.ClientContactNo}");
-                
-            }
-            var drivernames = _db.Drivers.ToList();
-            foreach (var item in drivernames)
-            {
-                cbDriverName.Items.Add($"{item.DriverName}");
-            }
-            var staffnames = _db.Staffs.ToList();
-            foreach(var lad in staffnames)
-            {
-                tbStaffName.Items.Add(lad.StaffName);
-            }
+            var clients = _db.Clients.ToList();
+            ClientList = clients;
+            cbRentersName.DataContext = ClientList;
+
+            var staff = _db.Staffs.ToList();
+            StaffList = staff;
+            tbStaffName.DataContext = StaffList;
+
+            var driver = _db.Drivers.ToList();
+            DriverList = driver;
+            cbDriverName.DataContext = DriverList;
+            //var carnames = _db.Cars.ToList();
+            //foreach (var item in carnames)
+            //{
+
+            //    cbCarMake.Items.Add($"{item.CarMake} : {item.CarRegistrationNo}");
+            //}
+            //var clientnames = _db.Clients.ToList();
+            //foreach (var client in clientnames)
+            //{
+
+            //        cbRentersName.Items.Add($"{client.ClientName} : {client.ClientContactNo}");
+
+            //}
+            //var drivernames = _db.Drivers.ToList();
+            //foreach (var item in drivernames)
+            //{
+            //    cbDriverName.Items.Add($"{item.DriverName}");
+            //}
+            //var staffnames = _db.Staffs.ToList();
+            //foreach(var lad in staffnames)
+            //{
+            //    tbStaffName.Items.Add(lad.StaffName);
+            //}
 
             tbBookedAtDATE.Minimum = DateTime.Now;
             tbBookedAtDATE.ClipValueToMinMax = true;
         }
-        private void CbDriverName_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+        
 
         private void CbSelfDrive_Checked(object sender, RoutedEventArgs e)
         {
@@ -95,18 +109,7 @@ namespace CarRent.View
                 cbMethodOfPaymentCredit.IsChecked = false;
             }
         }
-        private void CbRentersName_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cbRentersName.SelectedValue != null) { 
-            var clientName = cbRentersName.SelectedValue.ToString()?.Split(':')[0].Trim();
-            tbPickupAddress.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientPickUpAddress).SingleOrDefault();
-            tbTelephoneContact.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientContactNo).SingleOrDefault();
-            tbBillingAddress.Text = _db.Clients.Where(x => x.ClientName == clientName).Select(a => a.ClientCompanyName).SingleOrDefault();
-            }
-            
-            
-            
-        }
+        
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
 
@@ -121,18 +124,24 @@ namespace CarRent.View
             {
 
                 ClientPickUpAddress = tbPickupAddress.Text,
-                ClientContactNo = cbRentersName.SelectedValue.ToString().Split(':')[1].Trim(),
-                ClientName = cbRentersName.SelectedValue.ToString().Split(':')[0].Trim(),
+                ClientContactNo = tbTelephoneContact.Text,
+                ClientName = cbRentersName.SelectedValue.ToString(),
             };
             _db.SaveChanges();
             Car car = new Car()
             {
-                CarMake = cbCarMake.SelectedValue.ToString().Split(':')[0].Trim(),
-                CarRegistrationNo = cbCarMake.SelectedValue.ToString().Split(':')[1].Trim(),
+                CarId = Convert.ToInt32(cbCarMake.SelectedValue),
+                CarMake = cbCarMake.SelectedValue.ToString(),
+                
             };
-            var carReg = cbCarMake.SelectedValue.ToString().Split(':')[1].Trim();
+            Staff staff = new Staff()
+            {
+                StaffId = Convert.ToInt32(tbStaffName.SelectedValue),
+                StaffName = tbStaffName.SelectedItem.ToString(),
+            };
+            
             var cid = _db.Clients.Where(c => c.ClientName == client.ClientName && c.ClientContactNo == client.ClientContactNo).Select(a => a.ClientId).SingleOrDefault();
-            var carid = _db.Cars.Where(c => c.CarMake == car.CarMake && c.CarRegistrationNo == carReg).Select(f => f.CarId).SingleOrDefault();
+            var carid = _db.Cars.Where(c => c.CarId == car.CarId).Select(f => f.CarId).SingleOrDefault();
             var did = _db.Drivers.Where(x => x.DriverName == cbDriverName.Text).Select(f => f.DriverId).SingleOrDefault();
             _db.SaveChanges();
             Reservation reservation = new Reservation()
@@ -140,18 +149,18 @@ namespace CarRent.View
                 RentingStation = tbRentingStation.Text,
                 BookedAt = DateTime.Parse(tbBookedAtDATE.Text),
                 //Client Airplane and Flight No
-                CarId = carid,
+                CarId = Convert.ToInt32(cbCarMake.SelectedValue),
                 //Car Group Make and Model 
-                ClientId = cid,
+                ClientId = Convert.ToInt32(cbRentersName.SelectedValue),
                 //Driver Name
-                DriverId = did,
+                DriverId = Convert.ToInt32(cbDriverName.SelectedValue),
                 CheckInStation = tbCheckInStation.Text,
                 //Client Name , Pickup Address
                 MethodOfPayment = meth,
                 BillingAddress = tbBillingAddress.Text,
                 Source = tbSource.Text,
                 //Client Telephone contact
-                StaffName = tbStaffName.SelectedValue.ToString(),
+                StaffId = Convert.ToInt32(tbStaffName.SelectedValue),
                 Note = tbNote.Text,
                 ReservationDateTime = DateTime.Now,
 
@@ -204,10 +213,31 @@ namespace CarRent.View
             
         }
 
+        private void CbRentersName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = cbRentersName.SelectedItem as Client;
+            tbPickupAddress.Text = item.ClientPickUpAddress;
+            tbTelephoneContact.Text = item.ClientContactNo;
+            tbBillingAddress.Text = item.ClientCompanyName;
+            //if (cbRentersName.SelectedValue != null)
+            //{
+            //    var clientName = cbRentersName.SelectedValue.ToString()?.Split(':')[0].Trim();
+            //    tbPickupAddress.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientPickUpAddress).SingleOrDefault();
+            //    tbTelephoneContact.Text = _db.Clients.Where(a => a.ClientName == clientName).Select(x => x.ClientContactNo).SingleOrDefault();
+            //    tbBillingAddress.Text = _db.Clients.Where(x => x.ClientName == clientName).Select(a => a.ClientCompanyName).SingleOrDefault();
+            //}
+        }
+
+        private void CbDriverName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
         private void TbStaffName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
 
         }
+
     }
 
 

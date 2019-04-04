@@ -37,6 +37,7 @@
           <Property Name="ClientContactNo" Type="varchar" MaxLength="50" />
           <Property Name="ClientCompanyName" Type="varchar" MaxLength="50" />
           <Property Name="ClientNote" Type="varchar" MaxLength="250" />
+          <Property Name="ClientEmail" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Driver">
           <Key>
@@ -227,6 +228,7 @@
           <Property Name="ClientContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ClientCompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ClientNote" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ClientEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservation_Client" FromRole="Client" ToRole="Reservation" />
         </EntityType>
         <EntityType Name="Driver">
@@ -426,6 +428,7 @@
                 <ScalarProperty Name="ClientContactNo" ColumnName="ClientContactNo" />
                 <ScalarProperty Name="ClientCompanyName" ColumnName="ClientCompanyName" />
                 <ScalarProperty Name="ClientNote" ColumnName="ClientNote" />
+                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

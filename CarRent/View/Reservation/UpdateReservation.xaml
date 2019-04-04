@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarRent.View"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local1="clr-namespace:CarRent.ViewModels"
         mc:Ignorable="d"
         Title="UpdateReservation" Height="450" Width="800">
     <Grid Margin="-1,0,1,0">
@@ -38,24 +39,32 @@
 
         <!--STATION-->
         <TextBlock Grid.Column="1" Grid.Row="2" Margin="2" ><Run FontWeight="Bold" Text="RENTING STATION"/></TextBlock>
-        <TextBox x:Name = "tbRentingStation" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="2" />
+        <TextBox x:Name = "tbRentingStation" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="2" >
+            <TextBox.Text>
+                <Binding Path="tbRentingStation" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <local1:MinimumCharacterRule MinimumCharacter="5"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
         <!--CHECK OUT DATE TIME-->
         <TextBlock Grid.Column="1" Grid.Row="3" Margin="2" Grid.RowSpan="2" ><Run FontWeight="Bold" Text="BOOKED AT TIME/DATE"/></TextBlock>
         <xctk:DateTimePicker x:Name = "tbBookedAtDATE" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Margin="2" />
         <!--CAR GROUP-->
         <TextBlock Grid.Column="1" Margin="2" Grid.Row="4" ><Run FontWeight="Bold" Text="CAR GROUP(MAKE,MODEL)"/></TextBlock>
-        <ComboBox x:Name="cbCarMake"   Grid.Column="2" Grid.Row="4" Text="CarMake" Grid.ColumnSpan="2" Margin="2">
-            <ComboBoxItem Margin="2" >CarMake : Registration No</ComboBoxItem>
+        <ComboBox x:Name="cbCarMake" ItemsSource="{Binding}"  DisplayMemberPath="CarMake"   SelectedValuePath="CarId"  Grid.Column="2" Grid.Row="4" Text="CarMake" Grid.ColumnSpan="2" Margin="2">
+            
         </ComboBox>
         <CheckBox x:Name="cbSelfDrive" Grid.Column="4" Grid.Row="3" Content="SELF DRIVE" Checked="CbSelfDrive_Checked"  VerticalAlignment="Center" Margin="2" Grid.ColumnSpan="2"/>
         <CheckBox x:Name="cbDriver" Grid.Column="5" Grid.Row="3" Content="CHAUFFEUR DRIVE" Height="24"  Checked="CbDriver_Checked" VerticalAlignment="Center" Margin="2"/>
-        <ComboBox x:Name="cbDriverName" Grid.Column="6" Grid.Row="3" Text="Driver Name" SelectionChanged="CbDriverName_SelectionChanged" Margin="2"/>
+        <ComboBox x:Name="cbDriverName" ItemsSource="{Binding}"  DisplayMemberPath="DriverName"   SelectedValuePath="DriverId" Grid.Column="6" Grid.Row="3" Text="Driver Name" SelectionChanged="CbDriverName_SelectionChanged" Margin="2"/>
         <!--CHECK IN STATION-->
         <TextBlock Grid.Column="1" Grid.Row="5" Margin="2" ><Run FontWeight="Bold" Text="CHECK IN STATION"/></TextBlock>
         <TextBox x:Name = "tbCheckInStation" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Margin="2" />
         <!--RENTER'S NAME-->
         <TextBlock Grid.Column="1" Grid.Row="6" Margin="2" ><Run FontWeight="Bold" Text="RENTER'S NAME"/></TextBlock>
-        <ComboBox x:Name = "cbRentersName" x:Uid="ClientIdUid" Grid.Column="2" IsEditable="True" Grid.ColumnSpan="2" Grid.Row="6" SelectionChanged="CbRentersName_SelectionChanged" Margin="2" />
+        <ComboBox x:Name = "cbRentersName" ItemsSource="{Binding}"  DisplayMemberPath="ClientName"   SelectedValuePath="ClientId" Grid.Column="2" IsEditable="True" Grid.ColumnSpan="2" Grid.Row="6" SelectionChanged="CbRentersName_SelectionChanged" Margin="2" />
         <!--PICK UP ADDRESS-->
         <TextBlock Grid.Column="1" Grid.Row="7" Margin="2" ><Run FontWeight="Bold" Text="PICK UP ADDRESS / FLIGHT NO"/></TextBlock>
         <TextBox x:Name = "tbPickupAddress" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="7" Margin="2" />
@@ -67,7 +76,7 @@
 
         <!--BILLING ADDRESS-->
         <TextBlock Grid.Column="4" Grid.Row="8" Grid.ColumnSpan="2" Margin="2" ><Run FontWeight="Bold" Text="BILLING ADDRESS"/></TextBlock>
-        <TextBox x:Name = "tbBillingAddress" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="8" Grid.RowSpan="2" Margin="1,1,0,0"  />
+        <TextBox x:Name = "tbBillingAddress" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="8" Grid.RowSpan="2" Margin="1,1,0,0"  AcceptsReturn="True" VerticalScrollBarVisibility="Visible"  />
         <!--SOURCE-->
         <TextBlock Grid.Column="4" Grid.Row="2" Margin="2,2,2,0" ><Run FontWeight="Bold" Text="SOURCE"/></TextBlock>
         <TextBox x:Name = "tbSource" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="2" Margin="2" />
@@ -76,12 +85,12 @@
         <TextBox x:Name = "tbTelephoneContact" Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2" Margin="2"  />
         <!--STAFF NAME-->
         <TextBlock Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="2" Margin="2"><Run FontWeight="Bold" Text="STAFF NAME"/></TextBlock>
-        <TextBox x:Name = "tbStaffName" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" Margin="2" />
+        <ComboBox x:Name = "tbStaffName" ItemsSource="{Binding}"  DisplayMemberPath="StaffName" SelectedValuePath="StaffId"  Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2" Margin="2"  />
         <!--NOTE-->
         <TextBlock Grid.Column="4" Grid.Row="10" Margin="2" ><Run FontWeight="Bold" Text="NOTE"/></TextBlock>
 
 
-        <TextBox x:Name = "tbNote" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="10" Grid.RowSpan="2" Margin="2" />
+        <TextBox x:Name = "tbNote" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="10" Grid.RowSpan="2" Margin="2"  AcceptsReturn="True" VerticalScrollBarVisibility="Visible" />
 
         <!--Buttons-->
         <Button x:Name = "btnUpdate" Grid.Row="13" Grid.Column="2" Content = "Make Reservation" Click="BtnUpdate_Click" />

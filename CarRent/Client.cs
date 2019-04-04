@@ -26,6 +26,7 @@ namespace CarRent
         public string ClientContactNo { get; set; }
         public string ClientCompanyName { get; set; }
         public string ClientNote { get; set; }
+        public string ClientEmail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservations { get; set; }

@@ -35,6 +35,8 @@ namespace CarRent.View.Renters
             tbClientContactNo.Text = updateClient.ClientContactNo;
             tbClientName.Text = updateClient.ClientName;
             tbClientPickUpAddress.Text = updateClient.ClientPickUpAddress;
+            tbClientNote.Text = updateClient.ClientNote;
+            tbClientEmail.Text = updateClient.ClientEmail;
             
         }
 
@@ -45,6 +47,8 @@ namespace CarRent.View.Renters
             updateClient.ClientPickUpAddress =  tbClientPickUpAddress.Text;
             updateClient.ClientCompanyName = tbClientCompanyName.Text;
             updateClient.ClientContactNo = tbClientContactNo.Text;
+            updateClient.ClientNote = tbClientNote.Text;
+            updateClient.ClientEmail = tbClientEmail.Text;
             _db.SaveChanges();
             RenterMenu.dataGrid.ItemsSource = _db.Clients.ToList();
             this.Hide();
