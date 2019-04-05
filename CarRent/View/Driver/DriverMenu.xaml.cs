@@ -36,7 +36,7 @@ namespace CarRent.View
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
             int Id = (DriverGrid.SelectedItem as Driver).DriverId;
-            UpdateDriver updateDriver = new UpdateDriver(Id);
+            AddDriver updateDriver = new AddDriver(Id);
             updateDriver.ShowDialog();
 
         }
@@ -52,8 +52,10 @@ namespace CarRent.View
 
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
-            AddDriver driver = new AddDriver();
+            
+            AddDriver driver = new AddDriver(0);
             driver.ShowDialog();
+
         }
     }
 }

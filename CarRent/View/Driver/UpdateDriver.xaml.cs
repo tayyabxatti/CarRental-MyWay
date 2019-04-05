@@ -25,12 +25,11 @@ namespace CarRent.View
         {
             InitializeComponent();
             Id = DriverId;
-            Load();
+            UpdateLoad();
 
         }
-        public void Load()
+        public void UpdateLoad()
         {
-
             var updateDriver = _db.Drivers.Where(d => d.DriverId == Id).SingleOrDefault();
             tbDriverName.Text = updateDriver.DriverName;
         }

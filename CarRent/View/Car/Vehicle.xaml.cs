@@ -32,13 +32,13 @@ namespace CarRent.View
         }
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
-            AddCar addCar = new AddCar();
+            AddCar addCar = new AddCar(0);
             addCar.ShowDialog();
         }
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
             int Id = (VehicleGrid.SelectedItem as Car).CarId;
-            UpdateCar updateCar = new UpdateCar(Id);
+            AddCar updateCar = new AddCar(Id);
             updateCar.ShowDialog();
         }
         private void BtnDelete_Click(object sender, RoutedEventArgs e)

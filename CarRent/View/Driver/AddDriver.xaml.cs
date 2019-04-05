@@ -20,14 +20,33 @@ namespace CarRent.View
     public partial class AddDriver : Window
     {
         carRentEntities _db = new carRentEntities();
+        int Id;
 
-        public AddDriver()
+        public AddDriver(int DriverId)
         {
             InitializeComponent();
+            Id = DriverId;
+            LoadorInsert();
+        }
+        public void LoadorInsert()
+        {
+            if (Id != 0)
+            {
+                UpdateLoad();
+            }
+            
+        }
+
+        public void UpdateLoad()
+        {
+            var updateDriver = _db.Drivers.Where(d => d.DriverId == Id).SingleOrDefault();
+            tbDriverName.Text = updateDriver.DriverName;
         }
 
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
+            if (Id == 0) { 
+
             Driver driver = new Driver()
             {
                 DriverName = tbDriverName.Text,
@@ -36,6 +55,17 @@ namespace CarRent.View
             _db.SaveChanges();
             DriverMenu.dataGrid.ItemsSource = _db.Drivers.ToList();
             this.Hide();
+            }
+            else
+            {
+                var updateDriver = _db.Drivers.Where(d => d.DriverId == Id).SingleOrDefault();
+                updateDriver.DriverName = tbDriverName.Text;
+                _db.SaveChanges();
+                DriverMenu.dataGrid.ItemsSource = _db.Drivers.ToList();
+                this.Hide();
+
+            }
         }
+            
     }
 }

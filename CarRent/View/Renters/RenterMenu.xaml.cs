@@ -37,7 +37,7 @@ namespace CarRent.View.Renters
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
             int Id = (ClientGrid.SelectedItem as Client).ClientId;
-            UpdateRenter updateRenter = new UpdateRenter(Id);
+            AddRenter updateRenter = new AddRenter(Id);
             updateRenter.ShowDialog();
 
         }
@@ -54,7 +54,7 @@ namespace CarRent.View.Renters
 
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
-            AddRenter addRenter = new AddRenter();
+            AddRenter addRenter = new AddRenter(0);
             addRenter.ShowDialog();
 
         }

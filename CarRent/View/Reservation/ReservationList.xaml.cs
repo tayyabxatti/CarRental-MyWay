@@ -57,13 +57,13 @@ namespace CarRent.View
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
             int Id = (ReservationGrid.SelectedItem as Reservation).ReservationId;
-            UpdateReservation updateReservation = new UpdateReservation(Id);
+            Reserve updateReservation = new Reserve(Id);
             updateReservation.ShowDialog();
         }
 
         private void BtnInsert_Click(object sender, RoutedEventArgs e)
         {
-            Reserve reserve = new Reserve();
+            Reserve reserve = new Reserve(0);
             reserve.ShowDialog();
         }
 
