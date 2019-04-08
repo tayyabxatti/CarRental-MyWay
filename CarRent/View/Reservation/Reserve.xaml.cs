@@ -62,12 +62,12 @@ namespace CarRent.View
 
                 if (updateReservation.DriverId != null)
                 {
-                    cbDriver.IsChecked = true;
+                    
                     cbSelfDrive.IsChecked = false;
                 }
                 else
                 {
-                    cbDriver.IsChecked = false;
+                    
                     cbSelfDrive.IsChecked = true;
                 }
 
@@ -119,21 +119,14 @@ namespace CarRent.View
         {
             if (cbSelfDrive.IsChecked == true)
             {
-                cbDriver.IsChecked = false;
-                cbDriver.Visibility = Visibility.Hidden;
                 cbDriverName.Visibility = Visibility.Hidden;
             }
             
         }
-        private void CbDriver_Checked(object sender, RoutedEventArgs e)
-        {
-            if (cbDriver.IsChecked == true)
-            {
-                cbSelfDrive.IsChecked = false;
-            }
+        
             
 
-        }
+        
         private void CbMethodOfPaymentCredit_Checked(object sender, RoutedEventArgs e)
         {
             if (cbMethodOfPaymentCredit.IsChecked == true)
@@ -276,7 +269,7 @@ namespace CarRent.View
                         meth = "Cash";
                     }
                     else { meth = "Credit"; }
-                    if (cbSelfDrive.IsChecked != true && cbDriver.IsChecked == true)
+                    if (cbSelfDrive.IsChecked != true )
                     {
                         updateReservation.DriverId = driver.DriverId;
                         _db.SaveChanges();
@@ -365,8 +358,6 @@ namespace CarRent.View
         {
             if (cbSelfDrive.IsChecked == false)
             {
-                cbDriver.IsChecked = false;
-                cbDriver.Visibility = Visibility.Visible;
                 cbDriverName.Visibility = Visibility.Visible;
                 
             }

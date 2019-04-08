@@ -64,6 +64,19 @@ namespace CarRent.View.Agreementss
             tbReservationDateTime.Text = views.Reservation.ReservationDateTime.ToString();
             tbReservationNo.Text = views.Reservation.ReservationId.ToString();
 
+
+            if (views.Reservation.MethodOfPayment == "Cash")
+            {
+                tbMethodOdPaymentCash.IsChecked = true;
+                tbMehodOfPaymentCredit.IsChecked = false;
+            }
+            else
+            {
+                tbMethodOdPaymentCash.IsChecked = false;
+                tbMehodOfPaymentCredit.IsChecked = true;
+            }
+
+            if(views.AgreementClosed == "Closed") { 
             if (views.FuelOut == "Full")
             {
                 FuelStateOutHalf.IsChecked = false;
@@ -85,51 +98,44 @@ namespace CarRent.View.Agreementss
                 FuelStateOutEmpty.IsChecked = false;
                 FuelStateOutQuarter.IsChecked = true;
             }
-            else
+            else if (views.FuelOut == "Half")
             {
                 FuelStateOutHalf.IsChecked = true;
                 FuelStateOutFull.IsChecked = false;
                 FuelStateOutQuarter.IsChecked = false;
                 FuelStateOutEmpty.IsChecked = false;
             }
-            if (views.Reservation.MethodOfPayment == "Cash")
+
+            if (views.FuelIn == "Full")
             {
-                tbMethodOdPaymentCash.IsChecked = true;
-                tbMehodOfPaymentCredit.IsChecked = false;
-            }
-            else
-            {
-                tbMethodOdPaymentCash.IsChecked = false;
-                tbMehodOfPaymentCredit.IsChecked = true;
-            }
-            if (views.Reservation.Car.CarFuelState == "Full")
-            {
+                cbFuelStateHalf.IsChecked = false;
                 cbFuelStateFull.IsChecked = true;
-                cbFuelStateHalf.IsChecked = false;
                 cbFuelStateQuarter.IsChecked = false;
                 cbFuelStateEmpty.IsChecked = false;
             }
-            else if (views.Reservation.Car.CarFuelState == "Quarter")
+            else if (views.FuelIn == "Empty")
             {
-                cbFuelStateFull.IsChecked = false;
                 cbFuelStateHalf.IsChecked = false;
-                cbFuelStateQuarter.IsChecked = true;
-                cbFuelStateEmpty.IsChecked = false;
-            }
-            else if (views.Reservation.Car.CarFuelState == "Half")
-            {
                 cbFuelStateFull.IsChecked = false;
-                cbFuelStateHalf.IsChecked = true;
-                cbFuelStateQuarter.IsChecked = false;
-                cbFuelStateEmpty.IsChecked = false;
-            }
-            else
-            {
-                cbFuelStateFull.IsChecked = false;
-                cbFuelStateHalf.IsChecked = false;
                 cbFuelStateQuarter.IsChecked = false;
                 cbFuelStateEmpty.IsChecked = true;
             }
+            else if (views.FuelIn == "Quarter")
+            {
+                cbFuelStateHalf.IsChecked = false;
+                cbFuelStateFull.IsChecked = false;
+                cbFuelStateQuarter.IsChecked = true;
+                cbFuelStateEmpty.IsChecked = false;
+            }
+            else if (views.FuelIn == "Half")
+            {
+                cbFuelStateHalf.IsChecked = true;
+                cbFuelStateFull.IsChecked = false;
+                cbFuelStateQuarter.IsChecked = false;
+                cbFuelStateEmpty.IsChecked = false;
+            }
+        }
+
             if (views.DailyCharges == null)
             {
                 tbMonthlyCharges.Text = views.MonthlyCharges.ToString();
@@ -139,8 +145,45 @@ namespace CarRent.View.Agreementss
                 tbDailyCharges.Text = views.DailyCharges.ToString();
             }
 
+            
+
             if (views.AgreementClosed != "Closed")
             {
+
+                if (views.Reservation.Car.CarFuelState == "Full")
+                {
+                    FuelStateOutFull.IsChecked = true;
+                    FuelStateOutHalf.IsChecked = false;
+                    FuelStateOutQuarter.IsChecked = false;
+                    FuelStateOutEmpty.IsChecked = false;
+                    views.FuelOut = "Full";
+                }
+                else if (views.Reservation.Car.CarFuelState == "Quarter")
+                {
+                    FuelStateOutFull.IsChecked = false;
+                    FuelStateOutHalf.IsChecked = false;
+                    FuelStateOutQuarter.IsChecked = true;
+                    FuelStateOutEmpty.IsChecked = false;
+                    views.FuelOut = "Quarter";
+                }
+                else if (views.Reservation.Car.CarFuelState == "Half")
+                {
+                    FuelStateOutFull.IsChecked = false;
+                    FuelStateOutHalf.IsChecked = true;
+                    FuelStateOutQuarter.IsChecked = false;
+                    FuelStateOutEmpty.IsChecked = false;
+                    views.FuelOut = "Half";
+                }
+                else if (views.Reservation.Car.CarFuelState == "Empty")
+                {
+                    FuelStateOutFull.IsChecked = false;
+                    FuelStateOutHalf.IsChecked = false;
+                    FuelStateOutQuarter.IsChecked = false;
+                    FuelStateOutEmpty.IsChecked = true;
+                    views.FuelOut = "Empty";
+                }
+
+
                 
                 //tbTimeIn.Text = views.Reservation.Car.TimeOut.ToString();
                 tbTimeOut.Text = views.Reservation.Car.TImeIn.ToString();
@@ -430,8 +473,7 @@ namespace CarRent.View.Agreementss
                         views.AgreementDateOut = tbDateOut.Text;
 
 
-                        views.Reservation.Car.TimeOut = views.Reservation.Car.TImeIn;
-                        views.Reservation.Car.TImeIn = tbTimeIn.Text;
+                        
                         views.AgreementTimeIn = tbTimeIn.Text;
                         views.AgreementTimeOut = tbTimeOut.Text;
 
@@ -443,30 +485,43 @@ namespace CarRent.View.Agreementss
 
                         views.Reservation.Car.CarKmOut = views.Reservation.Car.CarKmIn;
                         views.Reservation.Car.CarKmIn = Convert.ToInt32(tbKmsIn.Text);
+                        
                         views.Reservation.Car.TimeOut = views.Reservation.Car.TImeIn;
                         views.Reservation.Car.TImeIn = (tbTimeIn.Text);
+
                         views.Reservation.Car.DateOut = views.Reservation.Car.DateIn;
                         views.Reservation.Car.DateIn = (tbDateIn.Text);
 
-                        if (FuelStateOutFull.IsChecked == true)
+                        if (views.Reservation.Car.CarFuelState == "Full")
                         {
-                            views.Reservation.Car.CarFuelState = "Full";
-                            
+                            FuelStateOutHalf.IsChecked = false;
+                            FuelStateOutQuarter.IsChecked = false;
+                            FuelStateOutEmpty.IsChecked = false;
+                            FuelStateOutFull.IsChecked = true;
                             views.FuelOut = "Full";
                         }
-                        else if (FuelStateOutEmpty.IsChecked == true)
+                        else if (views.Reservation.Car.CarFuelState == "Empty" )
                         {
-                            views.Reservation.Car.CarFuelState = "Empty";
+                            FuelStateOutHalf.IsChecked = false;
+                            FuelStateOutQuarter.IsChecked = false;
+                            FuelStateOutEmpty.IsChecked = true;
+                            FuelStateOutFull.IsChecked = false;
                             views.FuelOut = "Empty";
                         }
-                        else if (FuelStateOutHalf.IsChecked == true)
+                        else if (views.Reservation.Car.CarFuelState == "Half")
                         {
-                            views.Reservation.Car.CarFuelState = "Half";
+                            FuelStateOutHalf.IsChecked = true;
+                            FuelStateOutQuarter.IsChecked = false;
+                            FuelStateOutEmpty.IsChecked = false;
+                            FuelStateOutFull.IsChecked = false;
                             views.FuelOut = "Half";
                         }
                         else
                         {
-                            views.Reservation.Car.CarFuelState = "Quarter";
+                            FuelStateOutHalf.IsChecked = false;
+                            FuelStateOutQuarter.IsChecked = true;
+                            FuelStateOutEmpty.IsChecked = false;
+                            FuelStateOutFull.IsChecked = false;
                             views.FuelOut = "Quarter";
                         }
 
@@ -475,7 +530,6 @@ namespace CarRent.View.Agreementss
                         if (cbFuelStateFull.IsChecked == true)
                         {
                             views.Reservation.Car.CarFuelState = "Full";
-
                             views.FuelIn = "Full";
                         }
                         else if (cbFuelStateEmpty.IsChecked == true)
@@ -597,6 +651,39 @@ namespace CarRent.View.Agreementss
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void CbFuelStateFull_Checked(object sender, RoutedEventArgs e)
+        {
+            cbFuelStateFull.IsChecked = true;
+            cbFuelStateEmpty.IsChecked = false;
+            cbFuelStateHalf.IsChecked = false;
+            cbFuelStateQuarter.IsChecked = false;
+        }
+
+        private void CbFuelStateHalf_Checked(object sender, RoutedEventArgs e)
+        {
+            cbFuelStateFull.IsChecked = false;
+            cbFuelStateEmpty.IsChecked = false;
+            cbFuelStateHalf.IsChecked = true;
+            cbFuelStateQuarter.IsChecked = false;
+
+        }
+
+        private void CbFuelStateQuarter_Checked(object sender, RoutedEventArgs e)
+        {
+            cbFuelStateFull.IsChecked = false;
+            cbFuelStateEmpty.IsChecked = false;
+            cbFuelStateHalf.IsChecked = false;
+            cbFuelStateQuarter.IsChecked = true;
+        }
+
+        private void CbFuelStateEmpty_Checked(object sender, RoutedEventArgs e)
+        {
+            cbFuelStateFull.IsChecked = false;
+            cbFuelStateEmpty.IsChecked = true;
+            cbFuelStateHalf.IsChecked = false;
+            cbFuelStateQuarter.IsChecked = false;
         }
     }
 }
