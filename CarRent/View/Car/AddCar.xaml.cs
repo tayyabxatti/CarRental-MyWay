@@ -77,6 +77,13 @@ namespace CarRent.View
                     cbCarFuelStateEmpty.IsChecked = true;
 
                 }
+                tbCarKmIn.Background= Brushes.Gray;
+                tbCarKmOut.Background = Brushes.Gray;
+                lbCarKmIn.Background = Brushes.Gray;
+                lbCarKmOut.Background = Brushes.Gray;
+                tbTImeIn.Background = Brushes.Gray;
+                tbDateIn.Background = Brushes.Gray;
+                tbDateOut.Background = Brushes.Gray;
             }
             else
             {

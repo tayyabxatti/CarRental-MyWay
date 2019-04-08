@@ -40,29 +40,46 @@ namespace CarRent.View.Agreementss
             //var kmpkr = views.Reservation.Car.TotalKm * views.Reservation.Car.KmBill;
             //var kpkr = views.Reservation.Car.TotalTime * views.Reservation.Car.TimeBill;
             tbInvoiceNo.Text = views.RentalAgreementId.ToString();
+            tbInvoiceNo.Background = Brushes.LightGray;
             tbBillingAddress.Text = views.Reservation.BillingAddress;
+            tbBillingAddress.Background = Brushes.LightGray;
             tbCarName.Text = views.Reservation.Car.CarMake;
+            tbCarName.Background = Brushes.LightGray;
             tbCarRegistrationNo.Text = views.Reservation.Car.CarRegistrationNo;
+            tbCarRegistrationNo.Background = Brushes.LightGray;
             tbClientContactNo.Text = views.Reservation.Client.ClientContactNo;
+            tbClientContactNo.Background = Brushes.LightGray;
             tbClientName.Text = views.Reservation.Client.ClientName;
+            tbClientName.Background = Brushes.LightGray;
             tbDriverName.Text = views.Reservation.Driver.DriverName.ToString();
+            tbDriverName.Background = Brushes.LightGray;
             tbHr.Text = views.Reservation.Car.TotalTime.ToString();
+            tbHr.Background = Brushes.LightGray;
             tbKms.Text = views.Reservation.Car.TotalKm.ToString();
+
+            tbKms.Background = Brushes.LightGray;
             //tbkmsRs.Text = kmpkr.ToString();
             //tbhrRs.Text = kpkr.ToString();
             //DriverCharges
             tbGst.Text = views.GST.ToString();
+            tbGst.Background = Brushes.LightGray;
             tbActualItienrary.Text = views.AcutalItinerary;
+            
             tbAmountDue.Text = views.AmountDue.ToString();
             tbFuel.Text = views.AgreementFuel.ToString();
 
             tbGrandTotal.Text = views.TotalCharges.ToString();
+            tbGrandTotal.Background = Brushes.Gray;
             tbToolTax.Text = views.TollTaxCharges.ToString();
             tbDriverNight.Text = views.DriverCharges.ToString();
             tbPrepayment.Text = views.PrePayment.ToString();
             tbPickUpAddressOrFlightNo.Text = views.Reservation.Client.ClientPickUpAddress.ToString();
+            tbPickUpAddressOrFlightNo.Background = Brushes.LightGray;
             tbReservationDateTime.Text = views.Reservation.ReservationDateTime.ToString();
+            tbReservationDateTime.Background = Brushes.LightGray;
             tbReservationNo.Text = views.Reservation.ReservationId.ToString();
+            tbReservationNo.Background = Brushes.LightGray;
+
 
 
             if (views.Reservation.MethodOfPayment == "Cash")
