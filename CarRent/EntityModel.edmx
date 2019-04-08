@@ -75,6 +75,7 @@
           <Property Name="FuelOut" Type="varchar" MaxLength="50" />
           <Property Name="DailyCharges" Type="int" />
           <Property Name="MonthlyCharges" Type="int" />
+          <Property Name="FuelIn" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -83,14 +84,13 @@
           <Property Name="ReservationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RentingStation" Type="varchar" MaxLength="50" />
           <Property Name="MethodOfPayment" Type="varchar" MaxLength="50" />
-          <Property Name="BillingAddress" Type="varchar" MaxLength="50" />
+          <Property Name="BillingAddress" Type="varchar" MaxLength="100" />
           <Property Name="Source" Type="varchar" MaxLength="50" />
           <Property Name="ReservationDateTime" Type="datetime" />
-          <Property Name="StaffName" Type="varchar" MaxLength="50" />
           <Property Name="BookedAt" Type="datetime" />
           <Property Name="CarId" Type="int" />
-          <Property Name="ClientId" Type="int" />
-          <Property Name="Note" Type="varchar" MaxLength="50" />
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="varchar" MaxLength="200" />
           <Property Name="DriverId" Type="int" />
           <Property Name="CheckInStation" Type="varchar" MaxLength="50" />
           <Property Name="StaffId" Type="int" />
@@ -127,7 +127,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reservation_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -268,6 +268,7 @@
           <Property Name="FuelOut" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DailyCharges" Type="Int32" />
           <Property Name="MonthlyCharges" Type="Int32" />
+          <Property Name="FuelIn" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Reservation" Relationship="Self.FK_RentalAgreement_Reservation" FromRole="RentalAgreement" ToRole="Reservation" />
         </EntityType>
         <EntityType Name="Reservation">
@@ -277,14 +278,13 @@
           <Property Name="ReservationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RentingStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="MethodOfPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BillingAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BillingAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Source" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ReservationDateTime" Type="DateTime" Precision="3" />
-          <Property Name="StaffName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BookedAt" Type="DateTime" Precision="3" />
           <Property Name="CarId" Type="Int32" />
-          <Property Name="ClientId" Type="Int32" />
-          <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="DriverId" Type="Int32" />
           <Property Name="CheckInStation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StaffId" Type="Int32" />
@@ -315,7 +315,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reservation_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -468,6 +468,7 @@
                 <ScalarProperty Name="FuelOut" ColumnName="FuelOut" />
                 <ScalarProperty Name="DailyCharges" ColumnName="DailyCharges" />
                 <ScalarProperty Name="MonthlyCharges" ColumnName="MonthlyCharges" />
+                <ScalarProperty Name="FuelIn" ColumnName="FuelIn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -480,7 +481,6 @@
                 <ScalarProperty Name="BillingAddress" ColumnName="BillingAddress" />
                 <ScalarProperty Name="Source" ColumnName="Source" />
                 <ScalarProperty Name="ReservationDateTime" ColumnName="ReservationDateTime" />
-                <ScalarProperty Name="StaffName" ColumnName="StaffName" />
                 <ScalarProperty Name="BookedAt" ColumnName="BookedAt" />
                 <ScalarProperty Name="CarId" ColumnName="CarId" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />

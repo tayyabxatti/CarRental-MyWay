@@ -39,6 +39,7 @@ namespace CarRent
         public string FuelOut { get; set; }
         public Nullable<int> DailyCharges { get; set; }
         public Nullable<int> MonthlyCharges { get; set; }
+        public string FuelIn { get; set; }
     
         public virtual Reservation Reservation { get; set; }
     }

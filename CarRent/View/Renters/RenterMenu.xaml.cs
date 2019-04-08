@@ -44,12 +44,15 @@ namespace CarRent.View.Renters
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            int Id = (ClientGrid.SelectedItem as Client).ClientId;
-            var deleteclient = _db.Clients.Where(c => c.ClientId == Id).SingleOrDefault();
-            _db.Clients.Remove(deleteclient);
-            _db.SaveChanges();
-            ClientGrid.ItemsSource = _db.Clients.ToList();
-
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to Delete this Client?", "Confirm Delete", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                int Id = (ClientGrid.SelectedItem as Client).ClientId;
+                var deleteclient = _db.Clients.Where(c => c.ClientId == Id).SingleOrDefault();
+                _db.Clients.Remove(deleteclient);
+                _db.SaveChanges();
+                ClientGrid.ItemsSource = _db.Clients.ToList();
+            }
         }
 
         private void BtnInsert_Click(object sender, RoutedEventArgs e)

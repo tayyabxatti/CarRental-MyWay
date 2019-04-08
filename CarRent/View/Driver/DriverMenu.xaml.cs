@@ -43,11 +43,16 @@ namespace CarRent.View
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            int Id = (DriverGrid.SelectedItem as Driver).DriverId;
-            var deleteDriver = _db.Drivers.Where(c => c.DriverId == Id).SingleOrDefault();
-            _db.Drivers.Remove(deleteDriver);
-            _db.SaveChanges();
-            DriverGrid.ItemsSource = _db.Drivers.ToList();
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to Delete this Driver?", "Confirm Delete", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+
+                int Id = (DriverGrid.SelectedItem as Driver).DriverId;
+                var deleteDriver = _db.Drivers.Where(c => c.DriverId == Id).SingleOrDefault();
+                _db.Drivers.Remove(deleteDriver);
+                _db.SaveChanges();
+                DriverGrid.ItemsSource = _db.Drivers.ToList();
+            }
         }
 
         private void BtnInsert_Click(object sender, RoutedEventArgs e)

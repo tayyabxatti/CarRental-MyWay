@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Drawing.Imaging;
-
+using System.Text.RegularExpressions;
 
 namespace CarRent.View.Agreementss
 {
@@ -296,7 +296,7 @@ namespace CarRent.View.Agreementss
             {
                 HorizontalAlignment = 2,
                 WidthPercentage = 45,
-
+                ExtendLastRow=false,
                 DefaultCell = { MinimumHeight = 22f }
 
             };
@@ -327,9 +327,9 @@ namespace CarRent.View.Agreementss
             table1.AddCell(views.Reservation.BillingAddress.ToString());
             //checkbox fuel position in and out
             table1.AddCell("FUEL POSITION IN ");
-            table1.AddCell(views.Reservation.Car.CarFuelState.ToString());
+            table1.AddCell(views.FuelIn.ToString());
             table1.AddCell("FUEL POSITION OUT");
-            //table1.AddCell(views.FuelOut.ToString());
+            table1.AddCell(views.FuelOut.ToString());
             table1.AddCell("PICKUP ADDRESS/FLIGHT NO");
             table1.AddCell(views.Reservation.Client.ClientPickUpAddress);
             table1.AddCell("Actual Itenary");
@@ -376,9 +376,6 @@ namespace CarRent.View.Agreementss
             table2.AddCell(views.AgreementTotalKm.ToString());
             table2.AddCell("KM @ RS");
             table2.AddCell(views.KPkr.ToString());
-            table2.AddCell("//");
-            table2.AddCell("DRIVER @ RS");
-            table2.AddCell("// to be added in db");
             table2.AddCell("16% GST");
             table2.AddCell(views.GST.ToString());
             table2.AddCell("");
@@ -399,7 +396,6 @@ namespace CarRent.View.Agreementss
             table2.AddCell("");
             table2.AddCell("TOTAL CHARGES");
             table2.AddCell(views.TotalCharges.ToString());
-
             table2.AddCell("");
             table.AddCell(table2);
             PdfDOcument.Add(table1);
@@ -455,18 +451,47 @@ namespace CarRent.View.Agreementss
                         if (FuelStateOutFull.IsChecked == true)
                         {
                             views.Reservation.Car.CarFuelState = "Full";
+                            
+                            views.FuelOut = "Full";
                         }
                         else if (FuelStateOutEmpty.IsChecked == true)
                         {
                             views.Reservation.Car.CarFuelState = "Empty";
+                            views.FuelOut = "Empty";
                         }
                         else if (FuelStateOutHalf.IsChecked == true)
                         {
                             views.Reservation.Car.CarFuelState = "Half";
+                            views.FuelOut = "Half";
                         }
                         else
                         {
                             views.Reservation.Car.CarFuelState = "Quarter";
+                            views.FuelOut = "Quarter";
+                        }
+
+
+
+                        if (cbFuelStateFull.IsChecked == true)
+                        {
+                            views.Reservation.Car.CarFuelState = "Full";
+
+                            views.FuelIn = "Full";
+                        }
+                        else if (cbFuelStateEmpty.IsChecked == true)
+                        {
+                            views.Reservation.Car.CarFuelState = "Empty";
+                            views.FuelIn = "Empty";
+                        }
+                        else if (cbFuelStateHalf.IsChecked == true)
+                        {
+                            views.Reservation.Car.CarFuelState = "Half";
+                            views.FuelIn = "Half";
+                        }
+                        else
+                        {
+                            views.Reservation.Car.CarFuelState = "Quarter";
+                            views.FuelIn = "Quarter";
                         }
                         if (tbDailyCharges.Text != "")
                         {
@@ -518,7 +543,10 @@ namespace CarRent.View.Agreementss
         {
             var views = (from r in _db.RentalAgreements where r.RentalAgreementId == Id select r).SingleOrDefault();
             var totalTime = DateTime.Parse(tbTimeIn.Text) - DateTime.Parse(tbTimeOut.Text);
-            tbTimeUsed.Text = totalTime.Hours.ToString();
+            //totaldays + time used
+            var x = Convert.ToInt32(tbTotalDays.Text) * 24;
+            var y = totalTime.Hours + x;
+            tbTimeUsed.Text = y.ToString();
             tbHr.Text = tbTimeUsed.Text;
             var timer = Int32.Parse(tbTimeUsed.Text) * views.Reservation.Car.TimeBill;
             tbhrRs.Text = timer.ToString();
@@ -564,6 +592,11 @@ namespace CarRent.View.Agreementss
             FuelStateOutQuarter.IsChecked =false;
             FuelStateOutHalf.IsChecked = false;
             FuelStateOutFull.IsChecked = false;
+        }
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

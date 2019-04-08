@@ -43,13 +43,22 @@ namespace CarRent.View
         }
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            int Id = (VehicleGrid.SelectedItem as Car).CarId;
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to Delete this Car?", "Confirm Delete", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes) { 
+                int Id = (VehicleGrid.SelectedItem as Car).CarId;
             var deleteCar = _db.Cars.Where(c => c.CarId == Id).SingleOrDefault();
             var deleteReservation = _db.Reservations.Where(c => c.CarId == Id).SingleOrDefault();
-            _db.Cars.Remove(deleteCar);
-            _db.Reservations.Remove(deleteReservation);
+                if (deleteReservation == null) { 
+                _db.Cars.Remove(deleteCar);
+            //_db.Reservations.Remove(deleteReservation);
             _db.SaveChanges();
-            VehicleGrid.ItemsSource = _db.Cars.ToList();
+                }
+                else
+                {
+                    MessageBox.Show("A Reservation is already made on this car. delete the reservation first.");
+                }
+                VehicleGrid.ItemsSource = _db.Cars.ToList();
+            }
         }
     }
 }

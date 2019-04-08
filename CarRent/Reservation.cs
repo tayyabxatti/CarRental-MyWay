@@ -26,10 +26,9 @@ namespace CarRent
         public string BillingAddress { get; set; }
         public string Source { get; set; }
         public Nullable<System.DateTime> ReservationDateTime { get; set; }
-        public string StaffName { get; set; }
         public Nullable<System.DateTime> BookedAt { get; set; }
         public Nullable<int> CarId { get; set; }
-        public Nullable<int> ClientId { get; set; }
+        public int ClientId { get; set; }
         public string Note { get; set; }
         public Nullable<int> DriverId { get; set; }
         public string CheckInStation { get; set; }

@@ -12,7 +12,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
-               
+
             </Grid.RowDefinitions>
             <Border BorderBrush="Black" BorderThickness="2" Margin="4">
                 <Grid Grid.Row="0">
@@ -21,6 +21,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -31,41 +32,43 @@
                     <xctk:DateTimePicker x:Name="tbsearchBookedAt"   Grid.Column="1"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"  />
                     <TextBlock Grid.Column="2"  Grid.Row="0" Text="Source" VerticalAlignment="Center"  Margin="50,2,16,4" />
                     <TextBox x:Name="tbsearchSource"   Grid.Column="3"  Grid.Row="0" Width="220" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="2,2,5,4"/>
-                    <Button Grid.Column="3" Content="Search" Margin="156,15,107,10" Grid.ColumnSpan="2" Grid.Row="1" Click="Button_Click"/>
-                    <Button Grid.Column="4" Content="Reset" Margin="81,15,0,10" Grid.Row="1" Click="Button_Click_1"/>
-                    <Button x:Name="btnInsert" Content="Add"  Click="BtnInsert_Click" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="2" Margin="42,15,138,10" />
-                    <Button x:Name="btnDelete" Content="Delete" Click="BtnDelete_Click" Grid.Column="3" Margin="49,15,31,10" Grid.Row="1" />
-                    <Button x:Name="tbnPrint" Content="Print" Click="TbnPrint_Click" Grid.ColumnSpan="2" Grid.Column="1" Margin="174,15,65,10" Grid.Row="1"/>
+                    <Button Grid.Column="5" Content="Search" Margin="10,26,0,68" Click="Button_Click" Grid.RowSpan="2"/>
+                    <Button Grid.Column="5" Content="Reset" Margin="10,25,0,0" Grid.Row="1" Click="Button_Click_1"/>
+                    <Button x:Name="btnInsert" Content="Add"  Click="BtnInsert_Click" Grid.Column="3" Margin="10,25,0,0" RenderTransformOrigin="-0.6,1.795" Grid.Row="1" />
+                    <Button x:Name="btnDelete" Content="Delete" Click="BtnDelete_Click" Grid.Column="4" Margin="10,25,0,0" Grid.Row="1" />
+                    <Button x:Name="tbnPrint" Content="Print" Click="TbnPrint_Click" Grid.Column="2" Margin="10,25,0,0" Grid.Row="1"/>
                 </Grid>
             </Border >
-            <DataGrid Margin="4" x:Name="ReservationGrid" x:FieldModifier="public" IsReadOnly="True" AutoGenerateColumns="False"  Grid.Row="1" ColumnWidth="*">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ReservationId" Binding="{Binding ReservationId}" />
-                    <DataGridTextColumn Header="RentingStation" Binding="{Binding RentingStation}"/>
-                    <DataGridTextColumn Header="BookedAt" Binding="{Binding BookedAt}"/>
-                    <DataGridTextColumn Header="Car Make" Binding="{Binding Car.CarMake}"/>
-                    <DataGridTextColumn Header="Driver Name" Binding="{Binding Driver.DriverName}"/>
-                    <DataGridTextColumn Header="Client Name" Binding="{Binding Client.ClientName}"/>
-                    <DataGridTextColumn Header="Billing Address" Binding="{Binding BillingAddress}"/>
-                    <DataGridTextColumn Header="StaffName" Binding="{Binding Staff.StaffName}"/>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Action" Margin="2"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.HeaderTemplate>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btnUpdate" Content="Edit" Click="BtnUpdate_Click" />
-                                    <Button x:Name="btnRental" Content="Rental" Click="BtnRental_Click"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+            <ScrollViewer Grid.Row="1" CanContentScroll="True" >
+                <DataGrid Margin="4" x:Name="ReservationGrid" x:FieldModifier="public" IsReadOnly="True" AutoGenerateColumns="False"  Grid.Row="1" ColumnWidth="*">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ReservationId" Binding="{Binding ReservationId}" />
+                        <DataGridTextColumn Header="RentingStation" Binding="{Binding RentingStation}"/>
+                        <DataGridTextColumn Header="BookedAt" Binding="{Binding BookedAt}"/>
+                        <DataGridTextColumn Header="Car Make" Binding="{Binding Car.CarMake}"/>
+                        <DataGridTextColumn Header="Driver Name" Binding="{Binding Driver.DriverName}"/>
+                        <DataGridTextColumn Header="Client Name" Binding="{Binding Client.ClientName}"/>
+                        <DataGridTextColumn Header="Billing Address" Binding="{Binding BillingAddress}"/>
+                        <DataGridTextColumn Header="StaffName" Binding="{Binding Staff.StaffName}"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Action" Margin="2"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="btnUpdate" Content="Edit" Click="BtnUpdate_Click" />
+                                        <Button x:Name="btnRental" Content="Rental" Click="BtnRental_Click"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                </DataGrid.Columns>
-            </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
             <StackPanel  Orientation="Vertical"/>
 
         </Grid>

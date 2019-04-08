@@ -177,7 +177,8 @@ namespace CarRent.View
             updateReservation.MethodOfPayment = meth;
             updateReservation.Source = tbSource.Text;
             updateReservation.ReservationDateTime = DateTime.Now;
-            updateReservation.StaffName = tbStaffName.Text;
+            var staffname = tbStaffName.SelectedItem as Staff;
+            updateReservation.StaffId = staffname.StaffId;
             updateReservation.RentingStation = tbRentingStation.Text;
             updateReservation.Note = tbNote.Text;
             _db.SaveChanges();

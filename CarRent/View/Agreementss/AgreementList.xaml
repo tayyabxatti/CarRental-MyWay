@@ -33,40 +33,40 @@
                     <Button Grid.Column="4" Content="Reset" Margin="81,15,0,10" Grid.Row="1" Click="Button_Click_1"/>
                 </Grid>
             </Border >
+            <ScrollViewer Grid.Row="1" CanContentScroll="True">
+                <DataGrid x:Name="AgreemenGrid" x:FieldModifier="public" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding CarId}"  Grid.Row="1" ColumnWidth="*">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="InvoiceNo" Binding="{Binding RentalAgreementId}" />
+                        <DataGridTextColumn Header="CarMake" Binding="{Binding Reservation.Car.CarMake }"/>
+                        <DataGridTextColumn Header="CarRegistrationNo" Binding="{Binding Reservation.Car.CarRegistrationNo}"/>
+                        <DataGridTextColumn Header="DriverName" Binding="{Binding Reservation.Driver.DriverName}" />
+                        <DataGridTextColumn Header="ReservationNo" Binding="{Binding Reservation.ReservationId}"/>
+                        <DataGridTextColumn Header="ClientName" Binding="{Binding Reservation.Client.ClientName}"/>
+                        <DataGridTextColumn Header="BillingAddress" Binding="{Binding Reservation.BillingAddress}"/>
+                        <DataGridTextColumn Header="CarFuelState" Binding="{Binding Reservation.Car.CarFuelState}"/>
+                        <!--Column 2-->
+                        <DataGridTextColumn Header="TotalKm" Binding="{Binding Reservation.Car.TotalKm}"/>
+                        <DataGridTextColumn Header="TotalTime" Binding="{Binding Reservation.Car.TotalTime}"/>
+                        <DataGridTextColumn Header="KmBill" Binding="{Binding Reservation.Car.KmBill}"/>
+                        <DataGridTextColumn Header="TimeBill" Binding="{Binding Reservation.Car.TimeBill}"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Action"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="btnUpdate" Content="View" Click="BtnUpdate_Click" />
 
-            <DataGrid x:Name="AgreemenGrid" x:FieldModifier="public" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding CarId}"  Grid.Row="1" ColumnWidth="*">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="InvoiceNo" Binding="{Binding RentalAgreementId}" />
-                    <DataGridTextColumn Header="CarMake" Binding="{Binding Reservation.Car.CarMake }"/>
-                    <DataGridTextColumn Header="CarRegistrationNo" Binding="{Binding Reservation.Car.CarRegistrationNo}"/>
-                    <DataGridTextColumn Header="DriverName" Binding="{Binding Reservation.Driver.DriverName}" />
-                    <DataGridTextColumn Header="ReservationNo" Binding="{Binding Reservation.ReservationId}"/>
-                    <DataGridTextColumn Header="ClientName" Binding="{Binding Reservation.Client.ClientName}"/>
-                    <DataGridTextColumn Header="BillingAddress" Binding="{Binding Reservation.BillingAddress}"/>
-                    <DataGridTextColumn Header="CarFuelState" Binding="{Binding Reservation.Car.CarFuelState}"/>
-                     <!--Column 2-->
-                    <DataGridTextColumn Header="TotalKm" Binding="{Binding Reservation.Car.TotalKm}"/>
-                    <DataGridTextColumn Header="TotalTime" Binding="{Binding Reservation.Car.TotalTime}"/>
-                    <DataGridTextColumn Header="KmBill" Binding="{Binding Reservation.Car.KmBill}"/>
-                    <DataGridTextColumn Header="TimeBill" Binding="{Binding Reservation.Car.TimeBill}"/>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Action"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.HeaderTemplate>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btnUpdate" Content="View" Click="BtnUpdate_Click" />
-                                    
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
         </Grid>
     </DockPanel>
 </UserControl>

@@ -9,33 +9,35 @@
     <DockPanel>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <DataGrid x:Name="DriverGrid" x:FieldModifier="public" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding CarId}"  Grid.Row="0" ColumnWidth="*">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="DriverId" Binding="{Binding DriverId}" />
-                    <DataGridTextColumn Header="DriverName" Binding="{Binding DriverName}"/>
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="Action"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.HeaderTemplate>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="btnUpdate" Content="Update" Click="BtnUpdate_Click" />
-                                    <Button x:Name="btnDelete" Content="Delete" Click="BtnDelete_Click" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+            <ScrollViewer Grid.Row="0" CanContentScroll="True">
+                <DataGrid x:Name="DriverGrid" x:FieldModifier="public" IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding CarId}"  Grid.Row="0" ColumnWidth="*">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="DriverId" Binding="{Binding DriverId}" />
+                        <DataGridTextColumn Header="DriverName" Binding="{Binding DriverName}"/>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="Action"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.HeaderTemplate>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="btnUpdate" Content="Update" Click="BtnUpdate_Click" />
+                                        <Button x:Name="btnDelete" Content="Delete" Click="BtnDelete_Click" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
-                </DataGrid.Columns>
-            </DataGrid>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Button x:Name="btnInsert" Content="Add a car" Margin="0,0,0,166" Width="176" Click="BtnInsert_Click" />
+                <Button x:Name="btnInsert" Content="Add a car" Margin="0,0,0,93" Width="176" Click="BtnInsert_Click" />
 
 
             </StackPanel>

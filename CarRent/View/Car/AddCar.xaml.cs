@@ -84,6 +84,14 @@ namespace CarRent.View
                 tbCarKmOut.Visibility = Visibility.Hidden;
                 lbCarKmIn.Visibility = Visibility.Hidden;
                 lbCarKmOut.Visibility = Visibility.Hidden;
+                tbTImeIn.Visibility = Visibility.Hidden;
+                tbTimeOut.Visibility = Visibility.Hidden;
+                lbTimeIn.Visibility = Visibility.Hidden;
+                lbTimeOut.Visibility = Visibility.Hidden;
+                lbDateIn.Visibility = Visibility.Hidden;
+                lbDateOut.Visibility = Visibility.Hidden;
+                tbDateIn.Visibility = Visibility.Hidden;
+                tbDateOut.Visibility = Visibility.Hidden;
             }
         }
         private void BtnInsert_Click(object sender, RoutedEventArgs e)

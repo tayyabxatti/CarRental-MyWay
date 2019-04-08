@@ -42,16 +42,19 @@ namespace CarRent.View
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            int Id = (ReservationGrid.SelectedItem as Reservation).ReservationId;
-            var deleteReservation = _db.Reservations.Where(c => c.ReservationId == Id).SingleOrDefault();
-            var deleteRental = _db.RentalAgreements.Where(c => c.ReservationId == deleteReservation.ReservationId).SingleOrDefault();
-            _db.RentalAgreements.Where(x => x.RentalAgreementId == deleteRental.RentalAgreementId).Select(x => new RentalAgreement
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure you want to Delete this Reservation. The Rental Agreement of this reservation will also be deleted?", "Confirm Delete", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
             {
-                RentalAgreementId = 0,
-            });
-            _db.Reservations.Remove(deleteReservation);
-            _db.SaveChanges();
-            ReservationGrid.ItemsSource = _db.Reservations.ToList();
+
+                int Id = (ReservationGrid.SelectedItem as Reservation).ReservationId;
+                var deleteReservation = _db.Reservations.Where(c => c.ReservationId == Id).SingleOrDefault();
+                var deleteRental = _db.RentalAgreements.Where(c => c.ReservationId == deleteReservation.ReservationId).SingleOrDefault();
+                
+                _db.RentalAgreements.Remove(deleteRental);
+                _db.Reservations.Remove(deleteReservation);
+                _db.SaveChanges();
+                ReservationGrid.ItemsSource = _db.Reservations.ToList();
+            }
         }
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
@@ -145,7 +148,7 @@ namespace CarRent.View
             table.AddCell("TELEPHONE CONTACT");
             table.AddCell(views.Client.ClientContactNo);
             table.AddCell("STAFF NAME");
-            table.AddCell(views.StaffName);
+            table.AddCell(views.Staff.StaffName);
             table.AddCell("NOTE");
             table.AddCell(views.Note);
             PdfDOcument.Add(table);

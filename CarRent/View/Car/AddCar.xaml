@@ -58,19 +58,19 @@
         <TextBlock Grid.Column="0" Grid.Row="5" Text="KmBill" Margin="2,0,2,5" />
         <TextBox x:Name ="tbKmBill" PreviewTextInput="NumberValidationTextBox" Margin="2,2,2,2" Grid.Row="5" Grid.Column="1" />
         <!--TimeOut-->
-        <TextBlock Grid.Column="0" Grid.Row="6" Text="TimeOut" Margin="2" />
-        <xctk:TimePicker x:Name = "tbTimeOut" Grid.Row="6" Grid.Column="1"  Margin="2"/>
+        <TextBlock Grid.Column="0" x:Name="lbTimeOut" Grid.Row="8" Text="TimeOut" Margin="2" />
+        <xctk:TimePicker x:Name = "tbTimeOut" Grid.Row="8" Grid.Column="1"  Margin="2"/>
         <!--TImeIn-->
-        <TextBlock Margin="2" Grid.Column="0" Grid.Row="7" Text="TImeIn" />
+        <TextBlock Margin="2" x:Name="lbTimeIn" Grid.Column="0" Grid.Row="7" Text="TImeIn" />
         <xctk:TimePicker Margin="2" x:Name = "tbTImeIn" Grid.Row="7" Grid.Column="1" />
         <!--TimeBill-->
-        <TextBlock Grid.Column="0" Grid.Row="8" Margin="2" Text="TimeBill" />
-        <TextBox x:Name = "tbTimeBill" Grid.Row="8" Margin="2" Grid.Column="1"  />
+        <TextBlock Grid.Column="0" Grid.Row="6" Margin="2" Text="TimeBill" />
+        <TextBox x:Name = "tbTimeBill" Grid.Row="6" Margin="2" Grid.Column="1"  />
         <!--DateOut-->
-        <TextBlock Grid.Column="0"  Grid.Row="9" Text="DateOut" Margin="2" />
+        <TextBlock Grid.Column="0" x:Name="lbDateOut"  Grid.Row="9" Text="DateOut" Margin="2" />
         <DatePicker x:Name = "tbDateOut" Grid.Row="9" Grid.Column="1" Margin="2" />
         <!--DateIn-->
-        <TextBlock Margin="2" Grid.Column="0" Grid.Row="10"  Text="DateIn" />
+        <TextBlock Margin="2" Grid.Column="0" x:Name="lbDateIn" Grid.Row="10"  Text="DateIn" />
         <DatePicker x:Name = "tbDateIn" Margin="2" Grid.Row="10" Grid.Column="1" />
         <!--CarKmOut-->
         <TextBlock x:Name="lbCarKmOut" Grid.Column="0" Grid.Row="11" Text="CarKmOut" Margin="2 2 2 2" />

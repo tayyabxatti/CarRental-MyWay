@@ -9,9 +9,10 @@
     <DockPanel>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="0" CanContentScroll="True">
             <DataGrid x:Name="ClientGrid" x:FieldModifier="public" IsReadOnly="True" AutoGenerateColumns="False"  Grid.Row="0" ColumnWidth="*">
                 <DataGrid.Columns>
 
@@ -38,8 +39,9 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+            </ScrollViewer>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <Button x:Name="btnInsert" Content="Add a client" Margin="0,0,0,166" Width="176" Click="BtnInsert_Click" />
+                <Button x:Name="btnInsert" Content="Add a client" Margin="0,0,0,109" Width="176" Click="BtnInsert_Click" />
 
 
             </StackPanel>
